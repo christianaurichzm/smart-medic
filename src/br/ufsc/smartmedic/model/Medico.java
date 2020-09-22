@@ -6,15 +6,17 @@ public class Medico extends Usuario {
 
     private String crm;
     private String competencia;
-    private List consultas;
+    private List<Consulta> consultas;
     private UnidadeDeAtendimento unidadeDeAtendimento;
 
-    public Medico() {
+    public Medico(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas, String crm, String competencia, List<Consulta> consultas, UnidadeDeAtendimento unidadeDeAtendimento) {
+        super(nome, sexo, idade, cpf, senha, historicoDeConsultas);
         this.crm = crm;
         this.competencia = competencia;
         this.consultas = consultas;
         this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
+
 
     public String getCrm() {
         return crm;
@@ -32,11 +34,19 @@ public class Medico extends Usuario {
         this.competencia = competencia;
     }
 
-    public List getConsultas() {
+    public List<Consulta> getConsultas() {
         return consultas;
     }
 
-    public void setConsultas(List consultas) {
+    public void setConsultas(List<Consulta> consultas) {
         this.consultas = consultas;
+    }
+
+    public UnidadeDeAtendimento getUnidadeDeAtendimento() {
+        return unidadeDeAtendimento;
+    }
+
+    public void setUnidadeDeAtendimento(UnidadeDeAtendimento unidadeDeAtendimento) {
+        this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
 }
