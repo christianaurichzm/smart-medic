@@ -1,17 +1,16 @@
-package ufsc.br;
+package br.ufsc.smartmedic.model;
 
 import java.util.List;
 
-public class User {
+public class Usuario {
 
     private String nome;
     private String sexo;
     private int idade;
     private String cpf;
     private String senha;
-    private List<Consulta> historicoDeConsultas;
 
-    public User(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas) {
+    public Usuario(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
