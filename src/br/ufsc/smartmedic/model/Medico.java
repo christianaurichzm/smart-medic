@@ -1,4 +1,4 @@
-package ufsc.br;
+package br.ufsc;
 
 import java.util.List;
 

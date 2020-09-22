@@ -1,4 +1,4 @@
-package ufsc.br;
+package br.ufsc;
 
 public class Consulta {
 
