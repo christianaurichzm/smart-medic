@@ -6,7 +6,7 @@ public class UnidadeDeAtendimento {
     private String localizacao;
     private Long cnes;
 
-    public UnidadeDeAtendimento() {
+    public UnidadeDeAtendimento(String nome, String localizacao, Long cnes) {
         this.nome = nome;
         this.localizacao = localizacao;
         this.cnes = cnes;

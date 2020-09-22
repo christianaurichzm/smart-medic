@@ -1,5 +1,7 @@
 package ufsc.br;
 
+import java.util.List;
+
 public class User {
 
     private String nome;
@@ -7,14 +9,15 @@ public class User {
     private int idade;
     private String cpf;
     private String senha;
-    //private HistoricoDeConsultas[] historicoDeConsultas;
+    private List<Consulta> historicoDeConsultas;
 
-    public User() {
+    public User(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
         this.cpf = cpf;
         this.senha = senha;
+        this.historicoDeConsultas = historicoDeConsultas;
     }
 
     public String getNome() {
@@ -55,5 +58,13 @@ public class User {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<Consulta> getHistoricoDeConsultas() {
+        return historicoDeConsultas;
+    }
+
+    public void setHistoricoDeConsultas(List<Consulta> historicoDeConsultas) {
+        this.historicoDeConsultas = historicoDeConsultas;
     }
 }
