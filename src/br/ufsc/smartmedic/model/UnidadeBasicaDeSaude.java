@@ -1,4 +1,5 @@
-package br.ufsc;
+package br.ufsc.smartmedic.model;
 
-public class UnidadeBasicaDeSaude extends UnidadeDeAtendimento{
+public class UnidadeBasicaDeSaude extends UnidadeDeAtendimento {
+
 }

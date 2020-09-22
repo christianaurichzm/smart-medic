@@ -1,4 +1,4 @@
-package br.ufsc;
+package br.ufsc.smartmedic.model;
 
 public class Hospital extends UnidadeDeAtendimento{
 

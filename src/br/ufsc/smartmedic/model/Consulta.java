@@ -1,6 +1,5 @@
-package br.ufsc;
+package br.ufsc.smartmedic.model;
 
 public class Consulta {
-
 
 }

@@ -1,4 +1,4 @@
-package br.ufsc;
+package br.ufsc.smartmedic.model;
 
 public class UnidadeDeAtendimento {
 
@@ -35,4 +35,5 @@ public class UnidadeDeAtendimento {
     public void setCnes(Long cnes) {
         this.cnes = cnes;
     }
+
 }

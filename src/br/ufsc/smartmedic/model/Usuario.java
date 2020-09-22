@@ -1,15 +1,15 @@
-package br.ufsc;
+package br.ufsc.smartmedic.model;
 
-public class User {
+public class Usuario {
 
     private String nome;
     private String sexo;
     private int idade;
     private String cpf;
     private String senha;
-    //private HistoricoDeConsultas[] historicoDeConsultas;
+    //  private List<HistoricoDeConsultas> historicoDeConsultas;
 
-    public User() {
+    public Usuario() {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
@@ -56,4 +56,5 @@ public class User {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
 }

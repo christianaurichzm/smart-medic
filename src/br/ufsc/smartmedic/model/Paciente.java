@@ -1,5 +1,5 @@
-package br.ufsc;
+package br.ufsc.smartmedic.model;
 
-public class Paciente extends User {
+public class Paciente extends Usuario {
 
 }

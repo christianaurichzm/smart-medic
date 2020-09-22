@@ -1,19 +1,19 @@
-package br.ufsc;
+package br.ufsc.smartmedic.model;
 
 import java.util.List;
 
-public class Medico extends User{
+public class Medico extends Usuario {
 
     private String crm;
     private String competencia;
     private List consultas;
-    //private UnidadeDeAtendimento unidadeDeAtendimento;
+    private UnidadeDeAtendimento unidadeDeAtendimento;
 
     public Medico() {
         this.crm = crm;
         this.competencia = competencia;
         this.consultas = consultas;
-        //this.UnidadeDeAtendimento unidadeDeAtendimento;
+        this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
 
     public String getCrm() {
