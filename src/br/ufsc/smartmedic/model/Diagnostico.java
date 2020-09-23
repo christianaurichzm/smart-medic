@@ -1,4 +1,4 @@
-package ufsc.br;
+package br.ufsc.smartmedic.model;
 
 import java.util.Optional;
 

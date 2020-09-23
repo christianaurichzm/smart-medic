@@ -1,4 +1,4 @@
-package ufsc.br;
+package br.ufsc.smartmedic.model;
 
 public class Consulta {
     private final FichaDeSintomas fichaDeSintomas;
