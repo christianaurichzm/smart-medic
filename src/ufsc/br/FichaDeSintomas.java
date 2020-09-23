@@ -1,14 +1,12 @@
 package ufsc.br;
 
-import java.util.List;
-
 public class FichaDeSintomas {
     private String corpo;
-    private List<String> sintomas;
+    private User especialista;
 
-    public FichaDeSintomas(String corpo, List<String> sintomas) {
+    public FichaDeSintomas(String corpo, User especialista) {
         this.corpo = corpo;
-        this.sintomas = sintomas;
+        this.especialista = especialista;
     }
 
     public String getCorpo() {
@@ -19,11 +17,11 @@ public class FichaDeSintomas {
         this.corpo = corpo;
     }
 
-    public List<String> getSintomas() {
-        return sintomas;
+    public User getEspecialista() {
+        return especialista;
     }
 
-    public void setSintomas(List<String> sintomas) {
-        this.sintomas = sintomas;
+    public void setEspecialista(User especialista) {
+        this.especialista = especialista;
     }
 }
