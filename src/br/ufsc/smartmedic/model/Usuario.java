@@ -13,7 +13,7 @@ public abstract class Usuario implements Serializable {
     private String senha;
     private List<Consulta> historicoDeConsultas;
 
-    public Usuario(String nome, String sexo, int idade, String cpf, String senha) {
+    public Usuario(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
