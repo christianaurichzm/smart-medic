@@ -1,6 +1,7 @@
 package br.ufsc.smartmedic.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario implements Serializable {
@@ -12,13 +13,13 @@ public class Usuario implements Serializable {
     private String senha;
     private List<Consulta> historicoDeConsultas;
 
-    public Usuario(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas) {
+    public Usuario(String nome, String sexo, int idade, String cpf, String senha) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
         this.cpf = cpf;
         this.senha = senha;
-        this.historicoDeConsultas = historicoDeConsultas;
+        this.historicoDeConsultas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -67,5 +68,9 @@ public class Usuario implements Serializable {
 
     public void setHistoricoDeConsultas(List<Consulta> historicoDeConsultas) {
         this.historicoDeConsultas = historicoDeConsultas;
+    }
+
+    public boolean validar(Usuario usuario) {
+        return usuario.getSenha().equals(senha);
     }
 }
