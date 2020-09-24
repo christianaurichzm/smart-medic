@@ -1,20 +1,21 @@
 package br.ufsc.smartmedic.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Medico extends Usuario {
 
     private String crm;
     private String competencia;
-    private List<Consulta> consultas;
     private UnidadeDeAtendimento unidadeDeAtendimento;
+    private List<Consulta> consultas;
 
-    public Medico(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas, String crm, String competencia, List<Consulta> consultas, UnidadeDeAtendimento unidadeDeAtendimento) {
-        super(nome, sexo, idade, cpf, senha, historicoDeConsultas);
+    public Medico(String nome, String sexo, int idade, String cpf, String senha, String endereco, String crm, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
+        super(nome, sexo, idade, cpf, senha, endereco);
         this.crm = crm;
         this.competencia = competencia;
-        this.consultas = consultas;
         this.unidadeDeAtendimento = unidadeDeAtendimento;
+        this.consultas = new ArrayList<>();
     }
 
     public String getCrm() {
