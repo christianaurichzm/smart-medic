@@ -53,8 +53,6 @@ public class MapeadorUsuario {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             persist();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

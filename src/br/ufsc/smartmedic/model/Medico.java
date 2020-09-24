@@ -18,7 +18,6 @@ public class Medico extends Usuario {
         this.consultas = new ArrayList<>();
     }
 
-
     public String getCrm() {
         return crm;
     }
@@ -50,4 +49,5 @@ public class Medico extends Usuario {
     public void setUnidadeDeAtendimento(UnidadeDeAtendimento unidadeDeAtendimento) {
         this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
+
 }
