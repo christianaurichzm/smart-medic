@@ -10,8 +10,8 @@ public class Medico extends Usuario {
     private UnidadeDeAtendimento unidadeDeAtendimento;
     private List<Consulta> consultas;
 
-    public Medico(String nome, String sexo, int idade, String cpf, String senha, String crm, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
-        super(nome, sexo, idade, cpf, senha);
+    public Medico(String nome, String sexo, int idade, String cpf, String senha, String endereco, String crm, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
+        super(nome, sexo, idade, cpf, senha, endereco);
         this.crm = crm;
         this.competencia = competencia;
         this.unidadeDeAtendimento = unidadeDeAtendimento;

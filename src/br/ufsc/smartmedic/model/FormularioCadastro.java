@@ -1,6 +1,5 @@
 package br.ufsc.smartmedic.model;
 
-import java.util.List;
 import java.util.Optional;
 
 public class FormularioCadastro {
@@ -16,6 +15,7 @@ public class FormularioCadastro {
     private final UnidadeDeAtendimento unidadeDeAtendimento;
 
     public FormularioCadastro(String nome, String sexo, int idade, String cpf, String senha, String endereco, String crm, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
+        this.validarCampos();
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
@@ -25,6 +25,10 @@ public class FormularioCadastro {
         this.crm = crm;
         this.competencia = competencia;
         this.unidadeDeAtendimento = unidadeDeAtendimento;
+    }
+
+    private void validarCampos() {
+
     }
 
     public String getNome() {
@@ -61,41 +65,5 @@ public class FormularioCadastro {
 
     public Optional<UnidadeDeAtendimento> getUnidadeDeAtendimento() {
         return Optional.ofNullable(unidadeDeAtendimento);
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public void setCompetencia(String competencia) {
-        this.competencia = competencia;
-    }
-
-    public void setUnidadeDeAtendimento(UnidadeDeAtendimento unidadeDeAtendimento) {
-        this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
 }

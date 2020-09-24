@@ -19,9 +19,10 @@ public class ControladorUsuario {
 
     public void RealizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
+
         this.validateUniqueness(form, usuarios);
 
-        Usuario novoUsuario = this.formToUser(form);
+        mapeadorUsuario.put(this.formToUser(form));
     }
 
 //TODO: revisar atributos necessarios para paciente/medico (sexo e endereço p medicos)
@@ -32,6 +33,7 @@ public class ControladorUsuario {
                     form.getIdade(),
                     form.getCpf(),
                     form.getSenha(),
+                    form.getEndereco().get(),
                     form.getCrm().get(),
                     form.getCompetencia().get(),
                     form.getUnidadeDeAtendimento().get());
@@ -53,22 +55,4 @@ public class ControladorUsuario {
             throw new FormException("Este cpf já está cadastrado");
         }
     }
-
-//    private void load(){
-//        try {
-//            FileInputStream fin = new FileInputStream(filename);
-//            ObjectInputStream oi = new ObjectInputStream(fin);
-//            this.cachePessoas = (HashMap<String, Pessoa>) oi.readObject();
-//
-//            oi.close();
-//            fin.close();
-//        } catch (ClassNotFoundException x){
-//            System.out.println("Arquivo invalido");
-//            persist();
-//        } catch (FileNotFoundException ex){
-//            System.out.println("Arquivo nao encontrado");
-//        } catch (IOException e){
-//            System.out.println(e);
-//        }
-//    }
 }

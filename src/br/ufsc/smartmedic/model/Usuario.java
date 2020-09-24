@@ -4,21 +4,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario implements Serializable {
+public abstract class Usuario implements Serializable {
 
     private String nome;
     private String sexo;
     private int idade;
     private String cpf;
     private String senha;
+    private String endereco;
     private List<Consulta> historicoDeConsultas;
 
-    public Usuario(String nome, String sexo, int idade, String cpf, String senha) {
+    public Usuario(String nome, String sexo, int idade, String cpf, String senha, String endereco) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
         this.cpf = cpf;
         this.senha = senha;
+        this.endereco = endereco;
         this.historicoDeConsultas = new ArrayList<>();
     }
 
@@ -62,6 +64,14 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     public List<Consulta> getHistoricoDeConsultas() {
         return historicoDeConsultas;
     }
@@ -71,6 +81,7 @@ public class Usuario implements Serializable {
     }
 
     public boolean validar(Usuario usuario) {
-        return usuario.getSenha().equals(senha);
+        return usuario.getCpf().equals(this.cpf)
+            && usuario.getSenha().equals(senha);
     }
 }
