@@ -1,39 +1,41 @@
 package br.ufsc.smartmedic.controller;
 
+import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.persistence.MapeadorUsuario;
+
+import java.util.List;
 
 public class ControladorUsuario {
+
+    private static ControladorUsuario controladorUsuario;
+    private MapeadorUsuario mapeadorUsuario;
+
     public ControladorUsuario() {
 
     }
 
-    public void RealizarCadastro(FormularioCadastroDTO form) throws FormException {
-        this.validateUniqueness(form);
-
-
+    public static ControladorUsuario getInstance() {
+        if (controladorUsuario == null)
+            controladorUsuario = new ControladorUsuario();
+        return controladorUsuario;
     }
 
-    private void validateUniqueness(FormularioCadastroDTO form) throws FormException {
-        if (!unique) {
-            throw new FormException("Este cpf já está cadastrado");
-        }
+    public List<Usuario> getUsuarios() {
+        return mapeadorUsuario.getList();
     }
 
-//    private void load(){
-//        try {
-//            FileInputStream fin = new FileInputStream(filename);
-//            ObjectInputStream oi = new ObjectInputStream(fin);
-//            this.cachePessoas = (HashMap<String, Pessoa>) oi.readObject();
-//
-//            oi.close();
-//            fin.close();
-//        } catch (ClassNotFoundException x){
-//            System.out.println("Arquivo invalido");
-//            persist();
-//        } catch (FileNotFoundException ex){
-//            System.out.println("Arquivo nao encontrado");
-//        } catch (IOException e){
-//            System.out.println(e);
-//        }
-//    }
+    public Usuario getUsuario(String cpf) {
+        return mapeadorUsuario.get(cpf);
+    }
+
+    //public void RealizarCadastro(FormularioCadastroDTO form) throws FormException {
+    //    this.validateUniqueness(form);
+    //}
+
+    //private void validateUniqueness(FormularioCadastroDTO form) throws FormException {
+    //    if (!unique) {
+    //      throw new FormException("Este cpf já está cadastrado");
+    //  }
+    //}
 }
