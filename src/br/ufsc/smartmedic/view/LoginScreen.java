@@ -1,7 +1,5 @@
 package br.ufsc.smartmedic.view;
 
-import javax.swing.*;
-
 public class LoginScreen extends javax.swing.JFrame {
 
     /**
