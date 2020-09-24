@@ -1,7 +1,5 @@
 package br.ufsc.smartmedic.controller;
 
-import br.ufsc.smartmedic.model.FormularioCadastro;
-import br.ufsc.smartmedic.model.Medico;
 import br.ufsc.smartmedic.model.Paciente;
 import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
@@ -24,11 +22,9 @@ public class ControladorUsuario {
             controladorUsuario = new ControladorUsuario(new MapeadorUsuario());
         return controladorUsuario;
     }
-    public void RealizarCadastro(FormularioCadastro form) throws FormException {
+    public void realizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
-
         this.validateUniqueness(form, usuarios);
-
         mapeadorUsuario.put(this.formToUser(form));
     }
 
@@ -69,4 +65,16 @@ public class ControladorUsuario {
         return mapeadorUsuario.get(cpf);
     }
 
+    public boolean login(String cpf, String senha) {
+        Usuario usuario = getUsuario(cpf);
+        if (usuario != null && usuario.getSenha() == senha) {
+            if (usuario instanceof Paciente) {
+                System.out.println("Logou como paciente");
+            } else {
+                System.out.println("Logou como médico");
+            }
+            return true;
+        }
+        return false;
+    }
 }
