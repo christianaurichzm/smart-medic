@@ -11,12 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class ControladorUsuario {
+
+    private static ControladorUsuario controladorUsuario;
     private final MapeadorUsuario mapeadorUsuario;
 
     public ControladorUsuario(MapeadorUsuario mapeadorUsuario) {
         this.mapeadorUsuario = mapeadorUsuario;
     }
 
+    public static ControladorUsuario getInstance() {
+        if (controladorUsuario == null)
+            controladorUsuario = new ControladorUsuario(new MapeadorUsuario());
+        return controladorUsuario;
+    }
     public void RealizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
 
@@ -25,7 +32,6 @@ public class ControladorUsuario {
         mapeadorUsuario.put(this.formToUser(form));
     }
 
-//TODO: revisar atributos necessarios para paciente/medico (sexo e endereço p medicos)
     private Usuario formToUser(FormularioCadastro form) {
         if (form.getCrm().isPresent()) {
             return new Medico(form.getNome(),
@@ -45,14 +51,22 @@ public class ControladorUsuario {
                     form.getSenha(),
                     form.getEndereco().get());
         }
-
     }
 
     private void validateUniqueness(FormularioCadastro form, List<Usuario> usuarios) throws FormException {
-        Optional<Usuario> usuario = usuarios.stream().filter(user -> user.validar(user)).findFirst();
+        Optional<Usuario> usuario = usuarios.stream().filter(user -> user.validar(form.getCpf(), form.getSenha())).findFirst();
 
         if (usuario.isPresent()) {
             throw new FormException("Este cpf já está cadastrado");
         }
     }
+
+    public List<Usuario> getUsuarios() {
+        return mapeadorUsuario.getList();
+    }
+
+    public Usuario getUsuario(String cpf) {
+        return mapeadorUsuario.get(cpf);
+    }
+
 }

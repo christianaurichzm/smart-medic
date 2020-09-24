@@ -1,6 +1,6 @@
 package br.ufsc.smartmedic.model;
 
-public class UnidadeDeAtendimento {
+public abstract class UnidadeDeAtendimento {
 
     private String nome;
     private String localizacao;

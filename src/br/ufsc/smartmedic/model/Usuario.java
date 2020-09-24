@@ -80,8 +80,8 @@ public abstract class Usuario implements Serializable {
         this.historicoDeConsultas = historicoDeConsultas;
     }
 
-    public boolean validar(Usuario usuario) {
-        return usuario.getCpf().equals(this.cpf)
-            && usuario.getSenha().equals(senha);
+    public boolean validar(String cpf, String senha) {
+        return cpf.equals(this.cpf)
+            && senha.equals(this.senha);
     }
 }

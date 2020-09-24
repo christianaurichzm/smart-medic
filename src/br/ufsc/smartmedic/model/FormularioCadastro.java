@@ -26,7 +26,7 @@ public class FormularioCadastro {
         this.competencia = competencia;
         this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
-
+//TODO: validacao cpf, endereco, crm, senha
     private void validarCampos() {
 
     }
