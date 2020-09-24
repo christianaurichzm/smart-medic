@@ -1,4 +1,4 @@
-package br.ufsc.smartmedic.persistence;
+package br.ufsc.smartmedic.persistencia;
 
 import br.ufsc.smartmedic.model.Usuario;
 
