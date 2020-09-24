@@ -1,22 +1,25 @@
 package br.ufsc.smartmedic.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario {
+public abstract class Usuario implements Serializable {
 
     private String nome;
     private String sexo;
     private int idade;
     private String cpf;
     private String senha;
+    private List<Consulta> historicoDeConsultas;
 
-    public Usuario(String nome, String sexo, int idade, String cpf, String senha, List<Consulta> historicoDeConsultas) {
+    public Usuario(String nome, String sexo, int idade, String cpf, String senha) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
         this.cpf = cpf;
         this.senha = senha;
-        this.historicoDeConsultas = historicoDeConsultas;
+        this.historicoDeConsultas = new ArrayList<>();
     }
 
     public String getNome() {
