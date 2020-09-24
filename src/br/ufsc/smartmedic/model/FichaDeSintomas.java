@@ -2,9 +2,9 @@ package br.ufsc.smartmedic.model;
 
 public class FichaDeSintomas {
     private String corpo;
-    private User especialista;
+    private Usuario especialista;
 
-    public FichaDeSintomas(String corpo, User especialista) {
+    public FichaDeSintomas(String corpo, Usuario especialista) {
         this.corpo = corpo;
         this.especialista = especialista;
     }
@@ -17,11 +17,11 @@ public class FichaDeSintomas {
         this.corpo = corpo;
     }
 
-    public User getEspecialista() {
+    public Usuario getEspecialista() {
         return especialista;
     }
 
-    public void setEspecialista(User especialista) {
+    public void setEspecialista(Usuario especialista) {
         this.especialista = especialista;
     }
 }
