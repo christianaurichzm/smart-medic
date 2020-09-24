@@ -50,12 +50,12 @@ public class MapeadorUsuario {
             this.cachePessoas = (HashMap<String, Usuario>) objectInput.readObject();
             objectInput.close();
             fileInput.close();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
             persist();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -63,5 +63,4 @@ public class MapeadorUsuario {
     public void remove(Usuario usuario) {
         cachePessoas.remove(usuario.getCpf());
     }
-
 }

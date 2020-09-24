@@ -1,14 +1,12 @@
 package br.ufsc.smartmedic.model;
 
-import java.util.List;
-
 public class FichaDeSintomas {
     private String corpo;
-    private List<String> sintomas;
+    private Usuario especialista;
 
-    public FichaDeSintomas(String corpo, List<String> sintomas) {
+    public FichaDeSintomas(String corpo, Usuario especialista) {
         this.corpo = corpo;
-        this.sintomas = sintomas;
+        this.especialista = especialista;
     }
 
     public String getCorpo() {
@@ -19,11 +17,11 @@ public class FichaDeSintomas {
         this.corpo = corpo;
     }
 
-    public List<String> getSintomas() {
-        return sintomas;
+    public Usuario getEspecialista() {
+        return especialista;
     }
 
-    public void setSintomas(List<String> sintomas) {
-        this.sintomas = sintomas;
+    public void setEspecialista(Usuario especialista) {
+        this.especialista = especialista;
     }
 }
