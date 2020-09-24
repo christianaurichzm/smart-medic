@@ -14,6 +14,7 @@ public class ControladorUsuario {
 
     private static ControladorUsuario controladorUsuario;
     private final MapeadorUsuario mapeadorUsuario;
+    private Usuario usuarioSessao;
 
     public ControladorUsuario(MapeadorUsuario mapeadorUsuario) {
         this.mapeadorUsuario = mapeadorUsuario;
@@ -69,12 +70,13 @@ public class ControladorUsuario {
 
     public boolean login(String cpf, String senha) {
         Usuario usuario = getUsuario(cpf);
-        if (usuario != null && usuario.getSenha() == senha) {
+        if (usuario != null && usuario.getSenha().equals(senha)) {
             if (usuario instanceof Paciente) {
                 System.out.println("Logou como paciente");
             } else {
                 System.out.println("Logou como médico");
             }
+            this.usuarioSessao = usuario;
             return true;
         }
         return false;
