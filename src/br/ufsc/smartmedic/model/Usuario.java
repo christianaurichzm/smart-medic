@@ -8,7 +8,7 @@ public abstract class Usuario implements Serializable {
 
     private String nome;
     private String sexo;
-    private int idade;
+    private Integer idade;
     private String cpf;
     private String senha;
     private String endereco;
