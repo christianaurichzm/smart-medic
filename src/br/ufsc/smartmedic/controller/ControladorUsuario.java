@@ -1,5 +1,6 @@
 package br.ufsc.smartmedic.controller;
 
+import br.ufsc.smartmedic.model.Paciente;
 import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.persistence.MapeadorUsuario;
@@ -12,7 +13,7 @@ public class ControladorUsuario {
     private MapeadorUsuario mapeadorUsuario;
 
     public ControladorUsuario() {
-
+        mapeadorUsuario = new MapeadorUsuario();
     }
 
     public static ControladorUsuario getInstance() {
@@ -27,6 +28,19 @@ public class ControladorUsuario {
 
     public Usuario getUsuario(String cpf) {
         return mapeadorUsuario.get(cpf);
+    }
+
+    public boolean login(String cpf, String senha) {
+        Usuario usuario = getUsuario(cpf);
+        if (usuario != null && usuario.getSenha() == senha) {
+            if (usuario instanceof Paciente) {
+                System.out.println("Logou como paciente");
+            } else {
+                System.out.println("Logou como médico");
+            }
+            return true;
+        }
+        return false;
     }
 
     //public void RealizarCadastro(FormularioCadastroDTO form) throws FormException {

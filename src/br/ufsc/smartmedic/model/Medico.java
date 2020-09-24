@@ -17,7 +17,6 @@ public class Medico extends Usuario {
         this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
 
-
     public String getCrm() {
         return crm;
     }
@@ -49,4 +48,5 @@ public class Medico extends Usuario {
     public void setUnidadeDeAtendimento(UnidadeDeAtendimento unidadeDeAtendimento) {
         this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
+
 }
