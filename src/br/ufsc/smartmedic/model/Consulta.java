@@ -3,12 +3,12 @@ package br.ufsc.smartmedic.model;
 public class Consulta {
     private final FichaDeSintomas fichaDeSintomas;
     private final Diagnostico diagnostico;
-    private final User paciente;
-    private final User medico;
+    private final Usuario paciente;
+    private final Usuario medico;
     private final UnidadeDeAtendimento encaminhamento;
     private StatusConsulta status;
 
-    public Consulta(FichaDeSintomas fichaDeSintomas, Diagnostico diagnostico, User paciente, User medico, UnidadeDeAtendimento encaminhamento, StatusConsulta status) {
+    public Consulta(FichaDeSintomas fichaDeSintomas, Diagnostico diagnostico, Usuario paciente, Usuario medico, UnidadeDeAtendimento encaminhamento, StatusConsulta status) {
         this.fichaDeSintomas = fichaDeSintomas;
         this.diagnostico = diagnostico;
         this.paciente = paciente;
@@ -25,11 +25,11 @@ public class Consulta {
         return diagnostico;
     }
 
-    public User getPaciente() {
+    public Usuario getPaciente() {
         return paciente;
     }
 
-    public User getMedico() {
+    public Usuario getMedico() {
         return medico;
     }
 
