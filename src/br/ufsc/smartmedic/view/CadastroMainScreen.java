@@ -27,9 +27,7 @@ public class CadastroMainScreen extends JFrame {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
-
         jLabel1 = new JLabel();
         nameTextField = new JTextField();
         nameLabel = new JLabel();
@@ -151,6 +149,7 @@ public class CadastroMainScreen extends JFrame {
         registerButton.getAccessibleContext().setAccessibleName("Cadastrar");
 
         pack();
+        setVisible(true);
     }
 
     private void registerButtonActionPerformed(ActionEvent evt) {
@@ -159,20 +158,5 @@ public class CadastroMainScreen extends JFrame {
 
     private void goBackButtonActionPerformed(ActionEvent evt) {
         // TODO
-    }
-
-    public static void main(String args[]) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(CadastroMainScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(() -> new CadastroMainScreen().setVisible(true));
     }
 }

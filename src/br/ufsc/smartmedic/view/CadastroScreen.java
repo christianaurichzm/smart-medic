@@ -15,9 +15,7 @@ public class CadastroScreen extends JFrame {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
-
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         medicoButton = new JButton();
@@ -78,24 +76,10 @@ public class CadastroScreen extends JFrame {
         );
 
         pack();
+        setVisible(true);
     }
 
     private void medicoButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    public static void main(String args[]) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(() -> new CadastroScreen().setVisible(true));
+        // TODO
     }
 }
