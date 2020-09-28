@@ -1,2 +1,4 @@
-package br.ufsc.smartmedic.view;public class CadastroMainScreen {
+package br.ufsc.smartmedic.view;
+
+public class CadastroMainScreen {
 }
