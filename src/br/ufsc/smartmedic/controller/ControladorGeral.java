@@ -1,5 +1,7 @@
 package br.ufsc.smartmedic.controller;
 
+import br.ufsc.smartmedic.view.CadastroScreen;
+
 public class ControladorGeral {
     private static ControladorGeral controladorGeral;
 
@@ -11,6 +13,6 @@ public class ControladorGeral {
     }
 
     public void abreTelaInicial() {
-        System.out.println("Abre tela inicial");
+        CadastroScreen cadastroScreen = new CadastroScreen();
     }
 }
