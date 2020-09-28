@@ -21,10 +21,12 @@ public class ControladorUsuario {
     }
 
     public static ControladorUsuario getInstance() {
-        if (controladorUsuario == null)
+        if (controladorUsuario == null) {
             controladorUsuario = new ControladorUsuario();
+        }
         return controladorUsuario;
     }
+
     public void realizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
         this.validateUniqueness(form, usuarios);
