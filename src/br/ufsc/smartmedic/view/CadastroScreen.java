@@ -11,9 +11,6 @@ public class CadastroScreen extends JFrame {
     private JButton medicoButton;
     private JButton patientButton;
 
-    /**
-     * Creates new form CadastroScreen
-     */
     public CadastroScreen() {
         initComponents();
     }
@@ -81,15 +78,12 @@ public class CadastroScreen extends JFrame {
         );
 
         pack();
-    }// </editor-fold>
+    }
 
     private void medicoButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -101,9 +95,7 @@ public class CadastroScreen extends JFrame {
         } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(CadastroScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         EventQueue.invokeLater(() -> new CadastroScreen().setVisible(true));
     }
 }
