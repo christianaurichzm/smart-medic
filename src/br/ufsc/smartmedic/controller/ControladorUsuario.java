@@ -25,6 +25,7 @@ public class ControladorUsuario {
             controladorUsuario = new ControladorUsuario(new MapeadorUsuario());
         return controladorUsuario;
     }
+
     public void realizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
         this.validateUniqueness(form, usuarios);
@@ -51,7 +52,7 @@ public class ControladorUsuario {
                     form.getEndereco());
         }
     }
-
+//TODO: Exception de cpf ja cadastrado
     private void validateUniqueness(FormularioCadastro form, List<Usuario> usuarios) throws FormException {
         Optional<Usuario> usuario = usuarios.stream().filter(user -> user.validar(form.getCpf(), form.getSenha())).findFirst();
 
@@ -67,7 +68,7 @@ public class ControladorUsuario {
     public Usuario getUsuario(String cpf) {
         return mapeadorUsuario.get(cpf);
     }
-
+//TODO: exception de credenciais incorretas/
     public boolean login(String cpf, String senha) {
         Usuario usuario = getUsuario(cpf);
         if (usuario != null && usuario.getSenha().equals(senha)) {

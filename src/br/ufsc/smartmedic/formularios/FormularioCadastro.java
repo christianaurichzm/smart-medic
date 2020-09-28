@@ -1,6 +1,6 @@
 package br.ufsc.smartmedic.formularios;
 
-public class FormularioCadastro implements Formulario{
+public class FormularioCadastro {
     private final String cpf;
     private final String nome;
     private final String sexo;
