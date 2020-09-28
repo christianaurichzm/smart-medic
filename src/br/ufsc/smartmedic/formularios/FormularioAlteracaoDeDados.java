@@ -1,61 +1,51 @@
-package br.ufsc.smartmedic.model;
+package br.ufsc.smartmedic.formularios;
+
+import br.ufsc.smartmedic.model.UnidadeDeAtendimento;
 
 import java.util.Optional;
 
-public class FormularioCadastro {
+public class FormularioAlteracaoDeDados implements Formulario {
     private final String nome;
     private final String sexo;
-    private final int idade;
-    private final String cpf;
+    private final Integer idade;
     private final String senha;
     private final String endereco;
-    private final String crm;
     private final String competencia;
     private final UnidadeDeAtendimento unidadeDeAtendimento;
 
-    public FormularioCadastro(String nome, String sexo, int idade, String cpf, String senha, String endereco, String crm, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
-        this.validarCampos();
+    public FormularioAlteracaoDeDados(String nome, String sexo, Integer idade, String senha, String endereco, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
-        this.cpf = cpf;
         this.senha = senha;
         this.endereco = endereco;
-        this.crm = crm;
         this.competencia = competencia;
         this.unidadeDeAtendimento = unidadeDeAtendimento;
+        this.validarCampos();
     }
-//TODO: validacao cpf, endereco, crm, senha
+
+    //TODO: fazer validacao de campos cpf, senha, endereco, unidade
     private void validarCampos() {
-
     }
 
-    public String getNome() {
-        return nome;
+    public Optional<String> getNome() {
+        return Optional.ofNullable(nome);
     }
 
-    public String getSexo() {
-        return sexo;
+    public Optional<String> getSexo() {
+        return Optional.ofNullable(sexo);
     }
 
-    public int getIdade() {
-        return idade;
+    public Optional<Integer> getIdade() {
+        return Optional.ofNullable(idade);
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getSenha() {
-        return senha;
+    public Optional<String> getSenha() {
+        return Optional.ofNullable(senha);
     }
 
     public Optional<String> getEndereco() {
         return Optional.ofNullable(endereco);
-    }
-
-    public Optional<String> getCrm() {
-        return Optional.ofNullable(crm);
     }
 
     public Optional<String> getCompetencia() {

@@ -1,11 +1,11 @@
 package br.ufsc.smartmedic.controller;
 
-import br.ufsc.smartmedic.model.FormularioCadastro;
-import br.ufsc.smartmedic.model.Medico;
-import br.ufsc.smartmedic.model.Paciente;
-import br.ufsc.smartmedic.model.Usuario;
+import br.ufsc.smartmedic.formularios.FormularioAlteracaoDeDados;
+import br.ufsc.smartmedic.formularios.FormularioCadastro;
+import br.ufsc.smartmedic.formularios.FormularioCadastroMedico;
+import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
-import br.ufsc.smartmedic.persistence.MapeadorUsuario;
+import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,23 +34,23 @@ public class ControladorUsuario {
     }
 
     private Usuario formToUser(FormularioCadastro form) {
-        if (form.getCrm().isPresent()) {
+        if (form instanceof FormularioCadastroMedico) {
             return new Medico(form.getNome(),
                     form.getSexo(),
                     form.getIdade(),
                     form.getCpf(),
                     form.getSenha(),
-                    form.getEndereco().get(),
-                    form.getCrm().get(),
-                    form.getCompetencia().get(),
-                    form.getUnidadeDeAtendimento().get());
+                    form.getEndereco(),
+                    ((FormularioCadastroMedico) form).getCrm(),
+                    ((FormularioCadastroMedico) form).getCompetencia(),
+                    ((FormularioCadastroMedico) form).getUnidadeDeAtendimento());
         } else {
             return new Paciente(form.getNome(),
                     form.getSexo(),
                     form.getIdade(),
                     form.getCpf(),
                     form.getSenha(),
-                    form.getEndereco().get());
+                    form.getEndereco());
         }
     }
 
@@ -82,5 +82,20 @@ public class ControladorUsuario {
             return true;
         }
         return false;
+    }
+
+    public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
+        form.getNome().ifPresent(usuario::setNome);
+        form.getSexo().ifPresent(usuario::setSexo);
+        form.getIdade().ifPresent(usuario::setIdade);
+        form.getSenha().ifPresent(usuario::setSenha);
+        form.getEndereco().ifPresent(usuario::setEndereco);
+
+        if (usuario instanceof Medico) {
+            form.getUnidadeDeAtendimento().ifPresent(((Medico) usuario)::setUnidadeDeAtendimento);
+            form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
+        }
+
+        this.mapeadorUsuario.put(usuario);
     }
 }
