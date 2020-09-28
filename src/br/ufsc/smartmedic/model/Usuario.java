@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Usuario implements Serializable {
-
     private String nome;
     private String sexo;
     private int idade;

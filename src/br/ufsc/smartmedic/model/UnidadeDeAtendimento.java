@@ -1,7 +1,6 @@
 package br.ufsc.smartmedic.model;
 
 public abstract class UnidadeDeAtendimento {
-
     private String nome;
     private String localizacao;
     private Long cnes;
@@ -35,5 +34,4 @@ public abstract class UnidadeDeAtendimento {
     public void setCnes(Long cnes) {
         this.cnes = cnes;
     }
-
 }

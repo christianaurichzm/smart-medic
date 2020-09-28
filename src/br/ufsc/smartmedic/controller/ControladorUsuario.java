@@ -16,13 +16,13 @@ public class ControladorUsuario {
     private final MapeadorUsuario mapeadorUsuario;
     private Usuario usuarioSessao;
 
-    public ControladorUsuario(MapeadorUsuario mapeadorUsuario) {
-        this.mapeadorUsuario = mapeadorUsuario;
+    public ControladorUsuario() {
+        this.mapeadorUsuario = new MapeadorUsuario();
     }
 
     public static ControladorUsuario getInstance() {
         if (controladorUsuario == null)
-            controladorUsuario = new ControladorUsuario(new MapeadorUsuario());
+            controladorUsuario = new ControladorUsuario();
         return controladorUsuario;
     }
     public void realizarCadastro(FormularioCadastro form) throws FormException {

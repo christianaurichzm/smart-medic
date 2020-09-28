@@ -3,7 +3,6 @@ package br.ufsc.smartmedic.model;
 import java.util.Optional;
 
 public class FormularioCadastro {
-
     private final String nome;
     private final String sexo;
     private final int idade;
