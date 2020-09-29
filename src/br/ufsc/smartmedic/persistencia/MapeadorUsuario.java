@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MapeadorUsuario {
     private HashMap<String, Usuario> cacheUsuarios = new HashMap<>();
-    private final String filename = "usuariosSmartMedic.user";
+    private final String FILENAME = "usuariosSmartMedic.user";
 
     public MapeadorUsuario() {
         load();
@@ -31,7 +31,7 @@ public class MapeadorUsuario {
 
     public void persist() {
         try {
-            FileOutputStream fileOutput = new FileOutputStream(filename);
+            FileOutputStream fileOutput = new FileOutputStream(FILENAME);
             ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
             objectOutput.writeObject(cacheUsuarios);
             objectOutput.flush();
@@ -45,7 +45,7 @@ public class MapeadorUsuario {
 
     public void load() {
         try {
-            FileInputStream fileInput = new FileInputStream(filename);
+            FileInputStream fileInput = new FileInputStream(FILENAME);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
             this.cacheUsuarios = (HashMap<String, Usuario>) objectInput.readObject();
             objectInput.close();

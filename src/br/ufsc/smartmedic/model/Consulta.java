@@ -2,19 +2,17 @@ package br.ufsc.smartmedic.model;
 
 public class Consulta {
     private final FichaSintomas fichaSintomas;
-    private final Diagnostico diagnostico;
+    private Diagnostico diagnostico;
     private final Usuario paciente;
     private final Usuario medico;
-    private final UnidadeAtendimento encaminhamento;
+    private UnidadeAtendimento encaminhamento;
     private StatusConsulta status;
 
-    public Consulta(FichaSintomas fichaSintomas, Diagnostico diagnostico, Usuario paciente, Usuario medico, UnidadeAtendimento encaminhamento, StatusConsulta status) {
+    public Consulta(FichaSintomas fichaSintomas, Usuario paciente, Usuario medico) {
         this.fichaSintomas = fichaSintomas;
-        this.diagnostico = diagnostico;
         this.paciente = paciente;
         this.medico = medico;
-        this.encaminhamento = encaminhamento;
-        this.status = status;
+        this.status = StatusConsulta.IN_PROGRESS;
     }
 
     public FichaSintomas getFichaSintomas() {
@@ -34,7 +32,7 @@ public class Consulta {
     }
 
     public UnidadeAtendimento getEncaminhamento() {
-        return encaminhamento;
+        return this.encaminhamento;
     }
 
     public StatusConsulta getStatus() {

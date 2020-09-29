@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class MapeadorUnidadeAtendimento {
     private HashMap<Long, UnidadeAtendimento> cacheUnidadesAtendimento = new HashMap<>();
-    private final String filename = "unidadesAtendimentoSmartMedic.unit";
+    private final String FILENAME = "unidadesAtendimentoSmartMedic.unit";
 
     public MapeadorUnidadeAtendimento() {
         load();
@@ -37,7 +37,7 @@ public class MapeadorUnidadeAtendimento {
 
     public void persist() {
         try {
-            FileOutputStream fileOutput = new FileOutputStream(filename);
+            FileOutputStream fileOutput = new FileOutputStream(FILENAME);
             ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
             objectOutput.writeObject(cacheUnidadesAtendimento);
             objectOutput.flush();
@@ -51,7 +51,7 @@ public class MapeadorUnidadeAtendimento {
 
     public void load() {
         try {
-            FileInputStream fileInput = new FileInputStream(filename);
+            FileInputStream fileInput = new FileInputStream(FILENAME);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
             this.cacheUnidadesAtendimento = (HashMap<Long, UnidadeAtendimento>) objectInput.readObject();
             objectInput.close();
