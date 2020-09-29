@@ -69,7 +69,7 @@ public class ControladorUsuario {
     }
 
     private Usuario formToUser(FormularioCadastro form) {
-        if (form instanceof FormularioCadastroMedico) {
+        if (form.getTipoUsuario().equals(TipoUsuario.MEDICO)) {
             return new Medico(form.getNome(),
                     form.getSexo(),
                     form.getNascimento(),

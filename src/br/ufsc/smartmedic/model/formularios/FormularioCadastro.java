@@ -1,5 +1,7 @@
 package br.ufsc.smartmedic.model.formularios;
 
+import br.ufsc.smartmedic.model.TipoUsuario;
+
 public class FormularioCadastro {
     private final String cpf;
     private final String nome;
@@ -7,14 +9,16 @@ public class FormularioCadastro {
     private final String senha;
     private final String nascimento;
     private final String endereco;
+    private final TipoUsuario tipoUsuario;
 
-    public FormularioCadastro(String cpf, String nome, String sexo, String senha, String nascimento, String endereco) {
+    public FormularioCadastro(String cpf, String nome, String sexo, String senha, String nascimento, String endereco, TipoUsuario tipoUsuario) {
         this.cpf = cpf;
         this.nome = nome;
         this.sexo = sexo;
         this.senha = senha;
         this.nascimento = nascimento;
         this.endereco = endereco;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNome() {
@@ -41,5 +45,7 @@ public class FormularioCadastro {
         return this.cpf;
     }
 
-    
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
 }

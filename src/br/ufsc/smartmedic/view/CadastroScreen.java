@@ -1,6 +1,7 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.model.TipoUsuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,7 +82,11 @@ public class CadastroScreen extends JFrame {
         setVisible(true);
     }
 
+    private void patientButtonActionPerformed(ActionEvent evt) {
+        ControladorGeral.getInstance().abreTelaMainCadastro(TipoUsuario.PACIENTE);
+    }
+
     private void medicoButtonActionPerformed(ActionEvent evt) {
-        ControladorGeral.getInstance().abreTelaMainCadastro();
+        ControladorGeral.getInstance().abreTelaMainCadastro(TipoUsuario.MEDICO);
     }
 }

@@ -1,5 +1,6 @@
 package br.ufsc.smartmedic.model.formularios;
 
+import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 
 public class FormularioCadastroMedico extends FormularioCadastro {
@@ -7,8 +8,8 @@ public class FormularioCadastroMedico extends FormularioCadastro {
     private final String competencia;
     private final String unidadeAtendimento;
 
-    public FormularioCadastroMedico(String cpf, String nome, String sexo, String senha, String nascimento, String endereco, String crm, String competencia, String unidadeAtendimento) throws FormException {
-        super(cpf, nome, sexo, senha, nascimento, endereco);
+    public FormularioCadastroMedico(String cpf, String nome, String sexo, String senha, String nascimento, String endereco, String crm, String competencia, String unidadeAtendimento, TipoUsuario tipoUsuario) throws FormException {
+        super(cpf, nome, sexo, senha, nascimento, endereco, tipoUsuario);
         this.crm = crm;
         this.competencia = competencia;
         this.unidadeAtendimento = unidadeAtendimento;

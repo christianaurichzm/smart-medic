@@ -1,11 +1,12 @@
 package br.ufsc.smartmedic.model.formularios;
 
+import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 
 public class FormularioCadastroPaciente extends FormularioCadastro {
 
-    public FormularioCadastroPaciente(String cpf, String nome, String sexo, String senha, String nascimento, String endereco) throws FormException {
-        super(cpf, nome, sexo, senha, nascimento, endereco);
+    public FormularioCadastroPaciente(String cpf, String nome, String sexo, String senha, String nascimento, String endereco, TipoUsuario tipoUsuario) throws FormException {
+        super(cpf, nome, sexo, senha, nascimento, endereco, tipoUsuario);
         this.validarCampos();
     }
     //TODO: validar nascimetno

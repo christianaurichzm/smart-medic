@@ -43,15 +43,10 @@ public class ControladorGeral {
         ControladorUsuario.getInstance().realizarCadastro(form);
     }
 
-    public void abreTelaMainCadastro() {
+    public void abreTelaMainCadastro(TipoUsuario tipoUsuario) {
         String[] unidadesDeAtendimento = ControladorUnidadeAtendimento.getInstance().getMapeadorUnidadeAtendimento().getNomes();
 
-        TipoUsuario tipoUsuario = ControladorUsuario.getInstance().getUsuarioSessao().getTipoUsuario();
-        if (tipoUsuario.equals(TipoUsuario.MEDICO)) {
-            CadastroMainScreen cadastroMainScreen = new CadastroMainScreen(TipoUsuario.MEDICO, unidadesDeAtendimento, false);
-        } else {
-            CadastroMainScreen cadastroMainScreen = new CadastroMainScreen(TipoUsuario.PACIENTE, unidadesDeAtendimento, false);
-        }
+        CadastroMainScreen cadastroMainScreen = new CadastroMainScreen(tipoUsuario, unidadesDeAtendimento, false);
     }
 
     public void abreTelaAlterarCadastro() {

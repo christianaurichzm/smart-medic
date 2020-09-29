@@ -35,7 +35,7 @@ public class CadastroMainScreen extends JFrame {
     private JTextField cpfTextField;
     private JTextField crmTextField;
     private JTextField competenciaTextField;
-    private JButton registerButton;
+    private JButton salvarButton;
     private TipoUsuario tipoUsuario;
     private String[] unidadesDeAtendimento;
     private boolean alterarCadastro;
@@ -61,7 +61,7 @@ public class CadastroMainScreen extends JFrame {
         dataLabel = new JLabel();
         senhaLabel = new JLabel();
         senhaPasswordField = new JPasswordField();
-        registerButton = new JButton();
+        salvarButton = new JButton();
         goBackButton = new JButton();
         crmTextField = new JTextField();
         crmLabel = new JLabel();
@@ -99,11 +99,11 @@ public class CadastroMainScreen extends JFrame {
         senhaLabel.setText("Senha:");
 
         if (alterarCadastro) {
-            registerButton.setText("Salvar");
-            registerButton.addActionListener(this::registerButtonActionPerformed);
+            salvarButton.setText("Salvar");
+            salvarButton.addActionListener(this::salvarButtonActionPerformed);
         } else {
-            registerButton.setText("Cadastrar");
-            registerButton.addActionListener(this::registerButtonActionPerformed);
+            salvarButton.setText("Cadastrar");
+            salvarButton.addActionListener(this::salvarButtonActionPerformed);
         }
 
         goBackButton.setText("Cancelar");
@@ -141,7 +141,7 @@ public class CadastroMainScreen extends JFrame {
                                                 .addGap(0, 0, Short.MAX_VALUE)
                                                 .addComponent(goBackButton)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(registerButton))
+                                                .addComponent(salvarButton))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -235,7 +235,7 @@ public class CadastroMainScreen extends JFrame {
                                                 .addGap(26, 26, 26)))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(registerButton)
+                                        .addComponent(salvarButton)
                                         .addComponent(goBackButton))
                                 .addContainerGap())
         );
@@ -254,30 +254,29 @@ public class CadastroMainScreen extends JFrame {
         }
     }
 
-    private void registerButtonActionPerformed(ActionEvent evt) {
-        try {
-            ControladorGeral.getInstance().realizaCadastro(this.toFormularioCadastral());
-        } catch (FormException formException) {
-            JOptionPane.showMessageDialog(null, formException.getMessage());
-        }
-    }
-
-    private void salvarNovosDadosCadastrais() {
-        try {
-            ControladorGeral.getInstance().salvarAlteracaoDadosCadastrais(this.toFormularioAlteracao());
-        } catch (FormException formException) {
-            JOptionPane.showMessageDialog(null, formException.getMessage());
+    private void salvarButtonActionPerformed(ActionEvent evt) {
+        if (this.alterarCadastro) {
+            try {
+                ControladorGeral.getInstance().salvarAlteracaoDadosCadastrais(this.toFormularioAlteracao());
+            } catch (FormException formException) {
+                JOptionPane.showMessageDialog(null, formException.getMessage());
+            }
+        } else {
+            try {
+                ControladorGeral.getInstance().realizaCadastro(this.toFormularioCadastral());
+            } catch (FormException formException) {
+                JOptionPane.showMessageDialog(null, formException.getMessage());
+            }
         }
     }
 
     private FormularioAlteracaoDeDados toFormularioAlteracao() throws FormException {
-        String senha = "";
+        String senha = new String(senhaPasswordField.getPassword());
         try {
             senha = this.compararSenhas();
         } catch (FormException formException) {
             JOptionPane.showMessageDialog(null, formException.getMessage() );
         }
-
 
         if (this.tipoUsuario.equals(TipoUsuario.MEDICO)) {
             return new FormularioAlteracaoDeDados(
@@ -326,16 +325,18 @@ public class CadastroMainScreen extends JFrame {
                 this.enderecoTextField.getText(),
                 this.crmTextField.getText(),
                 this.competenciaTextField.getText(),
-                this.unidadeAtendimentoComboBox.getSelectedItem().toString()
+                this.unidadeAtendimentoComboBox.getSelectedItem().toString(),
+                this.tipoUsuario
             );
         } else {
             return new FormularioCadastroPaciente(
-                    this.cpfTextField.getText(),
-                    this.nomeTextField.getText(),
-                    this.sexoComboBox.getSelectedItem().toString(),
-                    senha,
-                    this.nascimentoField.getText(),
-                    this.enderecoTextField.getText()
+                this.cpfTextField.getText(),
+                this.nomeTextField.getText(),
+                this.sexoComboBox.getSelectedItem().toString(),
+                senha,
+                this.nascimentoField.getText(),
+                this.enderecoTextField.getText(),
+                this.tipoUsuario
             );
         }
     }

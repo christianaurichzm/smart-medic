@@ -1,9 +1,8 @@
 package br.ufsc.smartmedic.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-public class Medico extends Usuario {
+public class Medico extends Usuario implements Serializable {
     private String crm;
     private String competencia;
     private UnidadeAtendimento unidadeAtendimento;
