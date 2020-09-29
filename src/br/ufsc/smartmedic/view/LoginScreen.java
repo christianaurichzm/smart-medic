@@ -1,13 +1,13 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
+
 import br.ufsc.smartmedic.model.excecoes.FormException;
 
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class LoginScreen extends JFrame {
     private JButton loginButton;
@@ -112,7 +112,7 @@ public class LoginScreen extends JFrame {
     }
 
     private void registerButtonActionPerformed(ActionEvent evt) {
-        // TODO
+        ControladorGeral.getInstance().abreTelaCadastro();
     }
 
     private void cpfTextFieldActionPerformed(ActionEvent evt) {

@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MapeadorUnidadeAtendimento {
     private HashMap<Long, UnidadeAtendimento> cacheUnidadesAtendimento = new HashMap<>();
@@ -59,5 +60,10 @@ public class MapeadorUnidadeAtendimento {
 
     public void remove(UnidadeAtendimento unidadeAtendimento) {
         cacheUnidadesAtendimento.remove(unidadeAtendimento.getCnes());
+    }
+
+    public String[] getNomes() {
+        return this.getList().stream()
+                .map(UnidadeAtendimento::getNome).toArray(String[]::new);
     }
 }

@@ -18,19 +18,19 @@ public class Consulta {
     }
 
     public FichaSintomas getFichaSintomas() {
-        return fichaSintomas;
+        return this.fichaSintomas;
     }
 
     public Diagnostico getDiagnostico() {
-        return diagnostico;
+        return this.diagnostico;
     }
 
     public Usuario getPaciente() {
-        return paciente;
+        return this.paciente;
     }
 
     public Usuario getMedico() {
-        return medico;
+        return this.medico;
     }
 
     public UnidadeAtendimento getEncaminhamento() {
@@ -38,7 +38,7 @@ public class Consulta {
     }
 
     public StatusConsulta getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(StatusConsulta status) {

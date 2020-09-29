@@ -1,8 +1,8 @@
 package br.ufsc.smartmedic.controller;
 
-import br.ufsc.smartmedic.formularios.FormularioAlteracaoDeDados;
-import br.ufsc.smartmedic.formularios.FormularioCadastro;
-import br.ufsc.smartmedic.formularios.FormularioCadastroMedico;
+import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
+import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
+import br.ufsc.smartmedic.model.formularios.FormularioCadastroMedico;
 import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
@@ -33,6 +33,34 @@ public class ControladorUsuario {
         mapeadorUsuario.put(this.formToUser(form));
     }
 
+    public TipoUsuario login(String cpf, String senha) throws FormException {
+        Usuario usuario = getUsuario(cpf);
+        if (usuario != null) {
+            if (usuario.getSenha().equals(senha)) {
+                this.usuarioSessao = usuario;
+                return usuario.getTipoUsuario();
+            } else {
+                throw new FormException("Senha incorreta.");
+            }
+        } else {
+            throw new FormException("Usuário não encontrado.");
+        }
+    }
+
+    public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
+        form.getNome().ifPresent(usuario::setNome);
+        form.getSexo().ifPresent(usuario::setSexo);
+        form.getIdade().ifPresent(usuario::setIdade);
+        form.getSenha().ifPresent(usuario::setSenha);
+        form.getEndereco().ifPresent(usuario::setEndereco);
+
+        if (usuario instanceof Medico) {
+            form.getUnidadeAtendimento().ifPresent(((Medico) usuario)::setUnidadeAtendimento);
+            form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
+        }
+
+        this.mapeadorUsuario.put(usuario);
+    }
     private Usuario formToUser(FormularioCadastro form) {
         if (form instanceof FormularioCadastroMedico) {
             return new Medico(form.getNome(),
@@ -62,44 +90,11 @@ public class ControladorUsuario {
         }
     }
 
-    public List<Usuario> getUsuarios() {
-        return mapeadorUsuario.getList();
-    }
-
     public Usuario getUsuario(String cpf) {
         return mapeadorUsuario.get(cpf);
     }
 
     public Usuario getUsuarioSessao() {
         return usuarioSessao;
-    }
-
-    public TipoUsuario login(String cpf, String senha) throws FormException {
-        Usuario usuario = getUsuario(cpf);
-        if (usuario != null) {
-            if (usuario.getSenha().equals(senha)) {
-                this.usuarioSessao = usuario;
-                return usuario.getTipoUsuario();
-            } else {
-                throw new FormException("Senha incorreta.");
-            }
-        } else {
-            throw new FormException("Usuário não encontrado.");
-        }
-    }
-
-    public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
-        form.getNome().ifPresent(usuario::setNome);
-        form.getSexo().ifPresent(usuario::setSexo);
-        form.getIdade().ifPresent(usuario::setIdade);
-        form.getSenha().ifPresent(usuario::setSenha);
-        form.getEndereco().ifPresent(usuario::setEndereco);
-
-        if (usuario instanceof Medico) {
-            form.getUnidadeAtendimento().ifPresent(((Medico) usuario)::setUnidadeAtendimento);
-            form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
-        }
-
-        this.mapeadorUsuario.put(usuario);
     }
 }

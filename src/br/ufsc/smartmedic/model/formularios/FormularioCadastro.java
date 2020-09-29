@@ -1,6 +1,6 @@
-package br.ufsc.smartmedic.formularios;
+package br.ufsc.smartmedic.model.formularios;
 
-public class FormularioCadastro implements Formulario{
+public class FormularioCadastro {
     private final String cpf;
     private final String nome;
     private final String sexo;
@@ -18,27 +18,27 @@ public class FormularioCadastro implements Formulario{
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getSexo() {
-        return sexo;
+        return this.sexo;
     }
 
     public Integer getIdade() {
-        return idade;
+        return this.idade;
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public String getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
 }

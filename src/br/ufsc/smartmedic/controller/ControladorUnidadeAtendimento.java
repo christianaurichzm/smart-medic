@@ -16,4 +16,8 @@ public class ControladorUnidadeAtendimento {
         }
         return controladorUnidadeAtendimento;
     }
+
+    public MapeadorUnidadeAtendimento getMapeadorUnidadeAtendimento() {
+        return this.mapeadorUnidadeAtendimento;
+    }
 }

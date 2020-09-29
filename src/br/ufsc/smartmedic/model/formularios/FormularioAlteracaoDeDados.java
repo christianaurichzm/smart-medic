@@ -1,10 +1,10 @@
-package br.ufsc.smartmedic.formularios;
+package br.ufsc.smartmedic.model.formularios;
 
 import br.ufsc.smartmedic.model.UnidadeAtendimento;
 
 import java.util.Optional;
 
-public class FormularioAlteracaoDeDados implements Formulario {
+public class FormularioAlteracaoDeDados {
     private final String nome;
     private final String sexo;
     private final Integer idade;
