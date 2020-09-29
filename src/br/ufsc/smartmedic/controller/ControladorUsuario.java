@@ -74,12 +74,17 @@ public class ControladorUsuario {
         return usuarioSessao;
     }
 
-    public void login(String cpf, String senha) {
+    public TipoUsuario login(String cpf, String senha) throws FormException {
         Usuario usuario = getUsuario(cpf);
-        if (usuario != null && usuario.getSenha().equals(senha)) {
-            this.usuarioSessao = usuario;
+        if (usuario != null) {
+            if (usuario.getSenha().equals(senha)) {
+                this.usuarioSessao = usuario;
+                return usuario.getTipoUsuario();
+            } else {
+                throw new FormException("Senha incorreta.");
+            }
         } else {
-            System.out.println("Usuario nao encontrado");
+            throw new FormException("Usuário não encontrado.");
         }
     }
 

@@ -1,9 +1,13 @@
 package br.ufsc.smartmedic.view;
 
+import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.model.excecoes.FormException;
+
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class LoginScreen extends JFrame {
     private JButton loginButton;
@@ -99,7 +103,12 @@ public class LoginScreen extends JFrame {
     }
 
     private void loginButtonActionPerformed(ActionEvent evt) {
-        System.out.println(cpfTextField.getText());
+        try {
+            ControladorGeral.getInstance().realizaLogin(cpfTextField.getText(), new String(passwordField.getPassword()));
+        } catch (FormException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
     }
 
     private void registerButtonActionPerformed(ActionEvent evt) {
