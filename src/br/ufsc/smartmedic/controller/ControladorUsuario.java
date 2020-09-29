@@ -33,6 +33,30 @@ public class ControladorUsuario {
         mapeadorUsuario.put(this.formToUser(form));
     }
 
+    public void login(String cpf, String senha) {
+        Usuario usuario = getUsuario(cpf);
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            this.usuarioSessao = usuario;
+        } else {
+            System.out.println("Usuario nao encontrado");
+        }
+    }
+
+    public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
+        form.getNome().ifPresent(usuario::setNome);
+        form.getSexo().ifPresent(usuario::setSexo);
+        form.getIdade().ifPresent(usuario::setIdade);
+        form.getSenha().ifPresent(usuario::setSenha);
+        form.getEndereco().ifPresent(usuario::setEndereco);
+
+        if (usuario.getTipoUsuario().equals(TipoUsuario.MEDICO)) {
+            form.getUnidadeDeAtendimento().ifPresent(((Medico) usuario)::setUnidadeDeAtendimento);
+            form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
+        }
+
+        this.mapeadorUsuario.put(usuario);
+    }
+
     private Usuario formToUser(FormularioCadastro form) {
         if (form instanceof FormularioCadastroMedico) {
             return new Medico(form.getNome(),
@@ -53,7 +77,7 @@ public class ControladorUsuario {
                     form.getEndereco());
         }
     }
-//TODO: Exception de cpf ja cadastrado
+
     private void validateUniqueness(FormularioCadastro form, List<Usuario> usuarios) throws FormException {
         Optional<Usuario> usuario = usuarios.stream().filter(user -> user.validar(form.getCpf(), form.getSenha())).findFirst();
 
@@ -61,41 +85,13 @@ public class ControladorUsuario {
             throw new FormException("Este cpf já está cadastrado");
         }
     }
-
-    public List<Usuario> getUsuarios() {
-        return mapeadorUsuario.getList();
-    }
-
     public Usuario getUsuario(String cpf) {
         return mapeadorUsuario.get(cpf);
     }
+
 //TODO: exception de credenciais incorretas/
-    public boolean login(String cpf, String senha) {
-        Usuario usuario = getUsuario(cpf);
-        if (usuario != null && usuario.getSenha().equals(senha)) {
-            if (usuario instanceof Paciente) {
-                System.out.println("Logou como paciente");
-            } else {
-                System.out.println("Logou como médico");
-            }
-            this.usuarioSessao = usuario;
-            return true;
-        }
-        return false;
-    }
 
-    public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
-        form.getNome().ifPresent(usuario::setNome);
-        form.getSexo().ifPresent(usuario::setSexo);
-        form.getIdade().ifPresent(usuario::setIdade);
-        form.getSenha().ifPresent(usuario::setSenha);
-        form.getEndereco().ifPresent(usuario::setEndereco);
-
-        if (usuario instanceof Medico) {
-            form.getUnidadeDeAtendimento().ifPresent(((Medico) usuario)::setUnidadeDeAtendimento);
-            form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
-        }
-
-        this.mapeadorUsuario.put(usuario);
+    public Usuario getUsuarioSessao() {
+        return usuarioSessao;
     }
 }

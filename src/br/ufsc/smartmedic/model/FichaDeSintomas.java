@@ -10,7 +10,7 @@ public class FichaDeSintomas {
     }
 
     public String getCorpo() {
-        return corpo;
+        return this.corpo;
     }
 
     public void setCorpo(String corpo) {
@@ -18,7 +18,7 @@ public class FichaDeSintomas {
     }
 
     public Usuario getEspecialista() {
-        return especialista;
+        return this.especialista;
     }
 
     public void setEspecialista(Usuario especialista) {

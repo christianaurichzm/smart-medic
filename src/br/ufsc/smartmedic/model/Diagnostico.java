@@ -12,7 +12,7 @@ public class Diagnostico {
     }
 
     public Optional<UnidadeDeAtendimento> getEncaminhamento() {
-        return Optional.ofNullable(encaminhamento);
+        return Optional.ofNullable(this.encaminhamento);
     }
 
     public void setEncaminhamento(UnidadeDeAtendimento encaminhamento) {
@@ -20,7 +20,7 @@ public class Diagnostico {
     }
 
     public String getCorpo() {
-        return corpo;
+        return this.corpo;
     }
 
     public void setCorpo(String corpo) {

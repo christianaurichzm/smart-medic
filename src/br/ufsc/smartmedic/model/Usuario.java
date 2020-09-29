@@ -11,20 +11,22 @@ public abstract class Usuario implements Serializable {
     private String cpf;
     private String senha;
     private String endereco;
+    private TipoUsuario tipoUsuario;
     private List<Consulta> historicoDeConsultas;
 
-    public Usuario(String nome, String sexo, int idade, String cpf, String senha, String endereco) {
+    public Usuario(String nome, String sexo, int idade, String cpf, String senha, String endereco, TipoUsuario tipoUsuario) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
         this.cpf = cpf;
         this.senha = senha;
         this.endereco = endereco;
+        this.tipoUsuario = tipoUsuario;
         this.historicoDeConsultas = new ArrayList<>();
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -32,7 +34,7 @@ public abstract class Usuario implements Serializable {
     }
 
     public String getSexo() {
-        return sexo;
+        return this.sexo;
     }
 
     public void setSexo(String sexo) {
@@ -40,7 +42,7 @@ public abstract class Usuario implements Serializable {
     }
 
     public int getIdade() {
-        return idade;
+        return this.idade;
     }
 
     public void setIdade(int idade) {
@@ -48,7 +50,7 @@ public abstract class Usuario implements Serializable {
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
     public void setCpf(String cpf) {
@@ -56,7 +58,7 @@ public abstract class Usuario implements Serializable {
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public void setSenha(String senha) {
@@ -64,7 +66,7 @@ public abstract class Usuario implements Serializable {
     }
 
     public String getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
     public void setEndereco(String endereco) {
@@ -72,11 +74,15 @@ public abstract class Usuario implements Serializable {
     }
 
     public List<Consulta> getHistoricoDeConsultas() {
-        return historicoDeConsultas;
+        return this.historicoDeConsultas;
     }
 
     public void setHistoricoDeConsultas(List<Consulta> historicoDeConsultas) {
         this.historicoDeConsultas = historicoDeConsultas;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return this.tipoUsuario;
     }
 
     public boolean validar(String cpf, String senha) {

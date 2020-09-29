@@ -1,48 +1,48 @@
 package br.ufsc.smartmedic.view;
 
+import br.ufsc.smartmedic.controller.ControladorGeral;
+
 import javax.swing.*;
-import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginScreen extends JFrame {
     private JButton loginButton;
-    private JLabel loginTitle;
-    private JPasswordField passField;
-    private JLabel passLabel;
+    private JLabel loginLabel;
+    private JPasswordField passwordField;
+    private JLabel passwordLabel;
     private JButton registerButton;
-    private JLabel userLabel;
-    private JTextField userTextField;
+    private JLabel cpfLabel;
+    private JTextField cpfTextField;
 
     public LoginScreen() {
         initComponents();
     }
 
     private void initComponents() {
-        loginTitle = new JLabel();
+        loginLabel = new JLabel();
         loginButton = new JButton();
-        userTextField = new JTextField();
-        userLabel = new JLabel();
-        passLabel = new JLabel();
-        passField = new JPasswordField();
+        cpfTextField = new JTextField();
+        cpfLabel = new JLabel();
+        passwordLabel = new JLabel();
+        passwordField = new JPasswordField();
         registerButton = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        loginTitle.setText("Login");
+        loginLabel.setText("Login");
 
         loginButton.setText("Login");
         loginButton.addActionListener(this::loginButtonActionPerformed);
 
-        userTextField.setText("jTextField1");
-        userTextField.addActionListener(this::userTextFieldActionPerformed);
+        cpfTextField.addActionListener(this::cpfTextFieldActionPerformed);
 
-        userLabel.setText("Usuário");
+        cpfLabel.setText("Usuário");
 
-        passLabel.setText("Senha");
+        passwordLabel.setText("Senha");
 
-        passField.setText("");
+        passwordField.setText("");
 
         registerButton.setText("Cadastre-se");
         registerButton.setBorderPainted(false);
@@ -68,28 +68,28 @@ public class LoginScreen extends JFrame {
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(registerButton)
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(userTextField)
-                                                                .addComponent(userLabel)
-                                                                .addComponent(passLabel)
-                                                                .addComponent(passField, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))))
+                                                                .addComponent(cpfTextField)
+                                                                .addComponent(cpfLabel)
+                                                                .addComponent(passwordLabel)
+                                                                .addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(181, 181, 181)
-                                                .addComponent(loginTitle)))
+                                                .addComponent(loginLabel)))
                                 .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(51, 51, 51)
-                                .addComponent(loginTitle)
+                                .addComponent(loginLabel)
                                 .addGap(32, 32, 32)
-                                .addComponent(userLabel)
+                                .addComponent(cpfLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(userTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cpfTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(passLabel)
+                                .addComponent(passwordLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(passField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(registerButton)
                                 .addGap(18, 18, 18)
@@ -101,14 +101,14 @@ public class LoginScreen extends JFrame {
     }
 
     private void loginButtonActionPerformed(ActionEvent evt) {
-        // TODO
+        System.out.println(cpfTextField.getText());
     }
 
     private void registerButtonActionPerformed(ActionEvent evt) {
-        // TODO
+        ControladorGeral.getInstance().abreTelaCadastro();
     }
 
-    private void userTextFieldActionPerformed(ActionEvent evt) {
+    private void cpfTextFieldActionPerformed(ActionEvent evt) {
         // TODO
     }
 }

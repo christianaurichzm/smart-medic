@@ -18,27 +18,27 @@ public class FormularioCadastro {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getSexo() {
-        return sexo;
+        return this.sexo;
     }
 
     public Integer getIdade() {
-        return idade;
+        return this.idade;
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public String getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
 }

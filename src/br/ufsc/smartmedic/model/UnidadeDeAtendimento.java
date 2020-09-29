@@ -12,7 +12,7 @@ public abstract class UnidadeDeAtendimento {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -20,7 +20,7 @@ public abstract class UnidadeDeAtendimento {
     }
 
     public String getLocalizacao() {
-        return localizacao;
+        return this.localizacao;
     }
 
     public void setLocalizacao(String localizacao) {
@@ -28,7 +28,7 @@ public abstract class UnidadeDeAtendimento {
     }
 
     public Long getCnes() {
-        return cnes;
+        return this.cnes;
     }
 
     public void setCnes(Long cnes) {
