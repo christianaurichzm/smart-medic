@@ -74,12 +74,14 @@ public class ControladorUsuario {
         return usuarioSessao;
     }
 
-    public void login(String cpf, String senha) {
+    public TipoUsuario login(String cpf, String senha) {
         Usuario usuario = getUsuario(cpf);
         if (usuario != null && usuario.getSenha().equals(senha)) {
             this.usuarioSessao = usuario;
+            return usuario.getTipoUsuario();
         } else {
             System.out.println("Usuario nao encontrado");
+            return null;
         }
     }
 

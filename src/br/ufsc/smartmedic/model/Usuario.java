@@ -72,6 +72,14 @@ public abstract class Usuario implements Serializable {
         this.endereco = endereco;
     }
 
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public List<Consulta> getHistoricoDeConsultas() {
         return historicoDeConsultas;
     }
