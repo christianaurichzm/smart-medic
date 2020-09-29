@@ -1,8 +1,8 @@
 package br.ufsc.smartmedic.controller;
 
-import br.ufsc.smartmedic.formularios.FormularioAlteracaoDeDados;
-import br.ufsc.smartmedic.formularios.FormularioCadastro;
-import br.ufsc.smartmedic.formularios.FormularioCadastroMedico;
+import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
+import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
+import br.ufsc.smartmedic.model.formularios.FormularioCadastroMedico;
 import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
@@ -16,13 +16,14 @@ public class ControladorUsuario {
     private final MapeadorUsuario mapeadorUsuario;
     private Usuario usuarioSessao;
 
-    public ControladorUsuario(MapeadorUsuario mapeadorUsuario) {
-        this.mapeadorUsuario = mapeadorUsuario;
+    public ControladorUsuario() {
+        this.mapeadorUsuario = new MapeadorUsuario();
     }
 
     public static ControladorUsuario getInstance() {
-        if (controladorUsuario == null)
-            controladorUsuario = new ControladorUsuario(new MapeadorUsuario());
+        if (controladorUsuario == null) {
+            controladorUsuario = new ControladorUsuario();
+        }
         return controladorUsuario;
     }
 

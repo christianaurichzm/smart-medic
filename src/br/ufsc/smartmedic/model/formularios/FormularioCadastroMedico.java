@@ -1,6 +1,7 @@
-package br.ufsc.smartmedic.formularios;
+package br.ufsc.smartmedic.model.formularios;
 
 import br.ufsc.smartmedic.model.UnidadeDeAtendimento;
+import br.ufsc.smartmedic.model.excecoes.FormException;
 
 public class FormularioCadastroMedico extends FormularioCadastro {
     private final String crm;
@@ -13,8 +14,27 @@ public class FormularioCadastroMedico extends FormularioCadastro {
         this.competencia = competencia;
         this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
-    //TODO: validacao cpf, endereco, crm, senha
-    private void validarCampos() {
+
+    //TODO: validacao crm
+    private void validarCampos() throws FormException {
+        this.validarCpf();
+        this.validarSenha();
+        this.validarCrm();
+    }
+
+    private void validarCpf() throws FormException {
+        if (!this.getCpf().matches("^([0-9]){3}\\.([0-9]){3}\\.([0-9]){3}-([0-9]){2}$")) {
+            throw new FormException("O cpf inserido é inválido");
+        }
+    }
+
+    private void validarSenha() throws FormException {
+        if(!this.getSenha().matches("^[a-zA-Z0-9]{12}$")) {
+            throw new FormException("A senha só pode consistir de caracteres alfanuméricos");
+        }
+    }
+
+    private void validarCrm() {
 
     }
 

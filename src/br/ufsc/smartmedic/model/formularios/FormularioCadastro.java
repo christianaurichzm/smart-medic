@@ -1,4 +1,4 @@
-package br.ufsc.smartmedic.formularios;
+package br.ufsc.smartmedic.model.formularios;
 
 public class FormularioCadastro {
     private final String cpf;
