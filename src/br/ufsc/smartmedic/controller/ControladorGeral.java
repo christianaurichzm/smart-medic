@@ -36,7 +36,7 @@ public class ControladorGeral {
              }
     }
 
-    public void realizaCadastro(FormularioCadastro form) {
+    public void realizaCadastro(FormularioCadastro form) throws FormException {
         ControladorUsuario.getInstance().realizarCadastro(form);
     }
 

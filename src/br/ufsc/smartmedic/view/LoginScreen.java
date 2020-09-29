@@ -49,11 +49,7 @@ public class LoginScreen extends JFrame {
         registerButton.setText("Cadastre-se");
         registerButton.setBorderPainted(false);
         registerButton.setContentAreaFilled(false);
-        registerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                registerButtonActionPerformed(evt);
-            }
-        });
+        registerButton.addActionListener(evt -> registerButtonActionPerformed(evt));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
