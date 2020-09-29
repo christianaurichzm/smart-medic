@@ -11,6 +11,7 @@ public abstract class Usuario implements Serializable {
     private String cpf;
     private String senha;
     private String endereco;
+    private TipoUsuario tipoUsuario;
     private List<Consulta> historicoDeConsultas;
 
     public Usuario(String nome, String sexo, int idade, String cpf, String senha, String endereco) {

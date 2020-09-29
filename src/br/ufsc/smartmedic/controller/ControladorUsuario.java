@@ -70,18 +70,17 @@ public class ControladorUsuario {
         return mapeadorUsuario.get(cpf);
     }
 
-    public boolean login(String cpf, String senha) {
+    public Usuario getUsuarioSessao() {
+        return usuarioSessao;
+    }
+
+    public void login(String cpf, String senha) {
         Usuario usuario = getUsuario(cpf);
         if (usuario != null && usuario.getSenha().equals(senha)) {
-            if (usuario instanceof Paciente) {
-                System.out.println("Logou como paciente");
-            } else {
-                System.out.println("Logou como médico");
-            }
             this.usuarioSessao = usuario;
-            return true;
+        } else {
+            System.out.println("Usuario nao encontrado");
         }
-        return false;
     }
 
     public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
