@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
 public class CadastroMainScreen extends JFrame {
-    private JFormattedTextField nascimentoField;
+    private JFormattedTextField nascimentoTextField;
     private JButton goBackButton;
     private JComboBox<String> sexoComboBox;
     private JComboBox<String> unidadeAtendimentoComboBox;
@@ -55,7 +55,7 @@ public class CadastroMainScreen extends JFrame {
         enderecoTextField = new JTextField();
         cpfTextField = new JTextField();
         cpfLabel = new JLabel();
-        nascimentoField = new JFormattedTextField();
+        nascimentoTextField = new JFormattedTextField();
         sexoLabel = new JLabel();
         sexoComboBox = new JComboBox<>();
         dataLabel = new JLabel();
@@ -79,23 +79,23 @@ public class CadastroMainScreen extends JFrame {
         nameLabel.setLabelFor(nomeTextField);
         nameLabel.setText("Nome:");
 
-        enderecoLabel.setLabelFor(nomeTextField);
+        enderecoLabel.setLabelFor(enderecoTextField);
         enderecoLabel.setText("Endereço:");
 
         if (!this.alterarCadastro) {
-            cpfLabel.setLabelFor(nomeTextField);
+            cpfLabel.setLabelFor(cpfTextField);
             cpfLabel.setText("CPF:");
         }
 
-        sexoLabel.setLabelFor(nomeTextField);
+        sexoLabel.setLabelFor(sexoComboBox);
         sexoLabel.setText("Sexo:");
 
         sexoComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", "Outro" }));
 
-        dataLabel.setLabelFor(nomeTextField);
+        dataLabel.setLabelFor(nascimentoTextField);
         dataLabel.setText("Data de nascimento:");
 
-        senhaLabel.setLabelFor(nomeTextField);
+        senhaLabel.setLabelFor(senhaPasswordField);
         senhaLabel.setText("Senha:");
 
         if (alterarCadastro) {
@@ -111,18 +111,18 @@ public class CadastroMainScreen extends JFrame {
 
         if (this.tipoUsuario.equals(TipoUsuario.MEDICO)) {
             if (!this.alterarCadastro) {
-                crmLabel.setLabelFor(nomeTextField);
+                crmLabel.setLabelFor(crmTextField);
                 crmLabel.setText("CRM:");
             }
 
-            competenciaLabel.setLabelFor(nomeTextField);
+            competenciaLabel.setLabelFor(competenciaTextField);
             competenciaLabel.setText("Competencia:");
 
-            unidadeAtendimentoLabel.setLabelFor(nomeTextField);
+            unidadeAtendimentoLabel.setLabelFor(unidadeAtendimentoComboBox);
             unidadeAtendimentoLabel.setText("Unidade de atendimento:");
         }
 
-        confirmarSenhaLabel.setLabelFor(nomeTextField);
+        confirmarSenhaLabel.setLabelFor(confirmarSenhaPasswordField);
         confirmarSenhaLabel.setText("Confirmar senha:");
 
         unidadeAtendimentoComboBox.setModel(new DefaultComboBoxModel<>(this.unidadesDeAtendimento));
@@ -155,7 +155,7 @@ public class CadastroMainScreen extends JFrame {
                                                                                 .addComponent(enderecoLabel, GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(cpfLabel, GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(cpfTextField, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(nascimentoField, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(nascimentoTextField, GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(dataLabel, GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(senhaPasswordField, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                                                                 .addComponent(nomeTextField, GroupLayout.Alignment.LEADING))
@@ -211,7 +211,7 @@ public class CadastroMainScreen extends JFrame {
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                                                 .addComponent(dataLabel)
                                                                                 .addGap(1, 1, 1)
-                                                                                .addComponent(nascimentoField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                                                .addComponent(nascimentoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addComponent(sexoLabel)
                                                                                 .addGap(3, 3, 3)
@@ -270,29 +270,38 @@ public class CadastroMainScreen extends JFrame {
         }
     }
 
+    private void goBackButtonActionPerformed(ActionEvent evt) {
+        if (this.alterarCadastro) {
+            ControladorGeral.getInstance().abreTelaPrincipal();
+        } else {
+            ControladorGeral.getInstance().abreTelaInicial();
+        }
+    }
+
     private FormularioAlteracaoDeDados toFormularioAlteracao() throws FormException {
         String senha = new String(senhaPasswordField.getPassword());
-        try {
-            senha = this.compararSenhas();
-        } catch (FormException formException) {
-            JOptionPane.showMessageDialog(null, formException.getMessage() );
+        if (!senha.isEmpty()) {
+            try {
+                senha = this.compararSenhas();
+            } catch (FormException formException) {
+                JOptionPane.showMessageDialog(null, formException.getMessage() );
+            }
         }
 
         if (this.tipoUsuario.equals(TipoUsuario.MEDICO)) {
             return new FormularioAlteracaoDeDados(
                 this.nomeTextField.getText(),
                 this.sexoComboBox.getSelectedItem().toString(),
-                this.nascimentoField.getText(),
+                this.nascimentoTextField.getText(),
                 senha,
                 this.enderecoTextField.getText(),
                 this.competenciaTextField.getText(),
                 this.unidadeAtendimentoComboBox.getSelectedItem().toString());
-
         } else {
             return new FormularioAlteracaoDeDados(
                 this.nomeTextField.getText(),
                 this.sexoComboBox.getSelectedItem().toString(),
-                this.nascimentoField.getText(),
+                this.nascimentoTextField.getText(),
                 senha,
                 this.enderecoTextField.getText(),
                 competenciaTextField.getText(),
@@ -321,7 +330,7 @@ public class CadastroMainScreen extends JFrame {
                 this.nomeTextField.getText(),
                 this.sexoComboBox.getSelectedItem().toString(),
                 senha,
-                this.nascimentoField.getText(),
+                this.nascimentoTextField.getText(),
                 this.enderecoTextField.getText(),
                 this.crmTextField.getText(),
                 this.competenciaTextField.getText(),
@@ -334,14 +343,10 @@ public class CadastroMainScreen extends JFrame {
                 this.nomeTextField.getText(),
                 this.sexoComboBox.getSelectedItem().toString(),
                 senha,
-                this.nascimentoField.getText(),
+                this.nascimentoTextField.getText(),
                 this.enderecoTextField.getText(),
                 this.tipoUsuario
             );
         }
-    }
-
-    private void goBackButtonActionPerformed(ActionEvent evt) {
-        ControladorGeral.getInstance().abreTelaInicial();
     }
 }
