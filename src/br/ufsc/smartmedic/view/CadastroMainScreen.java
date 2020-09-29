@@ -3,6 +3,7 @@ package br.ufsc.smartmedic.view;
 import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastroMedico;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastroPaciente;
@@ -26,23 +27,23 @@ public class CadastroMainScreen extends JFrame {
     private JLabel sexoLabel;
     private JLabel dataLabel;
     private JLabel senhaLabel;
-    private JLabel idadeLabel;
     private JLabel crmLabel;
     private JLabel confirmarSenhaLabel;
     private JLabel competenciaLabel;
     private JTextField nomeTextField;
     private JTextField enderecoTextField;
     private JTextField cpfTextField;
-    private JTextField idadeTextField;
     private JTextField crmTextField;
     private JTextField competenciaTextField;
     private JButton registerButton;
-    private TipoUsuario flag;
+    private TipoUsuario tipoUsuario;
     private String[] unidadesDeAtendimento;
+    private boolean alterarCadastro;
 
-    public CadastroMainScreen(TipoUsuario flag, String[] unidadesDeAtendimento) {
-        this.flag = flag;
+    public CadastroMainScreen(TipoUsuario tipoUsuario, String[] unidadesDeAtendimento, boolean alterarCadastro) {
+        this.tipoUsuario = tipoUsuario;
         this.unidadesDeAtendimento = unidadesDeAtendimento;
+        this.alterarCadastro = alterarCadastro;
         initComponents();
     }
 
@@ -81,8 +82,10 @@ public class CadastroMainScreen extends JFrame {
         enderecoLabel.setLabelFor(nomeTextField);
         enderecoLabel.setText("Endereço:");
 
-        cpfLabel.setLabelFor(nomeTextField);
-        cpfLabel.setText("CPF:");
+        if (!this.alterarCadastro) {
+            cpfLabel.setLabelFor(nomeTextField);
+            cpfLabel.setText("CPF:");
+        }
 
         sexoLabel.setLabelFor(nomeTextField);
         sexoLabel.setText("Sexo:");
@@ -95,15 +98,22 @@ public class CadastroMainScreen extends JFrame {
         senhaLabel.setLabelFor(nomeTextField);
         senhaLabel.setText("Senha:");
 
-        registerButton.setText("Cadastrar");
-        registerButton.addActionListener(this::registerButtonActionPerformed);
+        if (alterarCadastro) {
+            registerButton.setText("Salvar");
+            registerButton.addActionListener(this::registerButtonActionPerformed);
+        } else {
+            registerButton.setText("Cadastrar");
+            registerButton.addActionListener(this::registerButtonActionPerformed);
+        }
 
         goBackButton.setText("Cancelar");
         goBackButton.addActionListener(this::goBackButtonActionPerformed);
 
-        if (this.flag.equals(TipoUsuario.MEDICO)) {
-            crmLabel.setLabelFor(nomeTextField);
-            crmLabel.setText("CRM:");
+        if (this.tipoUsuario.equals(TipoUsuario.MEDICO)) {
+            if (!this.alterarCadastro) {
+                crmLabel.setLabelFor(nomeTextField);
+                crmLabel.setText("CRM:");
+            }
 
             competenciaLabel.setLabelFor(nomeTextField);
             competenciaLabel.setText("Competencia:");
@@ -233,18 +243,61 @@ public class CadastroMainScreen extends JFrame {
         pack();
         setVisible(true);
 
-        if (this.flag.equals(TipoUsuario.PACIENTE)) {
+        if (this.tipoUsuario.equals(TipoUsuario.PACIENTE)) {
             crmTextField.setVisible(false);
             competenciaTextField.setVisible(false);
             unidadeAtendimentoComboBox.setVisible(false);
+        }
+        if (this.alterarCadastro) {
+            cpfTextField.setVisible(false);
+            crmTextField.setVisible(false);
         }
     }
 
     private void registerButtonActionPerformed(ActionEvent evt) {
         try {
-            ControladorGeral.getInstance().realizaCadastro(this.toForm());
+            ControladorGeral.getInstance().realizaCadastro(this.toFormularioCadastral());
         } catch (FormException formException) {
             JOptionPane.showMessageDialog(null, formException.getMessage());
+        }
+    }
+
+    private void salvarNovosDadosCadastrais() {
+        try {
+            ControladorGeral.getInstance().salvarAlteracaoDadosCadastrais(this.toFormularioAlteracao());
+        } catch (FormException formException) {
+            JOptionPane.showMessageDialog(null, formException.getMessage());
+        }
+    }
+
+    private FormularioAlteracaoDeDados toFormularioAlteracao() throws FormException {
+        String senha = "";
+        try {
+            senha = this.compararSenhas();
+        } catch (FormException formException) {
+            JOptionPane.showMessageDialog(null, formException.getMessage() );
+        }
+
+
+        if (this.tipoUsuario.equals(TipoUsuario.MEDICO)) {
+            return new FormularioAlteracaoDeDados(
+                this.nomeTextField.getText(),
+                this.sexoComboBox.getSelectedItem().toString(),
+                this.nascimentoField.getText(),
+                senha,
+                this.enderecoTextField.getText(),
+                this.competenciaTextField.getText(),
+                this.unidadeAtendimentoComboBox.getSelectedItem().toString());
+
+        } else {
+            return new FormularioAlteracaoDeDados(
+                this.nomeTextField.getText(),
+                this.sexoComboBox.getSelectedItem().toString(),
+                this.nascimentoField.getText(),
+                senha,
+                this.enderecoTextField.getText(),
+                competenciaTextField.getText(),
+                null);
         }
     }
 
@@ -255,7 +308,7 @@ public class CadastroMainScreen extends JFrame {
         return new String(senhaPasswordField.getPassword());
     }
 
-    private FormularioCadastro toForm() throws FormException {
+    private FormularioCadastro toFormularioCadastral() throws FormException {
         String senha = "";
         try {
             senha = this.compararSenhas();
@@ -263,18 +316,17 @@ public class CadastroMainScreen extends JFrame {
             JOptionPane.showMessageDialog(null, formException.getMessage() );
         }
 
-
-        if (this.flag.equals(TipoUsuario.MEDICO)) {
+        if (this.tipoUsuario.equals(TipoUsuario.MEDICO)) {
             return new FormularioCadastroMedico(
-                    this.cpfTextField.getText(),
-                    this.nomeTextField.getText(),
-                    this.sexoComboBox.getSelectedItem().toString(),
-                    senha,
-                    this.nascimentoField.getText(),
-                    this.enderecoTextField.getText(),
-                    this.crmTextField.getText(),
-                    this.competenciaTextField.getText(),
-                    this.unidadeAtendimentoComboBox.getSelectedItem().toString()
+                this.cpfTextField.getText(),
+                this.nomeTextField.getText(),
+                this.sexoComboBox.getSelectedItem().toString(),
+                senha,
+                this.nascimentoField.getText(),
+                this.enderecoTextField.getText(),
+                this.crmTextField.getText(),
+                this.competenciaTextField.getText(),
+                this.unidadeAtendimentoComboBox.getSelectedItem().toString()
             );
         } else {
             return new FormularioCadastroPaciente(

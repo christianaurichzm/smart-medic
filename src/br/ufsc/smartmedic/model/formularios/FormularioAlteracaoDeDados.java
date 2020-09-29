@@ -12,9 +12,9 @@ public class FormularioAlteracaoDeDados {
     private final String senha;
     private final String endereco;
     private final String competencia;
-    private final UnidadeAtendimento unidadeAtendimento;
+    private final String unidadeAtendimento;
 
-    public FormularioAlteracaoDeDados(String nome, String sexo, String nascimento, String senha, String endereco, String competencia, UnidadeAtendimento unidadeAtendimento) throws FormException {
+    public FormularioAlteracaoDeDados(String nome, String sexo, String nascimento, String senha, String endereco, String competencia, String unidadeAtendimento) throws FormException {
         this.nome = nome;
         this.sexo = sexo;
         this.nascimento = nascimento;
@@ -61,7 +61,7 @@ public class FormularioAlteracaoDeDados {
         return Optional.ofNullable(competencia);
     }
 
-    public Optional<UnidadeAtendimento> getUnidadeAtendimento() {
+    public Optional<String> getUnidadeAtendimento() {
         return Optional.ofNullable(unidadeAtendimento);
     }
 }

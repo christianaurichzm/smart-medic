@@ -55,12 +55,19 @@ public class ControladorUsuario {
         form.getEndereco().ifPresent(usuario::setEndereco);
 
         if (usuario instanceof Medico) {
-            form.getUnidadeAtendimento().ifPresent(((Medico) usuario)::setUnidadeAtendimento);
+            UnidadeAtendimento unidadeAtendimento = ControladorUnidadeAtendimento.getInstance()
+                    .getMapeadorUnidadeAtendimento()
+                    .getByName(form.getUnidadeAtendimento().get()).get();
+            if (form.getUnidadeAtendimento().isPresent()) {
+                ((Medico) usuario).setUnidadeAtendimento(unidadeAtendimento);
+            }
+
             form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
         }
 
         this.mapeadorUsuario.put(usuario);
     }
+
     private Usuario formToUser(FormularioCadastro form) {
         if (form instanceof FormularioCadastroMedico) {
             return new Medico(form.getNome(),

@@ -82,6 +82,6 @@ public class CadastroScreen extends JFrame {
     }
 
     private void medicoButtonActionPerformed(ActionEvent evt) {
-        ControladorGeral.getInstance().abreTelaCadastroMedico();
+        ControladorGeral.getInstance().abreTelaMainCadastro();
     }
 }
