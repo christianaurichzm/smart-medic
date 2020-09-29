@@ -1,39 +1,38 @@
 package br.ufsc.smartmedic.persistencia;
 
-import br.ufsc.smartmedic.model.Usuario;
+import br.ufsc.smartmedic.model.UnidadeAtendimento;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.List;
 
-public class MapeadorUsuario {
-    private HashMap<String, Usuario> cacheUsuarios = new HashMap<>();
-    private final String filename = "usuariosSmartMedic.user";
+public class MapeadorUnidadeAtendimento {
+    private HashMap<Long, UnidadeAtendimento> cacheUnidadesAtendimento = new HashMap<>();
+    private final String filename = "unidadesAtendimentoSmartMedic.unit";
 
-    public MapeadorUsuario() {
+    public MapeadorUnidadeAtendimento() {
         load();
     }
 
-    public Usuario get(String cpf) {
-        return cacheUsuarios.get(cpf);
+    public UnidadeAtendimento get(Long cnes) {
+        return cacheUnidadesAtendimento.get(cnes);
     }
 
-    public void put(Usuario usuario) {
-        cacheUsuarios.put(usuario.getCpf(), usuario);
+    public void put(UnidadeAtendimento unidadeAtendimento) {
+        cacheUnidadesAtendimento.put(unidadeAtendimento.getCnes(), unidadeAtendimento);
         persist();
     }
 
-    public List<Usuario> getList() {
-        return new ArrayList<>(cacheUsuarios.values());
+    public List<UnidadeAtendimento> getList() {
+        return new ArrayList<>(cacheUnidadesAtendimento.values());
     }
 
     public void persist() {
         try {
             FileOutputStream fileOutput = new FileOutputStream(filename);
             ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
-            objectOutput.writeObject(cacheUsuarios);
+            objectOutput.writeObject(cacheUnidadesAtendimento);
             objectOutput.flush();
             fileOutput.flush();
             objectOutput.close();
@@ -47,7 +46,7 @@ public class MapeadorUsuario {
         try {
             FileInputStream fileInput = new FileInputStream(filename);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-            this.cacheUsuarios = (HashMap<String, Usuario>) objectInput.readObject();
+            this.cacheUnidadesAtendimento = (HashMap<Long, UnidadeAtendimento>) objectInput.readObject();
             objectInput.close();
             fileInput.close();
         } catch (ClassNotFoundException e) {
@@ -58,7 +57,7 @@ public class MapeadorUsuario {
         }
     }
 
-    public void remove(Usuario usuario) {
-        cacheUsuarios.remove(usuario.getCpf());
+    public void remove(UnidadeAtendimento unidadeAtendimento) {
+        cacheUnidadesAtendimento.remove(unidadeAtendimento.getCnes());
     }
 }

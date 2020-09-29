@@ -1,6 +1,6 @@
 package br.ufsc.smartmedic.formularios;
 
-import br.ufsc.smartmedic.model.UnidadeDeAtendimento;
+import br.ufsc.smartmedic.model.UnidadeAtendimento;
 
 import java.util.Optional;
 
@@ -11,16 +11,16 @@ public class FormularioAlteracaoDeDados implements Formulario {
     private final String senha;
     private final String endereco;
     private final String competencia;
-    private final UnidadeDeAtendimento unidadeDeAtendimento;
+    private final UnidadeAtendimento unidadeAtendimento;
 
-    public FormularioAlteracaoDeDados(String nome, String sexo, Integer idade, String senha, String endereco, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
+    public FormularioAlteracaoDeDados(String nome, String sexo, Integer idade, String senha, String endereco, String competencia, UnidadeAtendimento unidadeAtendimento) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
         this.senha = senha;
         this.endereco = endereco;
         this.competencia = competencia;
-        this.unidadeDeAtendimento = unidadeDeAtendimento;
+        this.unidadeAtendimento = unidadeAtendimento;
         this.validarCampos();
     }
 
@@ -52,7 +52,7 @@ public class FormularioAlteracaoDeDados implements Formulario {
         return Optional.ofNullable(competencia);
     }
 
-    public Optional<UnidadeDeAtendimento> getUnidadeDeAtendimento() {
-        return Optional.ofNullable(unidadeDeAtendimento);
+    public Optional<UnidadeAtendimento> getUnidadeAtendimento() {
+        return Optional.ofNullable(unidadeAtendimento);
     }
 }
