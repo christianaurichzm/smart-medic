@@ -1,10 +1,7 @@
 package br.ufsc.smartmedic.view;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CadastroMainScreen extends JFrame {
     private JFormattedTextField birthdayField;

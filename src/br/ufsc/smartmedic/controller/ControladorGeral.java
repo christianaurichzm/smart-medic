@@ -1,6 +1,6 @@
 package br.ufsc.smartmedic.controller;
 
-import br.ufsc.smartmedic.view.CadastroScreen;
+import br.ufsc.smartmedic.view.LoginScreen;
 
 public class ControladorGeral {
     private static ControladorGeral controladorGeral;
@@ -13,6 +13,10 @@ public class ControladorGeral {
     }
 
     public void abreTelaInicial() {
-        CadastroScreen cadastroScreen = new CadastroScreen();
+        LoginScreen loginScreen = new LoginScreen();
+    }
+
+    public void realizaLogin(String cpf, String senha) {
+         ControladorUsuario.getInstance().login(cpf, senha);
     }
 }
