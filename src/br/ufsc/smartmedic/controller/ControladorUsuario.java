@@ -1,11 +1,11 @@
 package br.ufsc.smartmedic.controller;
 
-import br.ufsc.smartmedic.model.FormularioCadastro;
-import br.ufsc.smartmedic.model.Medico;
-import br.ufsc.smartmedic.model.Paciente;
-import br.ufsc.smartmedic.model.Usuario;
+import br.ufsc.smartmedic.formularios.FormularioAlteracaoDeDados;
+import br.ufsc.smartmedic.formularios.FormularioCadastro;
+import br.ufsc.smartmedic.formularios.FormularioCadastroMedico;
+import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
-import br.ufsc.smartmedic.persistence.MapeadorUsuario;
+import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +16,17 @@ public class ControladorUsuario {
     private final MapeadorUsuario mapeadorUsuario;
     private Usuario usuarioSessao;
 
-    public ControladorUsuario(MapeadorUsuario mapeadorUsuario) {
-        this.mapeadorUsuario = mapeadorUsuario;
+    public ControladorUsuario() {
+        this.mapeadorUsuario = new MapeadorUsuario();
     }
 
     public static ControladorUsuario getInstance() {
-        if (controladorUsuario == null)
-            controladorUsuario = new ControladorUsuario(new MapeadorUsuario());
+        if (controladorUsuario == null) {
+            controladorUsuario = new ControladorUsuario();
+        }
         return controladorUsuario;
     }
+
     public void realizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
         this.validateUniqueness(form, usuarios);
@@ -32,23 +34,23 @@ public class ControladorUsuario {
     }
 
     private Usuario formToUser(FormularioCadastro form) {
-        if (form.getCrm().isPresent()) {
+        if (form instanceof FormularioCadastroMedico) {
             return new Medico(form.getNome(),
                     form.getSexo(),
                     form.getIdade(),
                     form.getCpf(),
                     form.getSenha(),
-                    form.getEndereco().get(),
-                    form.getCrm().get(),
-                    form.getCompetencia().get(),
-                    form.getUnidadeDeAtendimento().get());
+                    form.getEndereco(),
+                    ((FormularioCadastroMedico) form).getCrm(),
+                    ((FormularioCadastroMedico) form).getCompetencia(),
+                    ((FormularioCadastroMedico) form).getUnidadeDeAtendimento());
         } else {
             return new Paciente(form.getNome(),
                     form.getSexo(),
                     form.getIdade(),
                     form.getCpf(),
                     form.getSenha(),
-                    form.getEndereco().get());
+                    form.getEndereco());
         }
     }
 
@@ -68,17 +70,31 @@ public class ControladorUsuario {
         return mapeadorUsuario.get(cpf);
     }
 
-    public boolean login(String cpf, String senha) {
+    public Usuario getUsuarioSessao() {
+        return usuarioSessao;
+    }
+
+    public void login(String cpf, String senha) {
         Usuario usuario = getUsuario(cpf);
         if (usuario != null && usuario.getSenha().equals(senha)) {
-            if (usuario instanceof Paciente) {
-                System.out.println("Logou como paciente");
-            } else {
-                System.out.println("Logou como médico");
-            }
             this.usuarioSessao = usuario;
-            return true;
+        } else {
+            System.out.println("Usuario nao encontrado");
         }
-        return false;
+    }
+
+    public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
+        form.getNome().ifPresent(usuario::setNome);
+        form.getSexo().ifPresent(usuario::setSexo);
+        form.getIdade().ifPresent(usuario::setIdade);
+        form.getSenha().ifPresent(usuario::setSenha);
+        form.getEndereco().ifPresent(usuario::setEndereco);
+
+        if (usuario instanceof Medico) {
+            form.getUnidadeDeAtendimento().ifPresent(((Medico) usuario)::setUnidadeDeAtendimento);
+            form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
+        }
+
+        this.mapeadorUsuario.put(usuario);
     }
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Medico extends Usuario {
-
     private String crm;
     private String competencia;
     private UnidadeDeAtendimento unidadeDeAtendimento;
@@ -49,5 +48,4 @@ public class Medico extends Usuario {
     public void setUnidadeDeAtendimento(UnidadeDeAtendimento unidadeDeAtendimento) {
         this.unidadeDeAtendimento = unidadeDeAtendimento;
     }
-
 }
