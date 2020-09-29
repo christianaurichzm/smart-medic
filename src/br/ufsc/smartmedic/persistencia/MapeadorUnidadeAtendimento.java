@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class MapeadorUnidadeAtendimento {
     private HashMap<Long, UnidadeAtendimento> cacheUnidadesAtendimento = new HashMap<>();
@@ -18,6 +18,12 @@ public class MapeadorUnidadeAtendimento {
 
     public UnidadeAtendimento get(Long cnes) {
         return cacheUnidadesAtendimento.get(cnes);
+    }
+
+    public Optional<UnidadeAtendimento> getByName(String name) {
+        List<UnidadeAtendimento> unidades = this.getList();
+
+        return unidades.stream().filter(unidade -> unidade.getNome().equals(name)).findFirst();
     }
 
     public void put(UnidadeAtendimento unidadeAtendimento) {

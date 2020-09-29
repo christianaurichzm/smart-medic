@@ -5,15 +5,15 @@ public class FormularioCadastro {
     private final String nome;
     private final String sexo;
     private final String senha;
-    private final Integer idade;
+    private final String nascimento;
     private final String endereco;
 
-    public FormularioCadastro(String cpf, String nome, String sexo, String senha, Integer idade, String endereco) {
+    public FormularioCadastro(String cpf, String nome, String sexo, String senha, String nascimento, String endereco) {
         this.cpf = cpf;
         this.nome = nome;
         this.sexo = sexo;
         this.senha = senha;
-        this.idade = idade;
+        this.nascimento = nascimento;
         this.endereco = endereco;
     }
 
@@ -25,8 +25,8 @@ public class FormularioCadastro {
         return this.sexo;
     }
 
-    public Integer getIdade() {
-        return this.idade;
+    public String getNascimento() {
+        return this.nascimento;
     }
 
     public String getSenha() {
@@ -41,4 +41,5 @@ public class FormularioCadastro {
         return this.cpf;
     }
 
+    
 }

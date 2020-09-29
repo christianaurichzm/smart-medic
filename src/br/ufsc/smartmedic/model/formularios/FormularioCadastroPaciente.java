@@ -4,15 +4,15 @@ import br.ufsc.smartmedic.model.excecoes.FormException;
 
 public class FormularioCadastroPaciente extends FormularioCadastro {
 
-    public FormularioCadastroPaciente(String cpf, String nome, String sexo, String senha, Integer idade, String endereco) throws FormException {
-        super(cpf, nome, sexo, senha, idade, endereco);
+    public FormularioCadastroPaciente(String cpf, String nome, String sexo, String senha, String nascimento, String endereco) throws FormException {
+        super(cpf, nome, sexo, senha, nascimento, endereco);
         this.validarCampos();
     }
-
+    //TODO: validar nascimetno
     private void validarCampos() throws FormException {
         this.validarCpf();
         this.validarSenha();
-        this.validarIdade();
+//        this.validarIdade();
     }
 
     private void validarCpf() throws FormException {
@@ -22,14 +22,9 @@ public class FormularioCadastroPaciente extends FormularioCadastro {
     }
 
     private void validarSenha() throws FormException {
-        if(!this.getSenha().matches("^[a-zA-Z0-9]{0,12}$")) {
+        if(!this.getSenha().matches("^[a-zA-Z0-9]{4,12}$")) {
             throw new FormException("A senha só pode consistir de caracteres alfanuméricos");
         }
     }
 
-    private void validarIdade() throws FormException {
-        if (this.getIdade() < 1) {
-            throw new FormException("Idade inválida");
-        };
-    }
 }

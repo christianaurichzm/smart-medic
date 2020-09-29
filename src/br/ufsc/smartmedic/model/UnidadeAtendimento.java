@@ -1,6 +1,8 @@
 package br.ufsc.smartmedic.model;
 
-public abstract class UnidadeAtendimento {
+import java.io.Serializable;
+
+public abstract class UnidadeAtendimento implements Serializable {
     private String nome;
     private String localizacao;
     private Long cnes;
