@@ -33,12 +33,17 @@ public class ControladorUsuario {
         mapeadorUsuario.put(this.formToUser(form));
     }
 
-    public void login(String cpf, String senha) {
+    public TipoUsuario login(String cpf, String senha) throws FormException {
         Usuario usuario = getUsuario(cpf);
-        if (usuario != null && usuario.getSenha().equals(senha)) {
-            this.usuarioSessao = usuario;
+        if (usuario != null) {
+            if (usuario.getSenha().equals(senha)) {
+                this.usuarioSessao = usuario;
+                return usuario.getTipoUsuario();
+            } else {
+                throw new FormException("Senha incorreta.");
+            }
         } else {
-            System.out.println("Usuario nao encontrado");
+            throw new FormException("Usuário não encontrado.");
         }
     }
 
@@ -49,14 +54,13 @@ public class ControladorUsuario {
         form.getSenha().ifPresent(usuario::setSenha);
         form.getEndereco().ifPresent(usuario::setEndereco);
 
-        if (usuario.getTipoUsuario().equals(TipoUsuario.MEDICO)) {
-            form.getUnidadeDeAtendimento().ifPresent(((Medico) usuario)::setUnidadeDeAtendimento);
+        if (usuario instanceof Medico) {
+            form.getUnidadeAtendimento().ifPresent(((Medico) usuario)::setUnidadeAtendimento);
             form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
         }
 
         this.mapeadorUsuario.put(usuario);
     }
-
     private Usuario formToUser(FormularioCadastro form) {
         if (form instanceof FormularioCadastroMedico) {
             return new Medico(form.getNome(),
@@ -67,7 +71,7 @@ public class ControladorUsuario {
                     form.getEndereco(),
                     ((FormularioCadastroMedico) form).getCrm(),
                     ((FormularioCadastroMedico) form).getCompetencia(),
-                    ((FormularioCadastroMedico) form).getUnidadeDeAtendimento());
+                    ((FormularioCadastroMedico) form).getUnidadeAtendimento());
         } else {
             return new Paciente(form.getNome(),
                     form.getSexo(),
@@ -85,11 +89,10 @@ public class ControladorUsuario {
             throw new FormException("Este cpf já está cadastrado");
         }
     }
+
     public Usuario getUsuario(String cpf) {
         return mapeadorUsuario.get(cpf);
     }
-
-//TODO: exception de credenciais incorretas/
 
     public Usuario getUsuarioSessao() {
         return usuarioSessao;

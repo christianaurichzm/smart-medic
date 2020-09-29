@@ -1,11 +1,11 @@
 package br.ufsc.smartmedic.model;
 
-public abstract class UnidadeDeAtendimento {
+public abstract class UnidadeAtendimento {
     private String nome;
     private String localizacao;
     private Long cnes;
 
-    public UnidadeDeAtendimento(String nome, String localizacao, Long cnes) {
+    public UnidadeAtendimento(String nome, String localizacao, Long cnes) {
         this.nome = nome;
         this.localizacao = localizacao;
         this.cnes = cnes;

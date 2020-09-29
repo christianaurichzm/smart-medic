@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MapeadorUsuario {
-    private HashMap<String, Usuario> cachePessoas = new HashMap<>();
+    private HashMap<String, Usuario> cacheUsuarios = new HashMap<>();
     private final String filename = "usuariosSmartMedic.user";
 
     public MapeadorUsuario() {
@@ -17,23 +17,23 @@ public class MapeadorUsuario {
     }
 
     public Usuario get(String cpf) {
-        return cachePessoas.get(cpf);
+        return cacheUsuarios.get(cpf);
     }
 
     public void put(Usuario usuario) {
-        cachePessoas.put(usuario.getCpf(), usuario);
+        cacheUsuarios.put(usuario.getCpf(), usuario);
         persist();
     }
 
     public List<Usuario> getList() {
-        return new ArrayList<>(cachePessoas.values());
+        return new ArrayList<>(cacheUsuarios.values());
     }
 
     public void persist() {
         try {
             FileOutputStream fileOutput = new FileOutputStream(filename);
             ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
-            objectOutput.writeObject(cachePessoas);
+            objectOutput.writeObject(cacheUsuarios);
             objectOutput.flush();
             fileOutput.flush();
             objectOutput.close();
@@ -47,7 +47,7 @@ public class MapeadorUsuario {
         try {
             FileInputStream fileInput = new FileInputStream(filename);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-            this.cachePessoas = (HashMap<String, Usuario>) objectInput.readObject();
+            this.cacheUsuarios = (HashMap<String, Usuario>) objectInput.readObject();
             objectInput.close();
             fileInput.close();
         } catch (ClassNotFoundException e) {
@@ -59,6 +59,6 @@ public class MapeadorUsuario {
     }
 
     public void remove(Usuario usuario) {
-        cachePessoas.remove(usuario.getCpf());
+        cacheUsuarios.remove(usuario.getCpf());
     }
 }

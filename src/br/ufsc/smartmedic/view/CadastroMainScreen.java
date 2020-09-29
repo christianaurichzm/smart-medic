@@ -1,6 +1,12 @@
 package br.ufsc.smartmedic.view;
 
+import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.controller.ControladorUsuario;
 import br.ufsc.smartmedic.model.TipoUsuario;
+import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
+import br.ufsc.smartmedic.model.formularios.FormularioCadastroMedico;
+import br.ufsc.smartmedic.model.formularios.FormularioCadastroPaciente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -118,7 +124,7 @@ public class CadastroMainScreen extends JFrame {
 
         jPasswordField2.setText("jPasswordField1");
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new DefaultComboBoxModel<>(this.unidadesDeAtendimento));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,10 +254,39 @@ public class CadastroMainScreen extends JFrame {
     }
 
     private void registerButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+        try {
+            ControladorGeral.getInstance().realizaCadastro(this.toForm());
+        } catch (FormException formException) {
+            System.out.println(formException.getMessage());
+        }
+    }
+
+    private FormularioCadastro toForm() {
+        if (this.flag.equals(TipoUsuario.MEDICO)) {
+            return new FormularioCadastroMedico(
+                    this.cpf, //this.nameTextField1.getText(),
+                    this.nome,
+                    this.sexo,
+                    this.senha,
+                    this.idade,
+                    this.endereco,
+                    this.crm,
+                    this.competencia,
+                    this.unidadeDeAtendimento
+            );
+        } else {
+            return new FormularioCadastroPaciente(
+                    this.cpf,
+                    this.nome,
+                    this.sexo,
+                    this.senha,
+                    this.idade,
+                    this.endereco
+            );
+        }
     }
 
     private void goBackButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+        ControladorGeral.getInstance().abreTelaInicial();
     }
 }
