@@ -1,5 +1,7 @@
 package br.ufsc.smartmedic.view;
 
+import br.ufsc.smartmedic.controller.ControladorGeral;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -80,6 +82,6 @@ public class CadastroScreen extends JFrame {
     }
 
     private void medicoButtonActionPerformed(ActionEvent evt) {
-        // TODO
+        ControladorGeral.getInstance().abreTelaCadastroMedico();
     }
 }

@@ -6,14 +6,14 @@ import java.util.List;
 public class Medico extends Usuario {
     private String crm;
     private String competencia;
-    private UnidadeDeAtendimento unidadeDeAtendimento;
+    private UnidadeAtendimento unidadeAtendimento;
     private List<Consulta> consultas;
 
-    public Medico(String nome, String sexo, int idade, String cpf, String senha, String endereco, String crm, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
-        super(nome, sexo, idade, cpf, senha, endereco);
+    public Medico(String nome, String sexo, int idade, String cpf, String senha, String endereco, String crm, String competencia, UnidadeAtendimento unidadeAtendimento) {
+        super(nome, sexo, idade, cpf, senha, endereco, TipoUsuario.MEDICO);
         this.crm = crm;
         this.competencia = competencia;
-        this.unidadeDeAtendimento = unidadeDeAtendimento;
+        this.unidadeAtendimento = unidadeAtendimento;
         this.consultas = new ArrayList<>();
     }
 
@@ -41,11 +41,11 @@ public class Medico extends Usuario {
         this.consultas = consultas;
     }
 
-    public UnidadeDeAtendimento getUnidadeDeAtendimento() {
-        return unidadeDeAtendimento;
+    public UnidadeAtendimento getUnidadeAtendimento() {
+        return unidadeAtendimento;
     }
 
-    public void setUnidadeDeAtendimento(UnidadeDeAtendimento unidadeDeAtendimento) {
-        this.unidadeDeAtendimento = unidadeDeAtendimento;
+    public void setUnidadeAtendimento(UnidadeAtendimento unidadeAtendimento) {
+        this.unidadeAtendimento = unidadeAtendimento;
     }
 }

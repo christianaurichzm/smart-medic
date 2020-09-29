@@ -1,18 +1,18 @@
 package br.ufsc.smartmedic.model;
 
-public abstract class UnidadeDeAtendimento {
+public abstract class UnidadeAtendimento {
     private String nome;
     private String localizacao;
     private Long cnes;
 
-    public UnidadeDeAtendimento(String nome, String localizacao, Long cnes) {
+    public UnidadeAtendimento(String nome, String localizacao, Long cnes) {
         this.nome = nome;
         this.localizacao = localizacao;
         this.cnes = cnes;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -20,7 +20,7 @@ public abstract class UnidadeDeAtendimento {
     }
 
     public String getLocalizacao() {
-        return localizacao;
+        return this.localizacao;
     }
 
     public void setLocalizacao(String localizacao) {
@@ -28,7 +28,7 @@ public abstract class UnidadeDeAtendimento {
     }
 
     public Long getCnes() {
-        return cnes;
+        return this.cnes;
     }
 
     public void setCnes(Long cnes) {
