@@ -10,10 +10,12 @@ import br.ufsc.smartmedic.view.LoginScreen;
 
 public class ControladorGeral {
     private static ControladorGeral controladorGeral;
+    private static ControladorUnidadeAtendimento controladorUnidadeAtendimento;
 
     public static ControladorGeral getInstance() {
         if (controladorGeral == null) {
             controladorGeral = new ControladorGeral();
+            controladorUnidadeAtendimento = ControladorUnidadeAtendimento.getInstance();
         }
         return controladorGeral;
     }
@@ -36,7 +38,7 @@ public class ControladorGeral {
              }
     }
 
-    public void realizaCadastro(FormularioCadastro form) {
+    public void realizaCadastro(FormularioCadastro form) throws FormException {
         ControladorUsuario.getInstance().realizarCadastro(form);
     }
 

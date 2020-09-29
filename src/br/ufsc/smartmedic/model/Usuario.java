@@ -7,17 +7,17 @@ import java.util.List;
 public abstract class Usuario implements Serializable {
     private String nome;
     private String sexo;
-    private Integer idade;
+    private String nascimento;
     private String cpf;
     private String senha;
     private String endereco;
     private TipoUsuario tipoUsuario;
     private List<Consulta> historicoDeConsultas;
 
-    public Usuario(String nome, String sexo, int idade, String cpf, String senha, String endereco, TipoUsuario tipoUsuario) {
+    public Usuario(String nome, String sexo, String nascimento, String cpf, String senha, String endereco, TipoUsuario tipoUsuario) {
         this.nome = nome;
         this.sexo = sexo;
-        this.idade = idade;
+        this.nascimento = nascimento;
         this.cpf = cpf;
         this.senha = senha;
         this.endereco = endereco;
@@ -41,12 +41,12 @@ public abstract class Usuario implements Serializable {
         this.sexo = sexo;
     }
 
-    public int getIdade() {
-        return this.idade;
+    public String getNascimento() {
+        return this.nascimento;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
     }
 
     public String getCpf() {
@@ -89,8 +89,7 @@ public abstract class Usuario implements Serializable {
         return this.tipoUsuario;
     }
 
-    public boolean validar(String cpf, String senha) {
-        return cpf.equals(this.cpf)
-            && senha.equals(this.senha);
+    public boolean validar(String cpf) {
+        return cpf.equals(this.cpf);
     }
 }
