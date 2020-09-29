@@ -9,94 +9,91 @@ import br.ufsc.smartmedic.model.formularios.FormularioCadastroPaciente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 public class CadastroMainScreen extends JFrame {
-    private JFormattedTextField birthdayField;
+    private JFormattedTextField nascimentoField;
     private JButton goBackButton;
-    private JComboBox<String> jComboBox1;
-    private JComboBox<String> jComboBox2;
-    private JLabel jLabel1;
-    private JPasswordField jPasswordField1;
-    private JPasswordField jPasswordField2;
+    private JComboBox<String> sexoComboBox;
+    private JComboBox<String> unidadeAtendimentoComboBox;
+    private JLabel cadastroLabel;
+    private JPasswordField senhaPasswordField;
+    private JPasswordField confirmarSenhaPasswordField;
     private JLabel nameLabel;
-    private JLabel nameLabel1;
-    private JLabel nameLabel10;
-    private JLabel nameLabel2;
-    private JLabel nameLabel3;
-    private JLabel nameLabel4;
-    private JLabel nameLabel5;
-    private JLabel nameLabel6;
-    private JLabel nameLabel7;
-    private JLabel nameLabel8;
-    private JLabel nameLabel9;
-    private JTextField nameTextField;
-    private JTextField nameTextField1;
-    private JTextField nameTextField2;
-    private JTextField nameTextField3;
-    private JTextField nameTextField4;
-    private JTextField nameTextField5;
+    private JLabel enderecoLabel;
+    private JLabel unidadeAtendimentoLabel;
+    private JLabel cpfLabel;
+    private JLabel sexoLabel;
+    private JLabel dataLabel;
+    private JLabel senhaLabel;
+    private JLabel idadeLabel;
+    private JLabel crmLabel;
+    private JLabel confirmarSenhaLabel;
+    private JLabel competenciaLabel;
+    private JTextField nomeTextField;
+    private JTextField enderecoTextField;
+    private JTextField cpfTextField;
+    private JTextField idadeTextField;
+    private JTextField crmTextField;
+    private JTextField competenciaTextField;
     private JButton registerButton;
     private TipoUsuario flag;
     private String[] unidadesDeAtendimento;
 
     public CadastroMainScreen(TipoUsuario flag, String[] unidadesDeAtendimento) {
-        initComponents();
         this.flag = flag;
         this.unidadesDeAtendimento = unidadesDeAtendimento;
+        initComponents();
     }
 
     private void initComponents() {
-        jLabel1 = new JLabel();
-        nameTextField = new JTextField();
+        cadastroLabel = new JLabel();
+        nomeTextField = new JTextField();
         nameLabel = new JLabel();
-        nameLabel1 = new JLabel();
-        nameTextField1 = new JTextField();
-        nameTextField2 = new JTextField();
-        nameLabel2 = new JLabel();
-        birthdayField = new JFormattedTextField();
-        nameLabel3 = new JLabel();
-        jComboBox1 = new JComboBox<>();
-        nameLabel4 = new JLabel();
-        nameLabel5 = new JLabel();
-        jPasswordField1 = new JPasswordField();
+        enderecoLabel = new JLabel();
+        enderecoTextField = new JTextField();
+        cpfTextField = new JTextField();
+        cpfLabel = new JLabel();
+        nascimentoField = new JFormattedTextField();
+        sexoLabel = new JLabel();
+        sexoComboBox = new JComboBox<>();
+        dataLabel = new JLabel();
+        senhaLabel = new JLabel();
+        senhaPasswordField = new JPasswordField();
         registerButton = new JButton();
         goBackButton = new JButton();
-        nameTextField3 = new JTextField();
-        nameLabel6 = new JLabel();
-        nameTextField4 = new JTextField();
-        nameLabel7 = new JLabel();
-        nameLabel8 = new JLabel();
-        jPasswordField2 = new JPasswordField();
-        nameTextField5 = new JTextField();
-        nameLabel9 = new JLabel();
-        nameLabel10 = new JLabel();
-        jComboBox2 = new JComboBox<>();
+        crmTextField = new JTextField();
+        crmLabel = new JLabel();
+        confirmarSenhaLabel = new JLabel();
+        confirmarSenhaPasswordField = new JPasswordField();
+        competenciaTextField = new JTextField();
+        competenciaLabel = new JLabel();
+        unidadeAtendimentoLabel = new JLabel();
+        unidadeAtendimentoComboBox = new JComboBox<>();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Cadastro");
+        cadastroLabel.setText("Cadastro");
 
-        nameLabel.setLabelFor(nameTextField);
+        nameLabel.setLabelFor(nomeTextField);
         nameLabel.setText("Nome:");
 
-        nameLabel1.setLabelFor(nameTextField);
-        nameLabel1.setText("Endereço:");
+        enderecoLabel.setLabelFor(nomeTextField);
+        enderecoLabel.setText("Endereço:");
 
-        nameLabel2.setLabelFor(nameTextField);
-        nameLabel2.setText("CPF:");
+        cpfLabel.setLabelFor(nomeTextField);
+        cpfLabel.setText("CPF:");
 
-        nameLabel3.setLabelFor(nameTextField);
-        nameLabel3.setText("Sexo:");
+        sexoLabel.setLabelFor(nomeTextField);
+        sexoLabel.setText("Sexo:");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", "Outro" }));
+        sexoComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", "Outro" }));
 
-        nameLabel4.setLabelFor(nameTextField);
-        nameLabel4.setText("Data de nascimento:");
+        dataLabel.setLabelFor(nomeTextField);
+        dataLabel.setText("Data de nascimento:");
 
-        nameLabel5.setLabelFor(nameTextField);
-        nameLabel5.setText("Senha:");
-
-        jPasswordField1.setText("jPasswordField1");
+        senhaLabel.setLabelFor(nomeTextField);
+        senhaLabel.setText("Senha:");
 
         registerButton.setText("Cadastrar");
         registerButton.addActionListener(this::registerButtonActionPerformed);
@@ -104,26 +101,21 @@ public class CadastroMainScreen extends JFrame {
         goBackButton.setText("Cancelar");
         goBackButton.addActionListener(this::goBackButtonActionPerformed);
 
-        nameLabel6.setLabelFor(nameTextField);
-        nameLabel6.setText("Idade:");
-
         if (this.flag.equals(TipoUsuario.MEDICO)) {
-            nameLabel7.setLabelFor(nameTextField);
-            nameLabel7.setText("CRM:");
+            crmLabel.setLabelFor(nomeTextField);
+            crmLabel.setText("CRM:");
 
-            nameLabel9.setLabelFor(nameTextField);
-            nameLabel9.setText("Competencia:");
+            competenciaLabel.setLabelFor(nomeTextField);
+            competenciaLabel.setText("Competencia:");
 
-            nameLabel10.setLabelFor(nameTextField);
-            nameLabel10.setText("Unidade de atendimento:");
+            unidadeAtendimentoLabel.setLabelFor(nomeTextField);
+            unidadeAtendimentoLabel.setText("Unidade de atendimento:");
         }
 
-        nameLabel8.setLabelFor(nameTextField);
-        nameLabel8.setText("Confirmar senha:");
+        confirmarSenhaLabel.setLabelFor(nomeTextField);
+        confirmarSenhaLabel.setText("Confirmar senha:");
 
-        jPasswordField2.setText("jPasswordField1");
-
-        jComboBox2.setModel(new DefaultComboBoxModel<>(this.unidadesDeAtendimento));
+        unidadeAtendimentoComboBox.setModel(new DefaultComboBoxModel<>(this.unidadesDeAtendimento));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,7 +123,7 @@ public class CadastroMainScreen extends JFrame {
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(186, 186, 186)
-                                .addComponent(jLabel1)
+                                .addComponent(cadastroLabel)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -143,55 +135,51 @@ public class CadastroMainScreen extends JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(nameTextField1, GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(enderecoTextField, GroupLayout.Alignment.TRAILING)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                                                .addComponent(nameTextField5, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(nameLabel5, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(competenciaTextField, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(senhaLabel, GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(nameLabel, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(nameLabel1, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(nameLabel2, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(nameTextField2, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(birthdayField, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(nameLabel4, GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(jPasswordField1, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                                                                .addComponent(nameTextField, GroupLayout.Alignment.LEADING))
-                                                                        .addComponent(nameLabel9))
+                                                                                .addComponent(enderecoLabel, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(cpfLabel, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(cpfTextField, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(nascimentoField, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(dataLabel, GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(senhaPasswordField, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                                                                .addComponent(nomeTextField, GroupLayout.Alignment.LEADING))
+                                                                        .addComponent(competenciaLabel))
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(nameTextField3)
-                                                                        .addComponent(nameTextField4)
+                                                                        .addComponent(crmTextField)
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(nameLabel6)
-                                                                                        .addComponent(nameLabel7)
-                                                                                        .addComponent(nameLabel3)
-                                                                                        .addComponent(nameLabel8))
+                                                                                        .addComponent(crmLabel)
+                                                                                        .addComponent(sexoLabel)
+                                                                                        .addComponent(confirmarSenhaLabel))
                                                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                                                        .addComponent(jPasswordField2)
-                                                                        .addComponent(jComboBox1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(confirmarSenhaPasswordField)
+                                                                        .addComponent(sexoComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(nameLabel10)
+                                                                                .addComponent(unidadeAtendimentoLabel)
                                                                                 .addGap(138, 138, 138))
-                                                                        .addComponent(jComboBox2, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                                                        .addComponent(unidadeAtendimentoComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(50, 50, 50)
-                                .addComponent(jLabel1)
+                                .addComponent(cadastroLabel)
                                 .addGap(43, 43, 43)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(nameLabel)
-                                        .addComponent(nameLabel6))
+                                        .addComponent(nameLabel))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(nameTextField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(nomeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nameLabel1)
+                                .addComponent(enderecoLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
@@ -201,39 +189,39 @@ public class CadastroMainScreen extends JFrame {
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                                .addComponent(nameTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                                                .addComponent(enderecoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                .addComponent(nameLabel2)
+                                                                                                .addComponent(cpfLabel)
                                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                .addComponent(nameTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                                                                .addComponent(cpfTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                                .addComponent(nameLabel7)
+                                                                                                .addComponent(crmLabel)
                                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                .addComponent(nameTextField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                                                                .addComponent(crmTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(nameLabel4)
+                                                                                .addComponent(dataLabel)
                                                                                 .addGap(1, 1, 1)
-                                                                                .addComponent(birthdayField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                                                .addComponent(nascimentoField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(nameLabel3)
+                                                                                .addComponent(sexoLabel)
                                                                                 .addGap(3, 3, 3)
-                                                                                .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                                                .addComponent(sexoComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(nameLabel5)
+                                                                .addComponent(senhaLabel)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jPasswordField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(senhaPasswordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(nameLabel8)
+                                                                .addComponent(confirmarSenhaLabel)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jPasswordField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                                .addComponent(confirmarSenhaPasswordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(nameLabel9)
+                                                .addComponent(competenciaLabel)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(nameTextField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(competenciaTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(unidadeAtendimentoComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(nameLabel10)
+                                                .addComponent(unidadeAtendimentoLabel)
                                                 .addGap(26, 26, 26)))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -246,9 +234,9 @@ public class CadastroMainScreen extends JFrame {
         setVisible(true);
 
         if (this.flag.equals(TipoUsuario.PACIENTE)) {
-            nameTextField4.setVisible(false);
-            nameTextField5.setVisible(false);
-            jComboBox2.setVisible(false);
+            crmTextField.setVisible(false);
+            competenciaTextField.setVisible(false);
+            unidadeAtendimentoComboBox.setVisible(false);
         }
     }
 
@@ -256,31 +244,46 @@ public class CadastroMainScreen extends JFrame {
         try {
             ControladorGeral.getInstance().realizaCadastro(this.toForm());
         } catch (FormException formException) {
-            System.out.println(formException.getMessage());
+            JOptionPane.showMessageDialog(null, formException.getMessage());
         }
     }
 
-    private FormularioCadastro toForm() {
+    private String compararSenhas() throws FormException{
+        if (!Arrays.equals(senhaPasswordField.getPassword(), confirmarSenhaPasswordField.getPassword())) {
+            throw new FormException("As senhas não coincidem");
+        }
+        return new String(senhaPasswordField.getPassword());
+    }
+
+    private FormularioCadastro toForm() throws FormException {
+        String senha = "";
+        try {
+            senha = this.compararSenhas();
+        } catch (FormException formException) {
+            JOptionPane.showMessageDialog(null, formException.getMessage() );
+        }
+
+
         if (this.flag.equals(TipoUsuario.MEDICO)) {
             return new FormularioCadastroMedico(
-                    this.cpf, //this.nameTextField1.getText(),
-                    this.nome,
-                    this.sexo,
-                    this.senha,
-                    this.idade,
-                    this.endereco,
-                    this.crm,
-                    this.competencia,
-                    this.unidadeDeAtendimento
+                    this.cpfTextField.getText(),
+                    this.nomeTextField.getText(),
+                    this.sexoComboBox.getSelectedItem().toString(),
+                    senha,
+                    this.nascimentoField.getText(),
+                    this.enderecoTextField.getText(),
+                    this.crmTextField.getText(),
+                    this.competenciaTextField.getText(),
+                    this.unidadeAtendimentoComboBox.getSelectedItem().toString()
             );
         } else {
             return new FormularioCadastroPaciente(
-                    this.cpf,
-                    this.nome,
-                    this.sexo,
-                    this.senha,
-                    this.idade,
-                    this.endereco
+                    this.cpfTextField.getText(),
+                    this.nomeTextField.getText(),
+                    this.sexoComboBox.getSelectedItem().toString(),
+                    senha,
+                    this.nascimentoField.getText(),
+                    this.enderecoTextField.getText()
             );
         }
     }

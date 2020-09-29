@@ -1,26 +1,26 @@
 package br.ufsc.smartmedic.model.formularios;
 
-import br.ufsc.smartmedic.model.UnidadeAtendimento;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 
 public class FormularioCadastroMedico extends FormularioCadastro {
     private final String crm;
     private final String competencia;
-    private final UnidadeAtendimento unidadeAtendimento;
+    private final String unidadeAtendimento;
 
-    public FormularioCadastroMedico(String cpf, String nome, String sexo, String senha, Integer idade, String endereco, String crm, String competencia, UnidadeAtendimento unidadeAtendimento) throws FormException {
-        super(cpf, nome, sexo, senha, idade, endereco);
+    public FormularioCadastroMedico(String cpf, String nome, String sexo, String senha, String nascimento, String endereco, String crm, String competencia, String unidadeAtendimento) throws FormException {
+        super(cpf, nome, sexo, senha, nascimento, endereco);
         this.crm = crm;
         this.competencia = competencia;
         this.unidadeAtendimento = unidadeAtendimento;
         this.validarCampos();
     }
 
+    // TODO: validar idade
     private void validarCampos() throws FormException {
         this.validarCpf();
         this.validarSenha();
         this.validarCrm();
-        this.validarIdade();
+//        this.validarIdade();
     }
 
     private void validarCpf() throws FormException {
@@ -30,21 +30,15 @@ public class FormularioCadastroMedico extends FormularioCadastro {
     }
 
     private void validarSenha() throws FormException {
-        if (!this.getSenha().matches("^[a-zA-Z0-9]{12}$")) {
+        if (!this.getSenha().matches("^[a-zA-Z0-9]{4,12}$")) {
             throw new FormException("A senha só pode consistir de caracteres alfanuméricos");
         }
     }
 
     private void validarCrm() throws FormException {
-        if (!this.getSenha().matches("^[0-9]{0,8}-[0-9]/[A-Z]{2}$")) {
+        if (!this.getCrm().matches("^[0-9]{0,8}-[0-9]/[A-Z]{2}$")) {
             throw new FormException("O CRM inserido é inválido");
         }
-    }
-
-    private void validarIdade() throws FormException {
-        if (this.getIdade() < 1) {
-            throw new FormException("Idade inválida");
-        };
     }
 
     public String getCrm() {
@@ -55,7 +49,7 @@ public class FormularioCadastroMedico extends FormularioCadastro {
         return this.competencia;
     }
 
-    public UnidadeAtendimento getUnidadeAtendimento() {
+    public String getUnidadeAtendimento() {
         return this.unidadeAtendimento;
     }
 }

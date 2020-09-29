@@ -50,7 +50,7 @@ public class ControladorUsuario {
     public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
         form.getNome().ifPresent(usuario::setNome);
         form.getSexo().ifPresent(usuario::setSexo);
-        form.getIdade().ifPresent(usuario::setIdade);
+        form.getNascimento().ifPresent(usuario::setNascimento);
         form.getSenha().ifPresent(usuario::setSenha);
         form.getEndereco().ifPresent(usuario::setEndereco);
 
@@ -65,17 +65,17 @@ public class ControladorUsuario {
         if (form instanceof FormularioCadastroMedico) {
             return new Medico(form.getNome(),
                     form.getSexo(),
-                    form.getIdade(),
+                    form.getNascimento(),
                     form.getCpf(),
                     form.getSenha(),
                     form.getEndereco(),
                     ((FormularioCadastroMedico) form).getCrm(),
                     ((FormularioCadastroMedico) form).getCompetencia(),
-                    ((FormularioCadastroMedico) form).getUnidadeAtendimento());
+                    ControladorUnidadeAtendimento.getInstance().getMapeadorUnidadeAtendimento().getByName(((FormularioCadastroMedico) form).getUnidadeAtendimento()).get());
         } else {
             return new Paciente(form.getNome(),
                     form.getSexo(),
-                    form.getIdade(),
+                    form.getNascimento(),
                     form.getCpf(),
                     form.getSenha(),
                     form.getEndereco());
@@ -83,7 +83,7 @@ public class ControladorUsuario {
     }
 
     private void validateUniqueness(FormularioCadastro form, List<Usuario> usuarios) throws FormException {
-        Optional<Usuario> usuario = usuarios.stream().filter(user -> user.validar(form.getCpf(), form.getSenha())).findFirst();
+        Optional<Usuario> usuario = usuarios.stream().filter(user -> user.validar(form.getCpf())).findFirst();
 
         if (usuario.isPresent()) {
             throw new FormException("Este cpf já está cadastrado");
