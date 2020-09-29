@@ -43,7 +43,7 @@ public class ControladorUsuario {
                     form.getEndereco(),
                     ((FormularioCadastroMedico) form).getCrm(),
                     ((FormularioCadastroMedico) form).getCompetencia(),
-                    ((FormularioCadastroMedico) form).getUnidadeDeAtendimento());
+                    ((FormularioCadastroMedico) form).getUnidadeAtendimento());
         } else {
             return new Paciente(form.getNome(),
                     form.getSexo(),
@@ -96,7 +96,7 @@ public class ControladorUsuario {
         form.getEndereco().ifPresent(usuario::setEndereco);
 
         if (usuario instanceof Medico) {
-            form.getUnidadeDeAtendimento().ifPresent(((Medico) usuario)::setUnidadeDeAtendimento);
+            form.getUnidadeAtendimento().ifPresent(((Medico) usuario)::setUnidadeAtendimento);
             form.getCompetencia().ifPresent(((Medico) usuario)::setCompetencia);
         }
 

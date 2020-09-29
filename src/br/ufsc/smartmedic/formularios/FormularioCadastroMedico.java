@@ -1,17 +1,17 @@
 package br.ufsc.smartmedic.formularios;
 
-import br.ufsc.smartmedic.model.UnidadeDeAtendimento;
+import br.ufsc.smartmedic.model.UnidadeAtendimento;
 
 public class FormularioCadastroMedico extends FormularioCadastro {
     private final String crm;
     private final String competencia;
-    private final UnidadeDeAtendimento unidadeDeAtendimento;
+    private final UnidadeAtendimento unidadeAtendimento;
 
-    public FormularioCadastroMedico(String cpf, String nome, String sexo, String senha, Integer idade, String endereco, String crm, String competencia, UnidadeDeAtendimento unidadeDeAtendimento) {
+    public FormularioCadastroMedico(String cpf, String nome, String sexo, String senha, Integer idade, String endereco, String crm, String competencia, UnidadeAtendimento unidadeAtendimento) {
         super(cpf, nome, sexo, senha, idade, endereco);
         this.crm = crm;
         this.competencia = competencia;
-        this.unidadeDeAtendimento = unidadeDeAtendimento;
+        this.unidadeAtendimento = unidadeAtendimento;
     }
     //TODO: validacao cpf, endereco, crm, senha
     private void validarCampos() {
@@ -26,7 +26,7 @@ public class FormularioCadastroMedico extends FormularioCadastro {
         return competencia;
     }
 
-    public UnidadeDeAtendimento getUnidadeDeAtendimento() {
-        return unidadeDeAtendimento;
+    public UnidadeAtendimento getUnidadeAtendimento() {
+        return unidadeAtendimento;
     }
 }
