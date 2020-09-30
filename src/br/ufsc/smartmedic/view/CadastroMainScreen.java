@@ -256,21 +256,24 @@ public class CadastroMainScreen extends JFrame {
     }
 
     private void salvarButtonActionPerformed(ActionEvent evt) {
+        ControladorGeral controladorGeral = ControladorGeral.getInstance();
         if (this.alterarCadastro) {
             try {
-                ControladorGeral.getInstance().salvarAlteracaoDadosCadastrais(this.toFormularioAlteracao());
+                controladorGeral.salvarAlteracaoDadosCadastrais(this.toFormularioAlteracao());
+                controladorGeral.abreTelaPrincipal();
+                this.dispose();
             } catch (FormException formException) {
                 JOptionPane.showMessageDialog(null, formException.getMessage());
             }
         } else {
             try {
                 ControladorGeral.getInstance().realizaCadastro(this.toFormularioCadastral());
+                controladorGeral.abreTelaInicial();
+                this.dispose();
             } catch (FormException formException) {
                 JOptionPane.showMessageDialog(null, formException.getMessage());
             }
         }
-        ControladorGeral.getInstance().abreTelaInicial();
-        this.dispose();
     }
 
     private void goBackButtonActionPerformed(ActionEvent evt) {

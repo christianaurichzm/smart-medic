@@ -101,5 +101,6 @@ public class MainMenuScreen extends JFrame {
 
     private void changeRegisteredDataButtonActionPerformed(ActionEvent evt) {
         ControladorGeral.getInstance().abreTelaAlterarCadastro();
+        this.dispose();
     }
 }

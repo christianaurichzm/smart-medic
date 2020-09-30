@@ -32,8 +32,10 @@ public class FormularioAlteracaoDeDados {
     }
 
     private void validarSenha() throws FormException {
-        if (!this.getSenha().get().matches("^[a-zA-Z0-9]{4,12}$")) {
-            throw new FormException("A senha só pode consistir de caracteres alfanuméricos");
+        if (!this.senha.isEmpty()) {
+            if (!this.getSenha().get().matches("^[a-zA-Z0-9]{4,12}$")) {
+                throw new FormException("A senha deve ser constituída de 4 à 12 caracteres alfanuméricos");
+            }
         }
     }
 

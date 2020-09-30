@@ -9,11 +9,10 @@ public class FormularioCadastroPaciente extends FormularioCadastro {
         super(cpf, nome, sexo, senha, nascimento, endereco, tipoUsuario);
         this.validarCampos();
     }
-    //TODO: validar nascimetno
+
     private void validarCampos() throws FormException {
         this.validarCpf();
         this.validarSenha();
-//        this.validarIdade();
     }
 
     private void validarCpf() throws FormException {
@@ -24,7 +23,7 @@ public class FormularioCadastroPaciente extends FormularioCadastro {
 
     private void validarSenha() throws FormException {
         if(!this.getSenha().matches("^[a-zA-Z0-9]{4,12}$")) {
-            throw new FormException("A senha só pode consistir de caracteres alfanuméricos");
+            throw new FormException("A senha deve ser constituída de 4 à 12 caracteres alfanuméricos");
         }
     }
 
