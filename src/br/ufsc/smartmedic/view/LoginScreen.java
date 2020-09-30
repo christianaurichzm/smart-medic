@@ -7,7 +7,6 @@ import br.ufsc.smartmedic.model.excecoes.FormException;
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LoginScreen extends JFrame {
     private JButton loginButton;
@@ -37,8 +36,6 @@ public class LoginScreen extends JFrame {
 
         loginButton.setText("Login");
         loginButton.addActionListener(this::loginButtonActionPerformed);
-
-        cpfTextField.addActionListener(this::cpfTextFieldActionPerformed);
 
         cpfLabel.setText("Usuário");
 
@@ -101,17 +98,14 @@ public class LoginScreen extends JFrame {
     private void loginButtonActionPerformed(ActionEvent evt) {
         try {
             ControladorGeral.getInstance().realizaLogin(cpfTextField.getText(), new String(passwordField.getPassword()));
+            this.dispose();
         } catch (FormException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }
 
     private void registerButtonActionPerformed(ActionEvent evt) {
         ControladorGeral.getInstance().abreTelaCadastro();
-    }
-
-    private void cpfTextFieldActionPerformed(ActionEvent evt) {
-        // TODO
+        this.dispose();
     }
 }

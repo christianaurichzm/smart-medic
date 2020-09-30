@@ -36,6 +36,9 @@ public class CadastroScreen extends JFrame {
         medicoButton.addActionListener(this::medicoButtonActionPerformed);
 
         patientButton.setText("Paciente");
+        patientButton.addActionListener(this::patientButtonActionPerformed);
+
+        goBackButton.addActionListener(this::goBackButtonActionPerformed);
 
         goBackButton.setText("Voltar");
 
@@ -84,9 +87,16 @@ public class CadastroScreen extends JFrame {
 
     private void patientButtonActionPerformed(ActionEvent evt) {
         ControladorGeral.getInstance().abreTelaMainCadastro(TipoUsuario.PACIENTE);
+        this.dispose();
     }
 
     private void medicoButtonActionPerformed(ActionEvent evt) {
         ControladorGeral.getInstance().abreTelaMainCadastro(TipoUsuario.MEDICO);
+        this.dispose();
+    }
+
+    private void goBackButtonActionPerformed(ActionEvent evt) {
+        ControladorGeral.getInstance().abreTelaInicial();
+        this.dispose();
     }
 }

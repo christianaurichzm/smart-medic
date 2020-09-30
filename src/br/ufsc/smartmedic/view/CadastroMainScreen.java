@@ -1,6 +1,7 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.controller.ControladorUnidadeAtendimento;
 import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
@@ -268,6 +269,8 @@ public class CadastroMainScreen extends JFrame {
                 JOptionPane.showMessageDialog(null, formException.getMessage());
             }
         }
+        ControladorGeral.getInstance().abreTelaInicial();
+        this.dispose();
     }
 
     private void goBackButtonActionPerformed(ActionEvent evt) {
@@ -276,6 +279,7 @@ public class CadastroMainScreen extends JFrame {
         } else {
             ControladorGeral.getInstance().abreTelaInicial();
         }
+        this.dispose();
     }
 
     private FormularioAlteracaoDeDados toFormularioAlteracao() throws FormException {
