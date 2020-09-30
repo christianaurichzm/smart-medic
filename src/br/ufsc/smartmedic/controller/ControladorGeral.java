@@ -61,6 +61,8 @@ public class ControladorGeral {
     }
 
     public void salvarAlteracaoDadosCadastrais(FormularioAlteracaoDeDados form) {
-
+        ControladorUsuario controladorUsuario = ControladorUsuario.getInstance();
+        Usuario usuarioSessao = controladorUsuario.getUsuarioSessao();
+        controladorUsuario.alterarDados(usuarioSessao, form);
     }
 }
