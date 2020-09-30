@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Usuario implements Serializable {
+    private static final long serialVersionUID = -4225794692386296603L;
     private String nome;
     private String sexo;
     private String nascimento;

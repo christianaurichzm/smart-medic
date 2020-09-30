@@ -3,6 +3,7 @@ package br.ufsc.smartmedic.model;
 import java.io.Serializable;
 
 public abstract class UnidadeAtendimento implements Serializable {
+    private static final long serialVersionUID = 1374618232371221467L;
     private String nome;
     private String localizacao;
     private Long cnes;

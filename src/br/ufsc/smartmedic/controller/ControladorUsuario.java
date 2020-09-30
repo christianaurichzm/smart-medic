@@ -55,9 +55,8 @@ public class ControladorUsuario {
         form.getEndereco().ifPresent(usuario::setEndereco);
 
         if (usuario instanceof Medico) {
-            UnidadeAtendimento unidadeAtendimento = ControladorUnidadeAtendimento.getInstance()
-                    .getMapeadorUnidadeAtendimento()
-                    .getByName(form.getUnidadeAtendimento().get()).get();
+            UnidadeAtendimento unidadeAtendimento = ControladorUnidadeAtendimento.getInstance().
+            getByNameMapeador(form.getUnidadeAtendimento().get());
             if (form.getUnidadeAtendimento().isPresent()) {
                 ((Medico) usuario).setUnidadeAtendimento(unidadeAtendimento);
             }
@@ -78,7 +77,7 @@ public class ControladorUsuario {
                     form.getEndereco(),
                     ((FormularioCadastroMedico) form).getCrm(),
                     ((FormularioCadastroMedico) form).getCompetencia(),
-                    ControladorUnidadeAtendimento.getInstance().getMapeadorUnidadeAtendimento().getByName(((FormularioCadastroMedico) form).getUnidadeAtendimento()).get());
+                    ControladorUnidadeAtendimento.getInstance().getByNameMapeador(((FormularioCadastroMedico) form).getUnidadeAtendimento()));
         } else {
             return new Paciente(form.getNome(),
                     form.getSexo(),

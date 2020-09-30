@@ -44,13 +44,13 @@ public class ControladorGeral {
     }
 
     public void abreTelaMainCadastro(TipoUsuario tipoUsuario) {
-        String[] unidadesDeAtendimento = ControladorUnidadeAtendimento.getInstance().getMapeadorUnidadeAtendimento().getNomes();
+        String[] unidadesDeAtendimento = ControladorUnidadeAtendimento.getInstance().getNomesMapeador();
 
         CadastroMainScreen cadastroMainScreen = new CadastroMainScreen(tipoUsuario, unidadesDeAtendimento, false);
     }
 
     public void abreTelaAlterarCadastro() {
-        String[] unidadesDeAtendimento = ControladorUnidadeAtendimento.getInstance().getMapeadorUnidadeAtendimento().getNomes();
+        String[] unidadesDeAtendimento = ControladorUnidadeAtendimento.getInstance().getNomesMapeador();
 
         TipoUsuario tipoUsuario = ControladorUsuario.getInstance().getUsuarioSessao().getTipoUsuario();
         if (tipoUsuario.equals(TipoUsuario.MEDICO)) {
