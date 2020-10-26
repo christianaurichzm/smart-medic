@@ -12,7 +12,7 @@ public class Consulta {
         this.fichaSintomas = fichaSintomas;
         this.paciente = paciente;
         this.medico = medico;
-        this.status = StatusConsulta.IN_PROGRESS;
+        this.status = StatusConsulta.PENDING;
     }
 
     public FichaSintomas getFichaSintomas() {

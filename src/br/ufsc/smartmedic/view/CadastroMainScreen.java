@@ -75,18 +75,11 @@ public class CadastroMainScreen extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        cadastroLabel.setText("Cadastro");
-
         nameLabel.setLabelFor(nomeTextField);
         nameLabel.setText("Nome:");
 
         enderecoLabel.setLabelFor(enderecoTextField);
         enderecoLabel.setText("Endereço:");
-
-        if (!this.alterarCadastro) {
-            cpfLabel.setLabelFor(cpfTextField);
-            cpfLabel.setText("CPF:");
-        }
 
         sexoLabel.setLabelFor(sexoComboBox);
         sexoLabel.setText("Sexo:");
@@ -102,9 +95,13 @@ public class CadastroMainScreen extends JFrame {
         if (alterarCadastro) {
             salvarButton.setText("Salvar");
             salvarButton.addActionListener(this::salvarButtonActionPerformed);
+            cadastroLabel.setText("Alterar dados cadastrais");
         } else {
             salvarButton.setText("Cadastrar");
             salvarButton.addActionListener(this::salvarButtonActionPerformed);
+            cadastroLabel.setText("Cadastro");
+            cpfLabel.setLabelFor(cpfTextField);
+            cpfLabel.setText("CPF:");
         }
 
         goBackButton.setText("Cancelar");
