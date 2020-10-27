@@ -27,24 +27,31 @@ public class ControladorUsuario {
         return controladorUsuario;
     }
 
+    private void setUsuarioSessao(Usuario usuario) {
+        this.usuarioSessao = usuario;
+    }
+
     public void realizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
         this.validateUniqueness(form, usuarios);
         mapeadorUsuario.put(this.formToUser(form));
     }
 
-    public TipoUsuario login(String cpf, String senha) throws FormException {
+    public void login(String cpf, String senha) throws FormException {
         Usuario usuario = getUsuario(cpf);
         if (usuario != null) {
             if (usuario.getSenha().equals(senha)) {
-                this.usuarioSessao = usuario;
-                return usuario.getTipoUsuario();
+                setUsuarioSessao(usuario);
             } else {
                 throw new FormException("Senha incorreta.");
             }
         } else {
             throw new FormException("Usuário não encontrado.");
         }
+    }
+
+    public void logout() {
+        setUsuarioSessao(null);
     }
 
     public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {
