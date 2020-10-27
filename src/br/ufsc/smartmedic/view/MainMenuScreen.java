@@ -92,7 +92,8 @@ public class MainMenuScreen extends JFrame {
     }
 
     private void logOutButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+        ControladorGeral.getInstance().realizaLogout();
+        this.dispose();
     }
 
     private void newApointmentButtonActionPerformed(ActionEvent evt) {

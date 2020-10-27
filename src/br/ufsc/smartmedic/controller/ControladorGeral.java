@@ -65,4 +65,9 @@ public class ControladorGeral {
         Usuario usuarioSessao = controladorUsuario.getUsuarioSessao();
         controladorUsuario.alterarDados(usuarioSessao, form);
     }
+
+    public void realizaLogout() {
+        ControladorUsuario.getInstance().logout();
+        abreTelaInicial();
+    }
 }
