@@ -28,7 +28,7 @@ public class ControladorUsuario {
     }
 
     private void setUsuarioSessao(Usuario usuario) {
-        usuarioSessao = usuario;
+        this.usuarioSessao = usuario;
     }
 
     public void realizarCadastro(FormularioCadastro form) throws FormException {
