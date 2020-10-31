@@ -103,4 +103,12 @@ public class ControladorUsuario {
     public Usuario getUsuarioSessao() {
         return usuarioSessao;
     }
+
+    public List<String> getAllSpecialties() {
+        return this.mapeadorUsuario.getAllSpecialties();
+    }
+
+    public List<Usuario> getMedicosBySpecialty(String competencia) {
+        return this.mapeadorUsuario.getMedicosBySpecialty(competencia);
+    }
 }

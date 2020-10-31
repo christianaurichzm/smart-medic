@@ -1,5 +1,7 @@
 package br.ufsc.smartmedic.persistencia;
 
+import br.ufsc.smartmedic.model.Medico;
+import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.Usuario;
 
 import java.io.*;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MapeadorUsuario {
     private HashMap<String, Usuario> cacheUsuarios = new HashMap<>();
@@ -61,4 +64,52 @@ public class MapeadorUsuario {
     public void remove(Usuario usuario) {
         cacheUsuarios.remove(usuario.getCpf());
     }
+
+    public List<Usuario> getMedicos() {
+        return this.getList().stream()
+                .filter(usuario -> usuario.getTipoUsuario().equals(TipoUsuario.MEDICO))
+                .collect(Collectors.toList());
+    }
+
+    public List<Usuario> getMedicosBySpecialty(String competencia) {
+        return this.getMedicos().stream()
+                .filter(medico -> competencia.equals(((Medico) medico).getCompetencia()))
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllSpecialties() {
+        List<String> specialtyList = new ArrayList<>();
+
+        this.getMedicos().stream()
+            .filter(medico -> !specialtyList.contains(((Medico) medico).getCompetencia()))
+            .map(medico -> specialtyList.add(((Medico) medico).getCompetencia()));
+
+        return specialtyList;
+    }
+
+//    public List<String> getAllSpecialties() {
+//        List<Usuario> medicos = this.getMedicos();
+//        List<String> specialtyList = new ArrayList<>();
+//
+//        for (Usuario medico : medicos) {
+//            if (!specialtyList.contains(((Medico) medico).getCompetencia())) {
+//                specialtyList.add(((Medico) medico).getCompetencia());
+//            }
+//        }
+//
+//        return specialtyList;
+//    }
+
+//    public List<Usuario> getMedicosBySpecialty(String competencia) {
+//        List<Usuario> usuarios = this.getMedicos();
+//        List<Usuario> medicos = new ArrayList<>();
+//
+//        for (Usuario u : usuarios) {
+//            if (competencia.equals(((Medico) u).getCompetencia())) {
+//                medicos.add(u);
+//            }
+//        }
+//        return medicos;
+//    }
+
 }

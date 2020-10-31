@@ -5,10 +5,13 @@ import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
+import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 import br.ufsc.smartmedic.view.CadastroMainScreen;
 import br.ufsc.smartmedic.view.CadastroScreen;
 import br.ufsc.smartmedic.view.LoginScreen;
 import br.ufsc.smartmedic.view.MainMenuScreen;
+
+import java.util.List;
 
 public class ControladorGeral {
     private static ControladorGeral controladorGeral;
@@ -64,5 +67,11 @@ public class ControladorGeral {
         ControladorUsuario controladorUsuario = ControladorUsuario.getInstance();
         Usuario usuarioSessao = controladorUsuario.getUsuarioSessao();
         controladorUsuario.alterarDados(usuarioSessao, form);
+    }
+
+    public void abreTelaRealizarNovaChamada() {
+        List<String> competencias = ControladorUsuario.getInstance().getAllSpecialties();
+
+        NovaChamadaMainScreen novaChamadaMainScreen = new NovaChamadaMainScreen(competencias);
     }
 }

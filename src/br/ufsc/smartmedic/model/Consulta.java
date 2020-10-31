@@ -1,17 +1,19 @@
 package br.ufsc.smartmedic.model;
 
-public class Consulta {
+import java.io.Serializable;
+
+public class Consulta implements Serializable {
+    private static final long serialVersionUID = 3578977060556765863L;
     private final FichaSintomas fichaSintomas;
     private Diagnostico diagnostico;
     private final Usuario paciente;
-    private final Usuario medico;
+    private Usuario medico;
     private UnidadeAtendimento encaminhamento;
     private StatusConsulta status;
 
     public Consulta(FichaSintomas fichaSintomas, Usuario paciente, Usuario medico) {
         this.fichaSintomas = fichaSintomas;
         this.paciente = paciente;
-        this.medico = medico;
         this.status = StatusConsulta.PENDING;
     }
 
@@ -37,6 +39,18 @@ public class Consulta {
 
     public StatusConsulta getStatus() {
         return this.status;
+    }
+
+    public void setMedico(Usuario medico) {
+        this.medico = medico;
+    }
+
+    public void setDiagnostico(Diagnostico diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
+    public void setEncaminhamento(UnidadeAtendimento encaminhamento) {
+        this.encaminhamento = encaminhamento;
     }
 
     public void setStatus(StatusConsulta status) {
