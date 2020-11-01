@@ -39,5 +39,6 @@ public class ControladorConsulta {
     public List<Consulta> getHistoricoDeConsultas() {
         Usuario usuario = ControladorUsuario.getInstance().getUsuarioSessao();
         return this.mapeadorConsulta.getAllConsultasByUserCpf(usuario.getCpf());
+        //stream de consultas .filter(cpf do usuario)
     }
 }

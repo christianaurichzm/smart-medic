@@ -111,4 +111,10 @@ public class ControladorUsuario {
     public List<Usuario> getMedicosBySpecialty(String competencia) {
         return this.mapeadorUsuario.getMedicosBySpecialty(competencia);
     }
+
+    public Usuario getMedicoDisponivel(String competencia) {
+        return mapeadorUsuario.getMedicosBySpecialty(competencia).stream()
+                .filter();
+        //pegar o historico de consulta de cada medico e filtrar os que tiverem uma consulta em StatusConsulta.PENDING
+    }
 }
