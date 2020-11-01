@@ -69,6 +69,11 @@ public class ControladorGeral {
         controladorUsuario.alterarDados(usuarioSessao, form);
     }
 
+    public void realizaLogout() {
+        ControladorUsuario.getInstance().logout();
+        abreTelaInicial();
+    }
+
     public void abreTelaRealizarNovaChamada() {
         List<String> competencias = ControladorUsuario.getInstance().getAllSpecialties();
 
