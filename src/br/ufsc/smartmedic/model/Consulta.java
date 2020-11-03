@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Consulta implements Serializable {
     private static final long serialVersionUID = 3578977060556765863L;
+    private long id;
     private final FichaSintomas fichaSintomas;
     private Diagnostico diagnostico;
     private final Usuario paciente;
@@ -11,9 +12,10 @@ public class Consulta implements Serializable {
     private UnidadeAtendimento encaminhamento;
     private StatusConsulta status;
 
-    public Consulta(FichaSintomas fichaSintomas, Usuario paciente, Usuario medico) {
+    public Consulta(FichaSintomas fichaSintomas, Usuario paciente, Usuario medico, long id) {
         this.fichaSintomas = fichaSintomas;
         this.paciente = paciente;
+        this.id = id;
         this.status = StatusConsulta.PENDING;
     }
 
@@ -55,5 +57,13 @@ public class Consulta implements Serializable {
 
     public void setStatus(StatusConsulta status) {
         this.status = status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

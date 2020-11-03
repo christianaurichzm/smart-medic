@@ -4,11 +4,13 @@ import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 
 public class FormularioNovaConsulta {
+    private final long id;
     private final String competencia;
     private final String corpo;
     private final Usuario paciente;
 
-    public FormularioNovaConsulta(String competencia, String corpo, Usuario paciente) throws FormException {
+    public FormularioNovaConsulta(long id, String competencia, String corpo, Usuario paciente) throws FormException {
+        this.id = id;
         this.competencia = competencia;
         this.corpo = corpo;
         this.paciente = paciente;
@@ -35,4 +37,6 @@ public class FormularioNovaConsulta {
     public Usuario getPaciente() {
         return paciente;
     }
+
+    public long getId() { return id; }
 }
