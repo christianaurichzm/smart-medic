@@ -30,15 +30,17 @@ public class ControladorConsulta {
         FichaSintomas fichaSintomas = new FichaSintomas(form.getCorpo(), competencia);
         Usuario medico = ControladorUsuario.getInstance().getMedicoDisponivel(competencia);
 
-        Consulta consulta = new Consulta(fichaSintomas, form.getPaciente(), medico);
+        Consulta consulta = new Consulta(fichaSintomas, form.getPaciente(), medico, form.getId());
         consulta.setStatus(StatusConsulta.PENDING);
 
-        this.mapeadorConsulta.save(consulta);
+        form.getPaciente().getHistoricoDeConsultas().add(consulta);
+        medico.getHistoricoDeConsultas().add(consulta);
+
+        this.mapeadorConsulta.put(consulta);
     }
 
     public List<Consulta> getHistoricoDeConsultas() {
         Usuario usuario = ControladorUsuario.getInstance().getUsuarioSessao();
-        return this.mapeadorConsulta.getAllConsultasByUserCpf(usuario.getCpf());
-        //stream de consultas .filter(cpf do usuario)
+        return ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas();
     }
 }

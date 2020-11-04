@@ -8,22 +8,19 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MapeadorConsulta {
-    //TODO
-    private HashMap<Object, Consulta> cacheConsultas = new HashMap<>();
+    private HashMap<Long, Consulta> cacheConsultas = new HashMap<>();
     private final String FILENAME = "consultasSmartMedic.cons";
 
     public MapeadorConsulta() {
         load();
     }
 
-    //TODO
-    public Consulta get() {
-        return cacheConsultas.get();
+    public Consulta get(Long id) {
+        return cacheConsultas.get(id);
     }
 
     public void put(Consulta consulta) {
-        //TODO
-        cacheConsultas.put(Object, Consulta);
+        cacheConsultas.put(consulta.getId(), consulta);
         persist();
     }
 
@@ -50,7 +47,7 @@ public class MapeadorConsulta {
             FileInputStream fileInput = new FileInputStream(FILENAME);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
             //TODO
-            this.cacheConsultas = (HashMap<Object, Consulta>) objectInput.readObject();
+            this.cacheConsultas = (HashMap<Long, Consulta>) objectInput.readObject();
             objectInput.close();
             fileInput.close();
         } catch (ClassNotFoundException e) {
@@ -61,9 +58,8 @@ public class MapeadorConsulta {
         }
     }
 
-    //TODO
-    public void remove() {
-        cacheConsultas.remove();
+    public void remove(Consulta consulta) {
+        cacheConsultas.remove(consulta.getId());
     }
 
 }
