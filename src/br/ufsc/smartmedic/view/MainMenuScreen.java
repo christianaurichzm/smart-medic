@@ -97,7 +97,8 @@ public class MainMenuScreen extends JFrame {
     }
 
     private void newApointmentButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+        ControladorGeral.getInstance().abreTelaRealizarNovaChamada();
+        this.dispose();
     }
 
     private void changeRegisteredDataButtonActionPerformed(ActionEvent evt) {

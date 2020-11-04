@@ -10,15 +10,16 @@ import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import javax.swing.*;
 import java.util.List;
 
-public class FichaConsultas extends javax.swing.JFrame {
+public class FichaConsultasScreen extends javax.swing.JFrame {
 
     private String[] competencias;
-    public FichaConsultas(List<String> competencias) {
-        initComponents();
+    public FichaConsultasScreen(List<String> competencias) {
         this.competencias = new String[competencias.size()];
-        competencias.stream().map(competencia ->
-            competencias.add(competencia)
-        );
+        this.competencias = competencias.toArray(this.competencias);
+        initComponents();
+//        competencias.stream().map(competencia ->
+//            this.competencias.push(competencia)
+//        );
     }
 
     @SuppressWarnings("unchecked")
@@ -111,14 +112,15 @@ public class FichaConsultas extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>
+        setVisible(true);
+    }
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) throws FormException {
         this.camposToForm();
     }
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        ControladorGeral.getInstance().abreTelaInicial();
+        ControladorGeral.getInstance().abreTelaPrincipal();
         this.dispose();
     }
 
@@ -136,7 +138,7 @@ public class FichaConsultas extends javax.swing.JFrame {
         String competencia = this.medicSpeciality.getSelectedItem().toString();
         String corpo = this.symptonsTextArea.getText();
         Usuario paciente = ControladorUsuario.getInstance().getUsuarioSessao();
-        return new FormularioNovaConsulta(competencia, corpo, paciente);
+        return new FormularioNovaConsulta(1L,competencia, corpo, paciente);
     }
     // End of variables declaration
 }
