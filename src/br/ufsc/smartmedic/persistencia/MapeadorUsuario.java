@@ -79,37 +79,12 @@ public class MapeadorUsuario {
 
     public List<String> getAllSpecialties() {
         List<String> specialtyList = new ArrayList<>();
+        List<Usuario> medicos = this.getMedicos();
 
-        this.getMedicos().stream()
+        medicos.stream()
             .filter(medico -> !specialtyList.contains(((Medico) medico).getCompetencia()))
-            .map(medico -> specialtyList.add(((Medico) medico).getCompetencia()));
+            .forEach(medico -> specialtyList.add(((Medico) medico).getCompetencia()));
 
         return specialtyList;
     }
-
-//    public List<String> getAllSpecialties() {
-//        List<Usuario> medicos = this.getMedicos();
-//        List<String> specialtyList = new ArrayList<>();
-//
-//        for (Usuario medico : medicos) {
-//            if (!specialtyList.contains(((Medico) medico).getCompetencia())) {
-//                specialtyList.add(((Medico) medico).getCompetencia());
-//            }
-//        }
-//
-//        return specialtyList;
-//    }
-
-//    public List<Usuario> getMedicosBySpecialty(String competencia) {
-//        List<Usuario> usuarios = this.getMedicos();
-//        List<Usuario> medicos = new ArrayList<>();
-//
-//        for (Usuario u : usuarios) {
-//            if (competencia.equals(((Medico) u).getCompetencia())) {
-//                medicos.add(u);
-//            }
-//        }
-//        return medicos;
-//    }
-
 }

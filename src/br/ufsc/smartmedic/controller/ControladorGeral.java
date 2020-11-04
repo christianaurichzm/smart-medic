@@ -72,7 +72,6 @@ public class ControladorGeral {
 
     public void abreTelaRealizarNovaChamada() {
         List<String> competencias = ControladorUsuario.getInstance().getAllSpecialties();
-
         FichaConsultasScreen novaChamadaMainScreen = new FichaConsultasScreen(competencias);
     }
 }
