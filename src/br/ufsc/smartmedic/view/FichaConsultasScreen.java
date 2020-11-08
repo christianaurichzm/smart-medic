@@ -22,7 +22,6 @@ public class FichaConsultasScreen extends JFrame {
     private String[] competencias;
 
     public FichaConsultasScreen(List<String> competencias) {
-        System.out.println("texto");
         this.competencias = new String[competencias.size()];
         this.competencias = competencias.toArray(this.competencias);
         initComponents();

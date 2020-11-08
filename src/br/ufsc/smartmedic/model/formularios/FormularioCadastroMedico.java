@@ -11,7 +11,7 @@ public class FormularioCadastroMedico extends FormularioCadastro {
     public FormularioCadastroMedico(String cpf, String nome, String sexo, String senha, String nascimento, String endereco, String crm, String competencia, String unidadeAtendimento, TipoUsuario tipoUsuario) throws FormException {
         super(cpf, nome, sexo, senha, nascimento, endereco, tipoUsuario);
         this.crm = crm;
-        this.competencia = competencia.toLowerCase();
+        this.competencia = competencia.toLowerCase().trim();
         this.unidadeAtendimento = unidadeAtendimento;
         this.validarCampos();
     }
