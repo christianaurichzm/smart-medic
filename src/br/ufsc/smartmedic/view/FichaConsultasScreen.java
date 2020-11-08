@@ -17,15 +17,11 @@ public class FichaConsultasScreen extends javax.swing.JFrame {
         this.competencias = new String[competencias.size()];
         this.competencias = competencias.toArray(this.competencias);
         initComponents();
-//        competencias.stream().map(competencia ->
-//            this.competencias.push(competencia)
-//        );
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         windowTitle = new javax.swing.JLabel();
         medicSpeciality = new javax.swing.JComboBox<>();
         comboBoxLabel = new javax.swing.JLabel();
@@ -140,5 +136,4 @@ public class FichaConsultasScreen extends javax.swing.JFrame {
         Usuario paciente = ControladorUsuario.getInstance().getUsuarioSessao();
         return new FormularioNovaConsulta(1L,competencia, corpo, paciente);
     }
-    // End of variables declaration
 }
