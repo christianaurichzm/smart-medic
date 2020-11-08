@@ -74,4 +74,8 @@ public class ControladorGeral {
         List<String> competencias = ControladorUsuario.getInstance().getAllSpecialties();
         FichaConsultasScreen novaChamadaMainScreen = new FichaConsultasScreen(competencias);
     }
+
+    public void abreHistoricoConsultas() {
+        HistoricoConsultasScreen historicoConsultasScreen = new HistoricoConsultasScreen();
+    }
 }

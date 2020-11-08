@@ -88,7 +88,8 @@ public class MainMenuScreen extends JFrame {
     }
 
     private void showHistoryButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+        ControladorGeral.getInstance().abreHistoricoConsultas();
+        this.dispose();
     }
 
     private void logOutButtonActionPerformed(ActionEvent evt) {

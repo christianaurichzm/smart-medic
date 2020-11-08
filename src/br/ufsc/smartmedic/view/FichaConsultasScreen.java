@@ -1,5 +1,6 @@
 package br.ufsc.smartmedic.view;
 
+import br.ufsc.smartmedic.controller.ControladorConsulta;
 import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.controller.ControladorUsuario;
 import br.ufsc.smartmedic.model.Usuario;
@@ -9,6 +10,7 @@ import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.Objects;
 
 public class FichaConsultasScreen extends JFrame {
     private JButton cancelButton;
@@ -112,7 +114,10 @@ public class FichaConsultasScreen extends JFrame {
     }
 
     private void sendButtonActionPerformed(ActionEvent evt) throws FormException {
-        this.camposToForm();
+        FormularioNovaConsulta form = this.camposToForm();
+        ControladorConsulta.getInstance().criarNovaConsulta(form);
+        this.dispose();
+        ControladorGeral.getInstance().abreTelaPrincipal();
     }
 
     private void cancelButtonActionPerformed(ActionEvent evt) {
@@ -121,9 +126,9 @@ public class FichaConsultasScreen extends JFrame {
     }
 
     private FormularioNovaConsulta camposToForm() throws FormException {
-        String competencia = this.medicSpeciality.getSelectedItem().toString();
+        String competencia = Objects.requireNonNull(this.medicSpeciality.getSelectedItem()).toString();
         String corpo = this.symptonsTextArea.getText();
         Usuario paciente = ControladorUsuario.getInstance().getUsuarioSessao();
-        return new FormularioNovaConsulta(1L,competencia, corpo, paciente);
+        return new FormularioNovaConsulta(ControladorConsulta.getInstance().getMapeadorConsulta().getList().get(ControladorConsulta.getInstance().getMapeadorConsulta().getList().size() - 1).getId() + 1, competencia, corpo, paciente);
     }
 }

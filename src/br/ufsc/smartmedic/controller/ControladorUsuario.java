@@ -9,6 +9,7 @@ import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ControladorUsuario {
 
@@ -119,8 +120,12 @@ public class ControladorUsuario {
         return this.mapeadorUsuario.getMedicosBySpecialty(competencia);
     }
 
+    public Consulta getUltimaConsulta(List<Consulta> consultas) {
+        return consultas.get(consultas.size() - 1);
+    }
+
     public Usuario getMedicoDisponivel(String competencia) {
-    return (Medico) mapeadorUsuario.getMedicosBySpecialty(competencia).stream()
-          .filter(usuario -> usuario.getHistoricoDeConsultas().isEmpty());
+    return this.mapeadorUsuario.getMedicosBySpecialty(competencia).stream()
+          .filter(usuario -> getUltimaConsulta(usuario.getHistoricoDeConsultas()).getStatus() != StatusConsulta.PENDING).findFirst().get();
     }
 }

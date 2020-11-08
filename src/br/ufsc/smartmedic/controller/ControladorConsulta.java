@@ -25,6 +25,10 @@ public class ControladorConsulta {
         return controladorConsulta;
     }
 
+    public MapeadorConsulta getMapeadorConsulta() {
+        return this.mapeadorConsulta;
+    }
+
     public void criarNovaConsulta(FormularioNovaConsulta form) {
         String competencia = form.getCompetencia();
         FichaSintomas fichaSintomas = new FichaSintomas(form.getCorpo(), competencia);
