@@ -26,9 +26,6 @@ public class FichaConsultasScreen extends JFrame {
         this.competencias = new String[competencias.size()];
         this.competencias = competencias.toArray(this.competencias);
         initComponents();
-//        competencias.stream().map(competencia ->
-//            this.competencias.push(competencia)
-//        );
     }
 
     private void initComponents() {
