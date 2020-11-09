@@ -5,11 +5,11 @@ import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastroMedico;
 import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ControladorUsuario {
 
@@ -120,12 +120,35 @@ public class ControladorUsuario {
         return this.mapeadorUsuario.getMedicosBySpecialty(competencia);
     }
 
-    public Consulta getUltimaConsulta(List<Consulta> consultas) {
-        return consultas.get(consultas.size() - 1);
+    private Optional<Consulta> getUltimaConsulta(List<Consulta> consultas) {
+        if (!consultas.isEmpty()) {
+            return Optional.of(consultas.get(consultas.size() - 1));
+        }
+        return Optional.empty();
     }
 
-    public Usuario getMedicoDisponivel(String competencia) {
-    return this.mapeadorUsuario.getMedicosBySpecialty(competencia).stream()
-          .filter(usuario -> getUltimaConsulta(usuario.getHistoricoDeConsultas()).getStatus() != StatusConsulta.PENDING).findFirst().get();
+    public Optional<Usuario> getMedicoDisponivel(String competencia) {
+        List<Usuario> medicosBySpecialty = this.mapeadorUsuario.getMedicosBySpecialty(competencia);
+
+        for (Usuario medico : medicosBySpecialty) {
+            Optional<Consulta> ultimaConsulta = this.getUltimaConsulta(medico.getHistoricoDeConsultas());
+            if (ultimaConsulta.isPresent() && !ultimaConsulta.get().getStatus().equals(StatusConsulta.PENDING)) {
+                return Optional.of(medico);
+            }
+            if (!ultimaConsulta.isPresent()) {
+                return Optional.of(medico);
+            }
+        }
+        return Optional.empty();
     }
+
+    public MapeadorUsuario getMapeadorUsuario() {
+        return this.mapeadorUsuario;
+    }
+
+//    public Usuario getMedicoDisponivel(String competencia) {
+//    return this.mapeadorUsuario.getMedicosBySpecialty(competencia).stream()
+//          .filter(usuario -> getUltimaConsulta(usuario.getHistoricoDeConsultas()).get().getStatus() != StatusConsulta.PENDING)
+//          .findFirst().get();
+//    }
 }

@@ -4,10 +4,12 @@ import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.FichaSintomas;
 import br.ufsc.smartmedic.model.StatusConsulta;
 import br.ufsc.smartmedic.model.Usuario;
+import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ControladorConsulta {
     private static ControladorConsulta controladorConsulta;
@@ -29,10 +31,16 @@ public class ControladorConsulta {
         return this.mapeadorConsulta;
     }
 
-    public void criarNovaConsulta(FormularioNovaConsulta form) {
+    public void criarNovaConsulta(FormularioNovaConsulta form) throws NoDoctorAvailableException {
         String competencia = form.getCompetencia();
         FichaSintomas fichaSintomas = new FichaSintomas(form.getCorpo(), competencia);
-        Usuario medico = ControladorUsuario.getInstance().getMedicoDisponivel(competencia);
+        Optional<Usuario> optMedico = ControladorUsuario.getInstance().getMedicoDisponivel(competencia);
+
+        if (!optMedico.isPresent()) {
+            throw new NoDoctorAvailableException("Não há médicos com essa especialidade disponíveis");
+        }
+
+        Usuario medico = optMedico.get();
 
         Consulta consulta = new Consulta(fichaSintomas, form.getPaciente(), medico, form.getId());
         consulta.setStatus(StatusConsulta.PENDING);
@@ -40,6 +48,7 @@ public class ControladorConsulta {
         form.getPaciente().getHistoricoDeConsultas().add(consulta);
         medico.getHistoricoDeConsultas().add(consulta);
 
+        ControladorUsuario.getInstance().getMapeadorUsuario().persist();
         this.mapeadorConsulta.put(consulta);
     }
 

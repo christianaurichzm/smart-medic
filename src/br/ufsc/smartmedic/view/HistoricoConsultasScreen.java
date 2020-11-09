@@ -1,10 +1,13 @@
 package br.ufsc.smartmedic.view;
 
+import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.controller.ControladorUsuario;
 import br.ufsc.smartmedic.model.Consulta;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class HistoricoConsultasScreen extends JFrame {
     private JButton buttonBack;
@@ -41,6 +44,7 @@ public class HistoricoConsultasScreen extends JFrame {
         windowTitle.setText("Histórico de consultas");
 
         buttonBack.setText("Voltar");
+        buttonBack.addActionListener(this::goBackButtonActionPerformed);
 
         scrollApointments.setViewportView(tableApointments);
 
@@ -78,12 +82,19 @@ public class HistoricoConsultasScreen extends JFrame {
         setVisible(true);
     }
 
+    private void goBackButtonActionPerformed(ActionEvent evt) {
+        ControladorGeral.getInstance().abreTelaPrincipal();
+        this.dispose();
+    }
+
     private void updateData() {
         DefaultTableModel modelTdItens = new DefaultTableModel();
         modelTdItens.addColumn("Data");
         modelTdItens.addColumn("Motivo");
         modelTdItens.addColumn("Status");
-        for (Consulta c : ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas()) {
+        List<Consulta> consultas = ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas();
+
+        for (Consulta c : consultas) {
             modelTdItens.addRow(new Object[]{c.getId(), c.getFichaSintomas().getCorpo(), c.getStatus()});
         }
         tableApointments.setModel(modelTdItens);

@@ -1,13 +1,9 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
-import br.ufsc.smartmedic.controller.ControladorUsuario;
-import br.ufsc.smartmedic.model.TipoUsuario;
-import br.ufsc.smartmedic.model.Usuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainMenuScreen extends JFrame {
     private JButton showHistoryButton;

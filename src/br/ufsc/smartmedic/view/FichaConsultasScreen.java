@@ -3,8 +3,10 @@ package br.ufsc.smartmedic.view;
 import br.ufsc.smartmedic.controller.ControladorConsulta;
 import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.controller.ControladorUsuario;
+import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 
 import javax.swing.*;
@@ -115,9 +117,14 @@ public class FichaConsultasScreen extends JFrame {
 
     private void sendButtonActionPerformed(ActionEvent evt) throws FormException {
         FormularioNovaConsulta form = this.camposToForm();
-        ControladorConsulta.getInstance().criarNovaConsulta(form);
-        this.dispose();
+        try {
+            ControladorConsulta.getInstance().criarNovaConsulta(form);
+        } catch (NoDoctorAvailableException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
         ControladorGeral.getInstance().abreTelaPrincipal();
+        this.dispose();
     }
 
     private void cancelButtonActionPerformed(ActionEvent evt) {
@@ -129,6 +136,18 @@ public class FichaConsultasScreen extends JFrame {
         String competencia = Objects.requireNonNull(this.medicSpeciality.getSelectedItem()).toString();
         String corpo = this.symptonsTextArea.getText();
         Usuario paciente = ControladorUsuario.getInstance().getUsuarioSessao();
-        return new FormularioNovaConsulta(ControladorConsulta.getInstance().getMapeadorConsulta().getList().get(ControladorConsulta.getInstance().getMapeadorConsulta().getList().size() - 1).getId() + 1, competencia, corpo, paciente);
+        List<Consulta> consultas = ControladorConsulta.getInstance().getMapeadorConsulta().getList();
+
+        long id = 1L;
+        if (!consultas.isEmpty()) {
+            Consulta ultimaConsulta = consultas.get(consultas.size() - 1);
+            id = ultimaConsulta.getId() + 1;
+        }
+
+        return new FormularioNovaConsulta(
+                id,
+                competencia,
+                corpo,
+                paciente);
     }
 }

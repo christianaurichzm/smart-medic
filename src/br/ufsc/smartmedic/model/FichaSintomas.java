@@ -1,6 +1,9 @@
 package br.ufsc.smartmedic.model;
 
-public class FichaSintomas {
+import java.io.Serializable;
+
+public class FichaSintomas implements Serializable {
+    private static final long serialVersionUID = 2122154773643395716L;
     private String corpo;
     private String especialidade;
 
