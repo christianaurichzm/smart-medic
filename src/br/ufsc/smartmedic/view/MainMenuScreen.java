@@ -1,6 +1,7 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.model.TipoUsuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,14 +12,13 @@ public class MainMenuScreen extends JFrame {
     private JButton changeRegisteredDataButton;
     private JLabel mainMenuTitle;
     private JButton logOutButton;
-    
+
     public MainMenuScreen() {
         initComponents();
     }
     
     
     private void initComponents() {
-
         mainMenuTitle = new JLabel();
         showHistoryButton = new JButton();
         logOutButton = new JButton();
@@ -36,7 +36,7 @@ public class MainMenuScreen extends JFrame {
         logOutButton.addActionListener(this::logOutButtonActionPerformed);
 
         newApointmentButton.setText("Realizar nova chamada");
-        newApointmentButton.addActionListener(this::newApointmentButtonActionPerformed);
+        newApointmentButton.addActionListener(this::newAppointmentButtonActionPerformed);
 
         changeRegisteredDataButton.setText("Alterar dados cadastrais");
         changeRegisteredDataButton.addActionListener(this::changeRegisteredDataButtonActionPerformed);
@@ -93,7 +93,7 @@ public class MainMenuScreen extends JFrame {
         this.dispose();
     }
 
-    private void newApointmentButtonActionPerformed(ActionEvent evt) {
+    private void newAppointmentButtonActionPerformed(ActionEvent evt) {
         ControladorGeral.getInstance().abreTelaRealizarNovaChamada();
         this.dispose();
     }

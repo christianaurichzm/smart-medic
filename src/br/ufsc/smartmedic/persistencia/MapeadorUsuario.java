@@ -2,6 +2,7 @@ package br.ufsc.smartmedic.persistencia;
 
 import br.ufsc.smartmedic.model.Medico;
 import br.ufsc.smartmedic.model.TipoUsuario;
+import br.ufsc.smartmedic.model.UnidadeAtendimento;
 import br.ufsc.smartmedic.model.Usuario;
 
 import java.io.*;
@@ -71,10 +72,28 @@ public class MapeadorUsuario {
                 .collect(Collectors.toList());
     }
 
-    public List<Usuario> getMedicosBySpecialty(String competencia) {
+    public List<Medico> getMedicosBySpecialty(String competencia) {
         return this.getMedicos().stream()
                 .filter(medico -> competencia.equals(((Medico) medico).getCompetencia()))
+                .map(this::userToMedic)
                 .collect(Collectors.toList());
+    }
+
+    private Medico userToMedic(Usuario usuario) {
+        String crm = ((Medico) usuario).getCrm();
+        String competencia = ((Medico) usuario).getCompetencia();
+        UnidadeAtendimento unidadeDeAtendimento = ((Medico) usuario).getUnidadeAtendimento();
+
+        return new Medico(
+                usuario.getNome(),
+                usuario.getSexo(),
+                usuario.getNascimento(),
+                usuario.getCpf(),
+                usuario.getSenha(),
+                usuario.getEndereco(),
+                crm,
+                competencia,
+                unidadeDeAtendimento);
     }
 
     public List<String> getAllSpecialties() {

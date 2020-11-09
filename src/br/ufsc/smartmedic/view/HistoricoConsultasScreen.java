@@ -95,7 +95,7 @@ public class HistoricoConsultasScreen extends JFrame {
         List<Consulta> consultas = ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas();
 
         for (Consulta c : consultas) {
-            modelTdItens.addRow(new Object[]{c.getId(), c.getFichaSintomas().getCorpo(), c.getStatus()});
+            modelTdItens.addRow(new Object[]{c.getData(), c.getFichaSintomas().getCorpo(), c.getStatus()});
         }
         tableApointments.setModel(modelTdItens);
         this.repaint();

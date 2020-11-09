@@ -119,12 +119,11 @@ public class FichaConsultasScreen extends JFrame {
         FormularioNovaConsulta form = this.camposToForm();
         try {
             ControladorConsulta.getInstance().criarNovaConsulta(form);
+            ControladorGeral.getInstance().abreTelaPrincipal();
+            this.dispose();
         } catch (NoDoctorAvailableException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
-        ControladorGeral.getInstance().abreTelaPrincipal();
-        this.dispose();
     }
 
     private void cancelButtonActionPerformed(ActionEvent evt) {
