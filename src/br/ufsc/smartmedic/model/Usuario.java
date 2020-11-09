@@ -2,6 +2,8 @@ package br.ufsc.smartmedic.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public abstract class Usuario implements Serializable {
@@ -92,5 +94,23 @@ public abstract class Usuario implements Serializable {
 
     public boolean validar(String cpf) {
         return cpf.equals(this.cpf);
+    }
+
+    public boolean isMinor() {
+        String stringAno = this.nascimento.substring(6);
+        int anoNascimento = Integer.parseInt(stringAno);
+        int data = Calendar.getInstance().get(Calendar.YEAR);
+        int idade = data-anoNascimento;
+
+        return idade < 18;
+    }
+
+    public boolean isElder() {
+        String stringAno = this.nascimento.substring(6);
+        int anoNascimento = Integer.parseInt(stringAno);
+        int data = Calendar.getInstance().get(Calendar.YEAR);
+        int idade = data-anoNascimento;
+
+        return idade >= 60;
     }
 }

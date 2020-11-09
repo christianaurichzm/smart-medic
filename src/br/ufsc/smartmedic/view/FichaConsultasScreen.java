@@ -25,7 +25,20 @@ public class FichaConsultasScreen extends JFrame {
     private JLabel windowTitle;
     private String[] competencias;
 
-    public FichaConsultasScreen(List<String> competencias) {
+    public FichaConsultasScreen(List<String> competencias, Usuario usuario) {
+        if (usuario.getSexo().equals("Feminino") || usuario.getSexo().equals("Outro")) {
+            competencias.add("ginecologista");
+            competencias.add("obstetra");
+        }
+        if (usuario.getSexo().equals("Masculino") || usuario.getSexo().equals("Outro")) {
+            competencias.add("andrologista");
+        }
+        if (usuario.isMinor()) {
+            competencias.add("pediatra");
+        }
+        if (usuario.isElder()) {
+            competencias.add("geriatra");
+        }
         this.competencias = new String[competencias.size()];
         this.competencias = competencias.toArray(this.competencias);
         initComponents();

@@ -13,6 +13,13 @@ public class FormularioCadastroPaciente extends FormularioCadastro {
     private void validarCampos() throws FormException {
         this.validarCpf();
         this.validarSenha();
+        this.validarNascimento();
+    }
+
+    private void validarNascimento() throws FormException {
+        if (!this.getNascimento().matches("^([0-9]){2}/([0-9]){2}/([0-9]){1,4}$")) {
+            throw new FormException("A data de nascimento deve ser formatada como xx/xx/xxxx");
+        }
     }
 
     private void validarCpf() throws FormException {
