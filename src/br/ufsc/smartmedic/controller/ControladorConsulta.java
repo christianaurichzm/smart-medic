@@ -8,7 +8,6 @@ import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
-import java.util.List;
 import java.util.Optional;
 
 public class ControladorConsulta {
@@ -52,8 +51,4 @@ public class ControladorConsulta {
         this.mapeadorConsulta.put(consulta);
     }
 
-    public List<Consulta> getHistoricoDeConsultas() {
-        Usuario usuario = ControladorUsuario.getInstance().getUsuarioSessao();
-        return ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas();
-    }
 }
