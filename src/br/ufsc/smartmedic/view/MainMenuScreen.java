@@ -1,7 +1,6 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
-import br.ufsc.smartmedic.model.TipoUsuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

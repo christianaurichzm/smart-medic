@@ -84,7 +84,7 @@ public class MapeadorUsuario {
         String competencia = ((Medico) usuario).getCompetencia();
         UnidadeAtendimento unidadeDeAtendimento = ((Medico) usuario).getUnidadeAtendimento();
 
-        return new Medico(
+        Medico medico = new Medico(
                 usuario.getNome(),
                 usuario.getSexo(),
                 usuario.getNascimento(),
@@ -94,6 +94,10 @@ public class MapeadorUsuario {
                 crm,
                 competencia,
                 unidadeDeAtendimento);
+
+        medico.setHistoricoDeConsultas(usuario.getHistoricoDeConsultas());
+
+        return medico;
     }
 
     public List<String> getAllSpecialties() {
