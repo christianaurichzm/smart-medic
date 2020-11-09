@@ -12,7 +12,6 @@ import java.util.List;
 public class HistoricoConsultasScreen extends JFrame {
     private JButton buttonBack;
     private JList<String> jList2;
-    private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane3;
     private JScrollPane scrollApointments;
     private JTable tableApointments;
@@ -25,7 +24,6 @@ public class HistoricoConsultasScreen extends JFrame {
     private void initComponents() {
         jScrollPane3 = new JScrollPane();
         jList2 = new JList<>();
-        jScrollPane1 = new JScrollPane();
         windowTitle = new JLabel();
         buttonBack = new JButton();
         scrollApointments = new JScrollPane();
