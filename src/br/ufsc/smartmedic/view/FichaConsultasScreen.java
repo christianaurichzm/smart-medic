@@ -136,6 +136,8 @@ public class FichaConsultasScreen extends JFrame {
             this.dispose();
         } catch (NoDoctorAvailableException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            ControladorGeral.getInstance().abreTelaPrincipal();
+            this.dispose();
         }
     }
 

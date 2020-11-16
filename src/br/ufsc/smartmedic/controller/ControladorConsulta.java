@@ -31,12 +31,18 @@ public class ControladorConsulta {
         String competencia = form.getCompetencia();
         FichaSintomas fichaSintomas = new FichaSintomas(form.getCorpo(), competencia);
         Optional<Medico> optMedico = ControladorUsuario.getInstance().getMedicoDisponivel(competencia);
+        Medico medico;
 
         if (!optMedico.isPresent()) {
-            throw new NoDoctorAvailableException("Não há médicos com essa especialidade disponíveis no momento.");
+            Optional<Medico> optClinicoGeral = ControladorUsuario.getInstance().getMedicoDisponivel("clinico geral");
+            if (!optClinicoGeral.isPresent()) {
+                throw new NoDoctorAvailableException("Não há médicos com essa especialidade disponíveis no momento.");
+            }
+            medico = optClinicoGeral.get();
+        } else {
+            medico = optMedico.get();
         }
 
-        Medico medico = optMedico.get();
 
         Consulta consulta = new Consulta(fichaSintomas, form.getPaciente(), medico, form.getId());
         consulta.setStatus(StatusConsulta.PENDING);
