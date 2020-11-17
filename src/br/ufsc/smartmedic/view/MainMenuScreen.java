@@ -11,18 +11,19 @@ public class MainMenuScreen extends JFrame {
     private JButton changeRegisteredDataButton;
     private JLabel mainMenuTitle;
     private JButton logOutButton;
+    private JButton answerCall;
 
     public MainMenuScreen() {
         initComponents();
     }
-    
-    
+
     private void initComponents() {
         mainMenuTitle = new JLabel();
         showHistoryButton = new JButton();
         logOutButton = new JButton();
         newApointmentButton = new JButton();
         changeRegisteredDataButton = new JButton();
+        answerCall = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,6 +40,9 @@ public class MainMenuScreen extends JFrame {
 
         changeRegisteredDataButton.setText("Alterar dados cadastrais");
         changeRegisteredDataButton.addActionListener(this::changeRegisteredDataButtonActionPerformed);
+
+        answerCall.setText("Responder chamados");
+        answerCall.addActionListener(this::answerCallButtonActionPerformed);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,6 +103,11 @@ public class MainMenuScreen extends JFrame {
 
     private void changeRegisteredDataButtonActionPerformed(ActionEvent evt) {
         ControladorGeral.getInstance().abreTelaAlterarCadastro();
+        this.dispose();
+    }
+
+    private void answerCallButtonActionPerformed(ActionEvent evt) {
+        ControladorGeral.getInstance().abreTelaResponderChamado();
         this.dispose();
     }
 }
