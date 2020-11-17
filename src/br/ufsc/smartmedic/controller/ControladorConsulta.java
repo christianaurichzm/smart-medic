@@ -3,6 +3,7 @@ package br.ufsc.smartmedic.controller;
 import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
+import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
 import java.util.List;
@@ -57,6 +58,10 @@ public class ControladorConsulta {
 
     public List<Consulta> getConsultasFinalizadas() {
         return mapeadorConsulta.getList().stream().filter(consulta -> consulta.getStatus() == StatusConsulta.FINISHED).collect(Collectors.toList());
+    }
+
+    public void respondeChamado(FormularioRespostaChamado formularioRespostaChamado, Consulta consulta) {
+        // TODO
     }
 
 }

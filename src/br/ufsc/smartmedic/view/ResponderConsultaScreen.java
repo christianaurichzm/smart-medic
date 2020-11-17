@@ -1,5 +1,9 @@
 package br.ufsc.smartmedic.view;
 
+import br.ufsc.smartmedic.controller.ControladorConsulta;
+import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -214,9 +218,11 @@ public class ResponderConsultaScreen extends JFrame {
 
     private void concluirButtonActionPerformed(ActionEvent evt) {
         // TODO
+        // ControladorConsulta.getInstance().respondeChamado();
     }
 
     private void voltarButtonActionPerformed(ActionEvent evt) {
-        // TODO
+        ControladorGeral.getInstance().abreTelaPrincipal();
+        this.dispose();
     }
 }

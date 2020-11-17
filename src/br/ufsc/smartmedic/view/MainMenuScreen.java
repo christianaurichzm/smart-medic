@@ -92,8 +92,7 @@ public class MainMenuScreen extends JFrame {
     }
 
     private void logOutButtonActionPerformed(ActionEvent evt) {
-        //ControladorGeral.getInstance().realizaLogout();
-        ControladorGeral.getInstance().abreTelaResponderChamado();
+        ControladorGeral.getInstance().realizaLogout();
         this.dispose();
     }
 
