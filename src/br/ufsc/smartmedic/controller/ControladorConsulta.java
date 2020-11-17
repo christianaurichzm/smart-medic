@@ -5,7 +5,9 @@ import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ControladorConsulta {
     private static ControladorConsulta controladorConsulta;
@@ -43,7 +45,6 @@ public class ControladorConsulta {
             medico = optMedico.get();
         }
 
-
         Consulta consulta = new Consulta(fichaSintomas, form.getPaciente(), medico, form.getId());
         consulta.setStatus(StatusConsulta.PENDING);
 
@@ -52,6 +53,10 @@ public class ControladorConsulta {
 
         ControladorUsuario.getInstance().getMapeadorUsuario().persist();
         this.mapeadorConsulta.put(consulta);
+    }
+
+    public List<Consulta> getConsultasFinalizadas() {
+        return mapeadorConsulta.getList().stream().filter(consulta -> consulta.getStatus() == StatusConsulta.FINISHED).collect(Collectors.toList());
     }
 
 }

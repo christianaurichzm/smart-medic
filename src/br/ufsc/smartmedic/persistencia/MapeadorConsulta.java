@@ -46,7 +46,6 @@ public class MapeadorConsulta {
         try {
             FileInputStream fileInput = new FileInputStream(FILENAME);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-            //TODO
             this.cacheConsultas = (HashMap<Long, Consulta>) objectInput.readObject();
             objectInput.close();
             fileInput.close();
