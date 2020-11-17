@@ -196,7 +196,7 @@ public class ResponderConsultaScreen extends JFrame {
                                         .addComponent(voltarButton))
                                 .addContainerGap())
         );
-
+        setVisible(true);
         pack();
     }
 

@@ -1,7 +1,9 @@
 package br.ufsc.smartmedic.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Consulta implements Serializable {
     private static final long serialVersionUID = 4329995520118258654L;
@@ -13,6 +15,7 @@ public class Consulta implements Serializable {
     private UnidadeAtendimento encaminhamento;
     private StatusConsulta status;
     private final Date data;
+    private List<Medicamento> medicamentosReceitados;
 
     public Consulta(FichaSintomas fichaSintomas, Usuario paciente, Medico medico, long id) {
         this.fichaSintomas = fichaSintomas;
@@ -21,6 +24,7 @@ public class Consulta implements Serializable {
         this.id = id;
         this.status = StatusConsulta.PENDING;
         this.data = new Date();
+        this.medicamentosReceitados = new ArrayList<>();
     }
 
     public FichaSintomas getFichaSintomas() {
