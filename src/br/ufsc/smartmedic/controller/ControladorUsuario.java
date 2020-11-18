@@ -1,5 +1,6 @@
 package br.ufsc.smartmedic.controller;
 
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastroMedico;
@@ -7,6 +8,7 @@ import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,8 +109,13 @@ public class ControladorUsuario {
         return mapeadorUsuario.get(cpf);
     }
 
-    public Usuario getUsuarioSessao() {
-        return usuarioSessao;
+    public Usuario getUsuarioSessao() throws UserNotLoggedException {
+        Optional<Usuario> usuarioSessao = Optional.ofNullable(this.usuarioSessao);
+        if (usuarioSessao.isPresent()) {
+            return usuarioSessao.get();
+        } else {
+            throw new UserNotLoggedException("Não há usuário em sessão");
+        }
     }
 
     public List<String> getAllSpecialties() {

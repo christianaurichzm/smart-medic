@@ -88,7 +88,7 @@ public class HistoricoConsultasScreen extends JFrame {
     private void updateData() {
         DefaultTableModel modelTdItens = new DefaultTableModel();
         modelTdItens.addColumn("Data");
-        modelTdItens.addColumn("Motivo");
+        modelTdItens.addColumn("Sintomas");
         modelTdItens.addColumn("Status");
         List<Consulta> consultas = ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas();
 

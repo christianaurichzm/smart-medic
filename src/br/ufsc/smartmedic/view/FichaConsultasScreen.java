@@ -7,6 +7,7 @@ import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 
 import javax.swing.*;
@@ -72,7 +73,7 @@ public class FichaConsultasScreen extends JFrame {
         sendButton.addActionListener(evt -> {
             try {
                 sendButtonActionPerformed(evt);
-            } catch (FormException e) {
+            } catch (FormException | UserNotLoggedException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         });
@@ -128,7 +129,7 @@ public class FichaConsultasScreen extends JFrame {
         setVisible(true);
     }
 
-    private void sendButtonActionPerformed(ActionEvent evt) throws FormException {
+    private void sendButtonActionPerformed(ActionEvent evt) throws FormException, UserNotLoggedException {
         FormularioNovaConsulta form = this.camposToForm();
         try {
             ControladorConsulta.getInstance().criarNovaConsulta(form);
@@ -146,7 +147,7 @@ public class FichaConsultasScreen extends JFrame {
         this.dispose();
     }
 
-    private FormularioNovaConsulta camposToForm() throws FormException {
+    private FormularioNovaConsulta camposToForm() throws FormException, UserNotLoggedException {
         String competencia = Objects.requireNonNull(this.medicSpeciality.getSelectedItem()).toString();
         String corpo = this.symptonsTextArea.getText();
         Usuario paciente = ControladorUsuario.getInstance().getUsuarioSessao();

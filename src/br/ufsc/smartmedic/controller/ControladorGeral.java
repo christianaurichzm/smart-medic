@@ -3,6 +3,7 @@ package br.ufsc.smartmedic.controller;
 import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.Usuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
 import br.ufsc.smartmedic.view.*;
@@ -48,7 +49,7 @@ public class ControladorGeral {
         CadastroMainScreen cadastroMainScreen = new CadastroMainScreen(tipoUsuario, unidadesDeAtendimento, false);
     }
 
-    public void abreTelaAlterarCadastro() {
+    public void abreTelaAlterarCadastro() throws UserNotLoggedException {
         String[] unidadesDeAtendimento = ControladorUnidadeAtendimento.getInstance().getNomesMapeador();
 
         TipoUsuario tipoUsuario = ControladorUsuario.getInstance().getUsuarioSessao().getTipoUsuario();
@@ -59,7 +60,7 @@ public class ControladorGeral {
         }
     }
 
-    public void salvarAlteracaoDadosCadastrais(FormularioAlteracaoDeDados form) {
+    public void salvarAlteracaoDadosCadastrais(FormularioAlteracaoDeDados form) throws UserNotLoggedException {
         ControladorUsuario controladorUsuario = ControladorUsuario.getInstance();
         Usuario usuarioSessao = controladorUsuario.getUsuarioSessao();
         controladorUsuario.alterarDados(usuarioSessao, form);
@@ -70,7 +71,7 @@ public class ControladorGeral {
         abreTelaInicial();
     }
 
-    public void abreTelaRealizarNovaChamada() {
+    public void abreTelaRealizarNovaChamada() throws UserNotLoggedException {
         Usuario usuario = ControladorUsuario.getInstance().getUsuarioSessao();
         List<String> competencias = ControladorUsuario.getInstance().getAllSpecialties();
         FichaConsultasScreen novaChamadaMainScreen = new FichaConsultasScreen(competencias, usuario);
