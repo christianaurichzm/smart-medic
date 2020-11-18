@@ -80,4 +80,8 @@ public class ControladorGeral {
     public void abreHistoricoConsultas() {
         HistoricoConsultasScreen historicoConsultasScreen = new HistoricoConsultasScreen();
     }
+
+    public void abreTelaResponderChamado() {
+        ResponderConsultaScreen responderConsultaScreen = new ResponderConsultaScreen();
+    }
 }
