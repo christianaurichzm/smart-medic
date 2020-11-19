@@ -81,7 +81,7 @@ public class ControladorGeral {
         HistoricoConsultasScreen historicoConsultasScreen = new HistoricoConsultasScreen();
     }
 
-    public void abreTelaResponderChamado() {
-        ResponderConsultaScreen responderConsultaScreen = new ResponderConsultaScreen();
+    public void abreTelaResponderChamado() throws UserNotLoggedException {
+        ResponderConsultaScreen responderConsultaScreen = new ResponderConsultaScreen(ControladorConsulta.getInstance().getConsultasFinalizadas());
     }
 }

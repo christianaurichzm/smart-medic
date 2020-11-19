@@ -43,7 +43,13 @@ public class MainMenuScreen extends JFrame {
         changeRegisteredDataButton.addActionListener(this::changeRegisteredDataButtonActionPerformed);
 
         answerCall.setText("Responder chamados");
-        answerCall.addActionListener(this::answerCallButtonActionPerformed);
+        answerCall.addActionListener(evt -> {
+            try {
+                answerCallButtonActionPerformed(evt);
+            } catch (UserNotLoggedException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,7 +91,6 @@ public class MainMenuScreen extends JFrame {
                                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-
         pack();
         setVisible(true);
     }
@@ -118,7 +123,7 @@ public class MainMenuScreen extends JFrame {
         this.dispose();
     }
 
-    private void answerCallButtonActionPerformed(ActionEvent evt) {
+    private void answerCallButtonActionPerformed(ActionEvent evt) throws UserNotLoggedException {
         ControladorGeral.getInstance().abreTelaResponderChamado();
         this.dispose();
     }
