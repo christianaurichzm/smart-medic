@@ -78,4 +78,9 @@ public class Consulta implements Serializable {
     public Date getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return getPaciente().getNome() + " - " + getData();
+    }
 }

@@ -2,12 +2,15 @@ package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorConsulta;
 import br.ufsc.smartmedic.controller.ControladorGeral;
-import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
+import br.ufsc.smartmedic.model.Consulta;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class ResponderConsultaScreen extends JFrame {
+    private JComboBox<Consulta> selectConsultaComboBox;
+    private Consulta consultaAtual;
+    private Consulta[] consultas;
     private JScrollPane FichaDeSintomasTextPane;
     private JScrollPane FichaDeSintomasTextPane1;
     private JButton concluirButton;
@@ -23,7 +26,6 @@ public class ResponderConsultaScreen extends JFrame {
     private JTextField medicamentosOutroTextField;
     private JLabel medicamentosOutroTooltip;
     private JLabel responderConsultaLabel;
-    private JComboBox<String> selectConsultaComboBox;
     private JLabel selectConsultaLabel;
     private JLabel sintomasLabel;
     private JTextPane sintomasTextPane;
@@ -31,7 +33,8 @@ public class ResponderConsultaScreen extends JFrame {
     private JLabel unidadesDeSaúdeLabel;
     private JButton voltarButton;
 
-    public ResponderConsultaScreen() {
+    public ResponderConsultaScreen(Consulta[] consultas) {
+        this.consultas = consultas;
         initComponents();
     }
 
@@ -64,7 +67,7 @@ public class ResponderConsultaScreen extends JFrame {
         responderConsultaLabel.setText("Responder a um chamado");
         responderConsultaLabel.setAlignmentY(0.0F);
 
-        selectConsultaComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectConsultaComboBox.setModel(new DefaultComboBoxModel<>(this.consultas));
         selectConsultaComboBox.addActionListener(this::selectConsultaComboBoxActionPerformed);
 
         selectConsultaLabel.setText("Selecione a consulta:");
@@ -87,14 +90,14 @@ public class ResponderConsultaScreen extends JFrame {
 
         medicamentosLabel.setText("Medicamentos que serão receitados:");
 
-        medicamentosOutroTextField.setText("jTextField1");
+        medicamentosOutroTextField.setText("");
         medicamentosOutroTextField.addActionListener(this::medicamentosOutroTextFieldActionPerformed);
 
         medicamentosOutroLabel.setText("Medicamentos a ser receitados (outro):");
 
         medicamentosOutroTooltip.setText("Para múltiplos medicamentos favor separar por vírgula.");
 
-        frequanciaMedicamentoTextField.setText("jTextField1");
+        frequanciaMedicamentoTextField.setText("");
 
         frequenciaMedicamentoLabel.setText("Frequência que o medicamento deverá ser utilizado:");
 
@@ -205,7 +208,9 @@ public class ResponderConsultaScreen extends JFrame {
     }
 
     private void selectConsultaComboBoxActionPerformed(ActionEvent evt) {
-        // TODO
+        Consulta consultaSelecionada = (Consulta) selectConsultaComboBox.getSelectedItem();
+        setConsultaAtual(ControladorConsulta.getInstance().getConsultaById(consultaSelecionada.getId()));
+        sintomasTextPane.setText(consultaAtual.getFichaSintomas().getCorpo());
     }
 
     private void medicamentosOutroTextFieldActionPerformed(ActionEvent evt) {
@@ -224,5 +229,9 @@ public class ResponderConsultaScreen extends JFrame {
     private void voltarButtonActionPerformed(ActionEvent evt) {
         ControladorGeral.getInstance().abreTelaPrincipal();
         this.dispose();
+    }
+
+    private void setConsultaAtual(Consulta consultaAtual) {
+        this.consultaAtual = consultaAtual;
     }
 }
