@@ -3,10 +3,12 @@ package br.ufsc.smartmedic.view;
 import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.controller.ControladorUsuario;
 import br.ufsc.smartmedic.model.Consulta;
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HistoricoConsultasScreen extends JFrame {
@@ -90,7 +92,12 @@ public class HistoricoConsultasScreen extends JFrame {
         modelTdItens.addColumn("Data");
         modelTdItens.addColumn("Sintomas");
         modelTdItens.addColumn("Status");
-        List<Consulta> consultas = ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas();
+        List<Consulta> consultas = new ArrayList<>();
+        try {
+            consultas = ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas();
+        } catch (UserNotLoggedException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
 
         for (Consulta c : consultas) {
             modelTdItens.addRow(new Object[]{c.getData(), c.getFichaSintomas().getCorpo(), c.getStatus()});

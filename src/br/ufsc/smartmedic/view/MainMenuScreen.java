@@ -1,6 +1,7 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -97,12 +98,20 @@ public class MainMenuScreen extends JFrame {
     }
 
     private void newAppointmentButtonActionPerformed(ActionEvent evt) {
-        ControladorGeral.getInstance().abreTelaRealizarNovaChamada();
+        try {
+            ControladorGeral.getInstance().abreTelaRealizarNovaChamada();
+        } catch (UserNotLoggedException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         this.dispose();
     }
 
     private void changeRegisteredDataButtonActionPerformed(ActionEvent evt) {
-        ControladorGeral.getInstance().abreTelaAlterarCadastro();
+        try {
+            ControladorGeral.getInstance().abreTelaAlterarCadastro();
+        } catch (UserNotLoggedException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         this.dispose();
     }
 

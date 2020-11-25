@@ -4,6 +4,7 @@ import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.controller.ControladorUnidadeAtendimento;
 import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastroMedico;
@@ -259,8 +260,8 @@ public class CadastroMainScreen extends JFrame {
                 controladorGeral.salvarAlteracaoDadosCadastrais(this.toFormularioAlteracao());
                 controladorGeral.abreTelaPrincipal();
                 this.dispose();
-            } catch (FormException formException) {
-                JOptionPane.showMessageDialog(null, formException.getMessage());
+            } catch (FormException | UserNotLoggedException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else {
             try {
