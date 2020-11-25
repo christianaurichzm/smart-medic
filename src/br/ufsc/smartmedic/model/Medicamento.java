@@ -37,4 +37,9 @@ public class Medicamento implements Serializable {
     public void setConcentracao(String concentracao) {
         this.concentracao = concentracao;
     }
+
+    @Override
+    public String toString() {
+        return this.getPrincipioAtivo() + " - " + this.getConcentracao();
+    }
 }

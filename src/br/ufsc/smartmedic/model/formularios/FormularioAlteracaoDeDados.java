@@ -1,6 +1,5 @@
 package br.ufsc.smartmedic.model.formularios;
 
-import br.ufsc.smartmedic.model.UnidadeAtendimento;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 
 import java.util.Optional;
