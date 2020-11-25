@@ -7,7 +7,6 @@ import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
-import java.util.List;
 import java.util.Optional;
 
 public class ControladorConsulta {

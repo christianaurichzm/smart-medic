@@ -8,7 +8,6 @@ import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
