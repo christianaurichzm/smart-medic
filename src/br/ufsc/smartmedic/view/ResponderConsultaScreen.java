@@ -2,10 +2,17 @@ package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorConsulta;
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.controller.ControladorUsuario;
 import br.ufsc.smartmedic.model.Consulta;
+import br.ufsc.smartmedic.model.Medicamento;
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class ResponderConsultaScreen extends JFrame {
     private JComboBox<Consulta> selectConsultaComboBox;
@@ -203,8 +210,9 @@ public class ResponderConsultaScreen extends JFrame {
                                         .addComponent(voltarButton))
                                 .addContainerGap())
         );
-        setVisible(true);
         pack();
+        updateMedicamentosData();
+        setVisible(true);
     }
 
     private void selectConsultaComboBoxActionPerformed(ActionEvent evt) {
@@ -233,5 +241,14 @@ public class ResponderConsultaScreen extends JFrame {
 
     private void setConsultaAtual(Consulta consultaAtual) {
         this.consultaAtual = consultaAtual;
+    }
+
+    private void updateMedicamentosData() {
+        DefaultListModel medicamentosModel = new DefaultListModel();
+        Medicamento[] medicamentos = (ControladorConsulta.getInstance().getMedicamentosConsulta());
+        Stream<Medicamento> medicamentoStream = Arrays.stream(medicamentos);
+        medicamentoStream.forEach(medicamentosModel::addElement);
+        this.medicamentosList.setModel(medicamentosModel);
+        this.repaint();
     }
 }

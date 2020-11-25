@@ -81,6 +81,6 @@ public class Consulta implements Serializable {
 
     @Override
     public String toString() {
-        return getPaciente().getNome() + " - " + getData();
+        return this.getPaciente().getNome() + " - " + this.getData();
     }
 }

@@ -9,7 +9,6 @@ import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ControladorConsulta {
     private static ControladorConsulta controladorConsulta;
@@ -66,6 +65,10 @@ public class ControladorConsulta {
                 .stream()
                 .filter(consulta -> consulta.getStatus() == StatusConsulta.PENDING)
                 .toArray(Consulta[]::new);
+    }
+
+    public Medicamento[] getMedicamentosConsulta() {
+        return ControladorMedicamentos.getInstance().getMedicamentos().stream().toArray(Medicamento[]::new);
     }
 
     public void respondeChamado(FormularioRespostaChamado formularioRespostaChamado, Consulta consulta) {
