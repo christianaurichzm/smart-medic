@@ -1,7 +1,6 @@
 package br.ufsc.smartmedic.controller;
 
-import br.ufsc.smartmedic.model.TipoUsuario;
-import br.ufsc.smartmedic.model.Usuario;
+import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
@@ -12,14 +11,23 @@ import java.util.List;
 
 public class ControladorGeral {
     private static ControladorGeral controladorGeral;
-    private static ControladorUnidadeAtendimento controladorUnidadeAtendimento;
+
+    public ControladorGeral() {
+        inicializaBanco();
+    }
 
     public static ControladorGeral getInstance() {
         if (controladorGeral == null) {
             controladorGeral = new ControladorGeral();
-            controladorUnidadeAtendimento = ControladorUnidadeAtendimento.getInstance();
         }
         return controladorGeral;
+    }
+
+    public void inicializaBanco() {
+        UnidadeAtendimento unidade = new Hospital("hospital", "marte", 23332L);
+        Medicamento medicamento = new Medicamento(1, "paracetamol", "500mg");
+        ControladorUnidadeAtendimento.getInstance().registraUnidadeAtendimento(unidade);
+        ControladorMedicamentos.getInstance().setMedicamento(medicamento);
     }
 
     public void abreTelaInicial() {
