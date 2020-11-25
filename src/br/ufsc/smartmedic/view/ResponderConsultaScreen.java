@@ -4,25 +4,28 @@ import br.ufsc.smartmedic.controller.ControladorConsulta;
 import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.Medicamento;
+import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ResponderConsultaScreen extends JFrame {
     private JComboBox<Consulta> selectConsultaComboBox;
     private Consulta consultaAtual;
     private Consulta[] consultas;
-    private JScrollPane FichaDeSintomasTextPane;
-    private JScrollPane FichaDeSintomasTextPane1;
+    private JScrollPane fichaDeSintomasTextPane;
+    private JScrollPane diagnosticoScrollPane;
     private JButton concluirButton;
     private JCheckBox encaminharCheckbox;
     private JTextField frequanciaMedicamentoTextField;
     private JLabel frequenciaMedicamentoLabel;
-    private JLabel jLabel2;
+    private JLabel diagnosticoLabel;
     private JScrollPane jScrollPane1;
-    private JTextPane jTextPane2;
+    private JTextPane diagnosticoTextPane;
     private JLabel medicamentosLabel;
     private JList<String> medicamentosList;
     private JLabel medicamentosOutroLabel;
@@ -45,12 +48,12 @@ public class ResponderConsultaScreen extends JFrame {
         responderConsultaLabel = new JLabel();
         selectConsultaComboBox = new JComboBox<>();
         selectConsultaLabel = new JLabel();
-        FichaDeSintomasTextPane = new JScrollPane();
+        fichaDeSintomasTextPane = new JScrollPane();
         sintomasTextPane = new JTextPane();
         sintomasLabel = new JLabel();
-        jLabel2 = new JLabel();
-        FichaDeSintomasTextPane1 = new JScrollPane();
-        jTextPane2 = new JTextPane();
+        diagnosticoLabel = new JLabel();
+        diagnosticoScrollPane = new JScrollPane();
+        diagnosticoTextPane = new JTextPane();
         jScrollPane1 = new JScrollPane();
         medicamentosList = new JList<>();
         medicamentosLabel = new JLabel();
@@ -76,19 +79,14 @@ public class ResponderConsultaScreen extends JFrame {
         selectConsultaLabel.setText("Selecione a consulta:");
 
         sintomasTextPane.setEditable(false);
-        FichaDeSintomasTextPane.setViewportView(sintomasTextPane);
+        fichaDeSintomasTextPane.setViewportView(sintomasTextPane);
 
         sintomasLabel.setText("Sintomas do paciente:");
 
-        jLabel2.setText("Diagnóstico/Observações:");
+        diagnosticoLabel.setText("Diagnóstico/Observações:");
 
-        FichaDeSintomasTextPane1.setViewportView(jTextPane2);
+        diagnosticoScrollPane.setViewportView(diagnosticoTextPane);
 
-        medicamentosList.setModel(new AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(medicamentosList);
 
         medicamentosLabel.setText("Medicamentos que serão receitados:");
@@ -136,10 +134,10 @@ public class ResponderConsultaScreen extends JFrame {
                                                                 .addComponent(medicamentosLabel)
                                                                 .addComponent(sintomasLabel)
                                                                 .addComponent(selectConsultaLabel)
-                                                                .addComponent(jLabel2)
-                                                                .addComponent(FichaDeSintomasTextPane)
+                                                                .addComponent(diagnosticoLabel)
+                                                                .addComponent(fichaDeSintomasTextPane)
                                                                 .addComponent(selectConsultaComboBox, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(FichaDeSintomasTextPane1)
+                                                                .addComponent(diagnosticoScrollPane)
                                                                 .addComponent(jScrollPane1))
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                                                                 .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -175,11 +173,11 @@ public class ResponderConsultaScreen extends JFrame {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(sintomasLabel)
                                 .addGap(4, 4, 4)
-                                .addComponent(FichaDeSintomasTextPane, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fichaDeSintomasTextPane, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
+                                .addComponent(diagnosticoLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(FichaDeSintomasTextPane1, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(diagnosticoScrollPane, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
                                 .addComponent(medicamentosLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -226,8 +224,9 @@ public class ResponderConsultaScreen extends JFrame {
     }
 
     private void concluirButtonActionPerformed(ActionEvent evt) {
-        // TODO
-        // ControladorConsulta.getInstance().respondeChamado();
+        FormularioRespostaChamado formularioRespostaChamado = new FormularioRespostaChamado();
+        formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
+        formularioRespostaChamado.setMedicamentosReceitados((List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList());
     }
 
     private void voltarButtonActionPerformed(ActionEvent evt) {
