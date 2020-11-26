@@ -2,13 +2,12 @@ package br.ufsc.smartmedic.controller;
 
 import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
+import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ControladorConsulta {
     private static ControladorConsulta controladorConsulta;
@@ -24,6 +23,10 @@ public class ControladorConsulta {
         }
 
         return controladorConsulta;
+    }
+
+    public Consulta getConsultaById(Long id) {
+       return this.getMapeadorConsulta().get(id);
     }
 
     public MapeadorConsulta getMapeadorConsulta() {
@@ -56,8 +59,15 @@ public class ControladorConsulta {
         this.mapeadorConsulta.put(consulta);
     }
 
-    public List<Consulta> getConsultasFinalizadas() {
-        return mapeadorConsulta.getList().stream().filter(consulta -> consulta.getStatus() == StatusConsulta.FINISHED).collect(Collectors.toList());
+    public Consulta[] getConsultasFinalizadas() throws UserNotLoggedException {
+        return ControladorUsuario.getInstance().getUsuarioSessao().getHistoricoDeConsultas()
+                .stream()
+                .filter(consulta -> consulta.getStatus() == StatusConsulta.PENDING)
+                .toArray(Consulta[]::new);
+    }
+
+    public Medicamento[] getMedicamentosConsulta() {
+        return ControladorMedicamentos.getInstance().getMedicamentos().stream().toArray(Medicamento[]::new);
     }
 
     public void respondeChamado(FormularioRespostaChamado formularioRespostaChamado, Consulta consulta) {

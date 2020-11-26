@@ -78,7 +78,7 @@ public class HistoricoConsultasScreen extends JFrame {
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pack();
-        updateData();
+        updateConsultasData();
         setVisible(true);
     }
 
@@ -87,7 +87,7 @@ public class HistoricoConsultasScreen extends JFrame {
         this.dispose();
     }
 
-    private void updateData() {
+    private void updateConsultasData() {
         DefaultTableModel modelTdItens = new DefaultTableModel();
         modelTdItens.addColumn("Data");
         modelTdItens.addColumn("Sintomas");
