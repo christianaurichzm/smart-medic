@@ -1,8 +1,10 @@
 package br.ufsc.smartmedic.controller;
 
 import br.ufsc.smartmedic.model.Medicamento;
+import br.ufsc.smartmedic.model.PrescricaoMedicamento;
 import br.ufsc.smartmedic.persistencia.MapeadorMedicamento;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -36,5 +38,19 @@ public class ControladorMedicamentos {
             ultimoId.getAndSet(ultimoId.get() + 1);
            return new Medicamento(ultimoId.get(), medicamento);
         });
+    }
+
+    public List<PrescricaoMedicamento> novasPrescricoes(List<Medicamento> medicamentos, List<String> frequencias) {
+        if (medicamentos.size() != frequencias.size()) {
+            return null;
+        }
+
+        List<PrescricaoMedicamento> prescricoes = new ArrayList<>();
+
+        for (int i = 0; i > medicamentos.size() - 1; i++) {
+            prescricoes.add(new PrescricaoMedicamento(medicamentos.get(i), frequencias.get(i)));
+        }
+
+        return prescricoes;
     }
 }

@@ -5,6 +5,7 @@ import br.ufsc.smartmedic.controller.ControladorGeral;
 import br.ufsc.smartmedic.controller.ControladorMedicamentos;
 import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.Medicamento;
+import br.ufsc.smartmedic.model.PrescricaoMedicamento;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 
 import javax.swing.*;
@@ -237,7 +238,9 @@ public class ResponderConsultaScreen extends JFrame {
         }
         assert outrosMedicamentos != null;
         listaMedicamentos.addAll(outrosMedicamentos);
-        formularioRespostaChamado.setMedicamentosReceitados(listaMedicamentos);
+        List<String> frequencias = Arrays.asList(frequanciaMedicamentoTextField.getText().split(", "));
+        List<PrescricaoMedicamento> prescricaoMedicamentos = ControladorMedicamentos.getInstance().novasPrescricoes(listaMedicamentos, frequencias);
+        formularioRespostaChamado.setPrescricaoMedicamentos(prescricaoMedicamentos);
     }
 
     private void voltarButtonActionPerformed(ActionEvent evt) {
