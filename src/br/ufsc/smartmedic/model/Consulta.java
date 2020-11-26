@@ -15,7 +15,7 @@ public class Consulta implements Serializable {
     private UnidadeAtendimento encaminhamento;
     private StatusConsulta status;
     private final Date data;
-    private List<Medicamento> medicamentosReceitados;
+    private List<PrescricaoMedicamento> prescricaoMedicamentos;
 
     public Consulta(FichaSintomas fichaSintomas, Usuario paciente, Medico medico, long id) {
         this.fichaSintomas = fichaSintomas;
@@ -24,7 +24,7 @@ public class Consulta implements Serializable {
         this.id = id;
         this.status = StatusConsulta.PENDING;
         this.data = new Date();
-        this.medicamentosReceitados = new ArrayList<>();
+        this.prescricaoMedicamentos = new ArrayList<>();
     }
 
     public FichaSintomas getFichaSintomas() {

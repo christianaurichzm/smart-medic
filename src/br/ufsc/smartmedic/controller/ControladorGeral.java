@@ -25,7 +25,7 @@ public class ControladorGeral {
 
     public void inicializaBanco() {
         UnidadeAtendimento unidade = new Hospital("hospital", "marte", 23332L);
-        Medicamento medicamento = new Medicamento(1, "paracetamol", "500mg");
+        Medicamento medicamento = new Medicamento(1L, "paracetamol");
         ControladorUnidadeAtendimento.getInstance().registraUnidadeAtendimento(unidade);
         ControladorMedicamentos.getInstance().setMedicamento(medicamento);
     }
