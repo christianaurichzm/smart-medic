@@ -3,6 +3,8 @@ package br.ufsc.smartmedic.controller;
 import br.ufsc.smartmedic.model.UnidadeAtendimento;
 import br.ufsc.smartmedic.persistencia.MapeadorUnidadeAtendimento;
 
+import java.util.List;
+
 public class ControladorUnidadeAtendimento {
     private static ControladorUnidadeAtendimento controladorUnidadeAtendimento;
     private final MapeadorUnidadeAtendimento mapeadorUnidadeAtendimento;
@@ -28,5 +30,9 @@ public class ControladorUnidadeAtendimento {
 
     public void registraUnidadeAtendimento(UnidadeAtendimento unidadeAtendimento) {
         mapeadorUnidadeAtendimento.put(unidadeAtendimento);
+    }
+
+    public List<UnidadeAtendimento> getTodasUnidadesAtendimento() {
+        return this.mapeadorUnidadeAtendimento.getList();
     }
 }
