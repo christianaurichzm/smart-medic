@@ -10,7 +10,6 @@ public class FormularioRespostaChamado {
     private long id;
     private String diagnostico;
     private List<PrescricaoMedicamento> prescricaoMedicamentos;
-    private String frequencia;
     private boolean encaminhamento;
     private UnidadeAtendimento unidadeDeEncaminhamento;
 
@@ -18,10 +17,9 @@ public class FormularioRespostaChamado {
 
     }
 
-    public FormularioRespostaChamado(long id, String diagnostico, String frequencia, boolean encaminhamento, UnidadeAtendimento unidadeDeEncaminhamento) {
+    public FormularioRespostaChamado(long id, String diagnostico, boolean encaminhamento, UnidadeAtendimento unidadeDeEncaminhamento) {
         this.id = id;
         this.diagnostico = diagnostico;
-        this.frequencia = frequencia;
         this.encaminhamento = encaminhamento;
         this.unidadeDeEncaminhamento = unidadeDeEncaminhamento;
     }

@@ -37,4 +37,9 @@ public abstract class UnidadeAtendimento implements Serializable {
     public void setCnes(Long cnes) {
         this.cnes = cnes;
     }
+
+    @Override
+    public String toString() {
+        return this.getNome() + " - " + this.getCnes();
+    }
 }
