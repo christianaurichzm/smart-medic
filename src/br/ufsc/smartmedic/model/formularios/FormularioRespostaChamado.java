@@ -1,6 +1,7 @@
 package br.ufsc.smartmedic.model.formularios;
 
 import br.ufsc.smartmedic.model.Medicamento;
+import br.ufsc.smartmedic.model.PrescricaoMedicamento;
 import br.ufsc.smartmedic.model.UnidadeAtendimento;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class FormularioRespostaChamado {
     private long id;
     private String diagnostico;
-    private List<Medicamento> medicamentosReceitados;
+    private List<PrescricaoMedicamento> prescricaoMedicamentos;
     private String frequencia;
     private boolean encaminhamento;
     private UnidadeAtendimento unidadeDeEncaminhamento;
@@ -29,7 +30,7 @@ public class FormularioRespostaChamado {
         this.diagnostico = diagnostico;
     }
 
-    public void setMedicamentosReceitados(List<Medicamento> medicamentosReceitados) {
-        this.medicamentosReceitados = medicamentosReceitados;
+    public void setPrescricaoMedicamentos(List<PrescricaoMedicamento> prescricaoMedicamentos) {
+        this.prescricaoMedicamentos = prescricaoMedicamentos;
     }
 }

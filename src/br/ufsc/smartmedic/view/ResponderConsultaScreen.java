@@ -2,8 +2,10 @@ package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorConsulta;
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.controller.ControladorMedicamentos;
 import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.Medicamento;
+import br.ufsc.smartmedic.model.PrescricaoMedicamento;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 
 import javax.swing.*;
@@ -226,7 +228,19 @@ public class ResponderConsultaScreen extends JFrame {
     private void concluirButtonActionPerformed(ActionEvent evt) {
         FormularioRespostaChamado formularioRespostaChamado = new FormularioRespostaChamado();
         formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
-        formularioRespostaChamado.setMedicamentosReceitados((List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList());
+        List<Medicamento> listaMedicamentos = (List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList();
+        List<Medicamento> outrosMedicamentos = null;
+        if (medicamentosOutroTextField != null) {
+            List<String> outrosMedicamentosField = Arrays.asList(medicamentosOutroTextField.getText().split(", "));
+            if (!outrosMedicamentosField.isEmpty()) {
+                outrosMedicamentos = ControladorMedicamentos.getInstance().criaOutrosMedicamentos(outrosMedicamentosField);
+            }
+        }
+        assert outrosMedicamentos != null;
+        listaMedicamentos.addAll(outrosMedicamentos);
+        List<String> frequencias = Arrays.asList(frequanciaMedicamentoTextField.getText().split(", "));
+        List<PrescricaoMedicamento> prescricaoMedicamentos = ControladorMedicamentos.getInstance().novasPrescricoes(listaMedicamentos, frequencias);
+        formularioRespostaChamado.setPrescricaoMedicamentos(prescricaoMedicamentos);
     }
 
     private void voltarButtonActionPerformed(ActionEvent evt) {

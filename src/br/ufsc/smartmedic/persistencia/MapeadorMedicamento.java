@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MapeadorMedicamento {
-    private HashMap<Integer, Medicamento> cacheMedicamentos = new HashMap<>();
+    private HashMap<Long, Medicamento> cacheMedicamentos = new HashMap<>();
     private final String FILENAME = "medicamentos.med";
 
     public MapeadorMedicamento() {
         load();
     }
 
-    public Medicamento get(Integer codigo) {
+    public Medicamento get(Long codigo) {
         return cacheMedicamentos.get(codigo);
     }
 
@@ -46,7 +46,7 @@ public class MapeadorMedicamento {
         try {
             FileInputStream fileInput = new FileInputStream(FILENAME);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-            this.cacheMedicamentos = (HashMap<Integer, Medicamento>) objectInput.readObject();
+            this.cacheMedicamentos = (HashMap<Long, Medicamento>) objectInput.readObject();
             objectInput.close();
             fileInput.close();
         } catch (ClassNotFoundException e) {
