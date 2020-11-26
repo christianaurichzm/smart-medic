@@ -7,6 +7,7 @@ import br.ufsc.smartmedic.model.formularios.FormularioNovaConsulta;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 import br.ufsc.smartmedic.persistencia.MapeadorConsulta;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ControladorConsulta {
@@ -21,7 +22,6 @@ public class ControladorConsulta {
         if (controladorConsulta == null) {
             controladorConsulta = new ControladorConsulta();
         }
-
         return controladorConsulta;
     }
 
@@ -72,6 +72,10 @@ public class ControladorConsulta {
 
     public void respondeChamado(FormularioRespostaChamado formularioRespostaChamado, Consulta consulta) {
         // TODO
+    }
+
+    public void adicionaNovosMedicamentosPreescritos(List<Medicamento> medicamentos) {
+
     }
 
 }

@@ -4,21 +4,19 @@ import java.io.Serializable;
 
 public class Medicamento implements Serializable {
     private static final long serialVersionUID = -5422446535725311749L;
-    private int codigo;
+    private Long codigo;
     private String principioAtivo;
-    private String concentracao;
 
-    public Medicamento(int codigo, String principioAtivo, String concentracao) {
+    public Medicamento(Long codigo, String principioAtivo) {
         this.codigo = codigo;
         this.principioAtivo = principioAtivo;
-        this.concentracao = concentracao;
     }
 
-    public int getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -30,16 +28,8 @@ public class Medicamento implements Serializable {
         this.principioAtivo = principioAtivo;
     }
 
-    public String getConcentracao() {
-        return concentracao;
-    }
-
-    public void setConcentracao(String concentracao) {
-        this.concentracao = concentracao;
-    }
-
     @Override
     public String toString() {
-        return this.getPrincipioAtivo() + " - " + this.getConcentracao();
+        return this.getCodigo() + " - " + this.getPrincipioAtivo();
     }
 }

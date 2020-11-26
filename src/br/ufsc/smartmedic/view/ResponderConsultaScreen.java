@@ -2,6 +2,7 @@ package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorConsulta;
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.controller.ControladorMedicamentos;
 import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.Medicamento;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
@@ -226,7 +227,17 @@ public class ResponderConsultaScreen extends JFrame {
     private void concluirButtonActionPerformed(ActionEvent evt) {
         FormularioRespostaChamado formularioRespostaChamado = new FormularioRespostaChamado();
         formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
-        formularioRespostaChamado.setMedicamentosReceitados((List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList());
+        List<Medicamento> listaMedicamentos = (List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList();
+        List<Medicamento> outrosMedicamentos = null;
+        if (medicamentosOutroTextField != null) {
+            List<String> outrosMedicamentosField = Arrays.asList(medicamentosOutroTextField.getText().split(", "));
+            if (!outrosMedicamentosField.isEmpty()) {
+                outrosMedicamentos = ControladorMedicamentos.getInstance().criaOutrosMedicamentos(outrosMedicamentosField);
+            }
+        }
+        assert outrosMedicamentos != null;
+        listaMedicamentos.addAll(outrosMedicamentos);
+        formularioRespostaChamado.setMedicamentosReceitados(listaMedicamentos);
     }
 
     private void voltarButtonActionPerformed(ActionEvent evt) {
