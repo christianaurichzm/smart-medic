@@ -74,7 +74,8 @@ public class ControladorGeral {
         controladorUsuario.alterarDados(usuarioSessao, form);
     }
 
-    public void realizaLogout() {
+    public void realizaLogout() throws UserNotLoggedException {
+
         ControladorUsuario.getInstance().logout();
         abreTelaInicial();
     }

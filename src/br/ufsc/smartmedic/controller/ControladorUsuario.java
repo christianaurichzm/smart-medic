@@ -51,8 +51,15 @@ public class ControladorUsuario {
         }
     }
 
-    public void logout() {
+    public void logout() throws UserNotLoggedException {
+        this.validateUsuarioSessao();
         setUsuarioSessao(null);
+    }
+
+    private void validateUsuarioSessao() throws UserNotLoggedException {
+        if (this.usuarioSessao == null) {
+            throw new UserNotLoggedException("Não há usuário em sessão");
+        }
     }
 
     public void alterarDados(Usuario usuario, FormularioAlteracaoDeDados form) {

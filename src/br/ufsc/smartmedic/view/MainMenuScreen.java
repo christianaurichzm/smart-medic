@@ -95,7 +95,11 @@ public class MainMenuScreen extends JFrame {
     }
 
     private void logOutButtonActionPerformed(ActionEvent evt) {
-        ControladorGeral.getInstance().realizaLogout();
+        try {
+            ControladorGeral.getInstance().realizaLogout();
+        } catch (UserNotLoggedException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         this.dispose();
     }
 
