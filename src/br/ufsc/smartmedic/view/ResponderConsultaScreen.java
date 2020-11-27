@@ -1,15 +1,13 @@
 package br.ufsc.smartmedic.view;
 
-import br.ufsc.smartmedic.controller.ControladorConsulta;
-import br.ufsc.smartmedic.controller.ControladorGeral;
-import br.ufsc.smartmedic.controller.ControladorMedicamentos;
+import br.ufsc.smartmedic.controller.*;
 import br.ufsc.smartmedic.model.Consulta;
 import br.ufsc.smartmedic.model.Medicamento;
 import br.ufsc.smartmedic.model.PrescricaoMedicamento;
+import br.ufsc.smartmedic.model.UnidadeAtendimento;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
@@ -37,9 +35,12 @@ public class ResponderConsultaScreen extends JFrame {
     private JLabel selectConsultaLabel;
     private JLabel sintomasLabel;
     private JTextPane sintomasTextPane;
-    private JComboBox<String> unidadesDeSaudeComboBox;
+    private JComboBox<UnidadeAtendimento> unidadesDeSaudeComboBox;
     private JLabel unidadesDeSaúdeLabel;
     private JButton voltarButton;
+    private JComboBox<String> especialidadeComboBox1;
+    private JLabel especialidadeLabel1;
+    private JLabel medicamentosOutroTooltip1;
 
     public ResponderConsultaScreen(Consulta[] consultas) {
         this.consultas = consultas;
@@ -69,6 +70,9 @@ public class ResponderConsultaScreen extends JFrame {
         unidadesDeSaúdeLabel = new JLabel();
         concluirButton = new JButton();
         voltarButton = new JButton();
+        especialidadeLabel1 = new JLabel();
+        especialidadeComboBox1 = new JComboBox<>();
+        medicamentosOutroTooltip1 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,7 +102,7 @@ public class ResponderConsultaScreen extends JFrame {
 
         medicamentosOutroLabel.setText("Medicamentos a serem receitados (outro):");
 
-        medicamentosOutroTooltip.setText("Para múltiplos medicamentos favor separar por vírgula.");
+        medicamentosOutroTooltip.setText("Para múltiplos medicamentos favor separar por vírgula");
 
         frequanciaMedicamentoTextField.setText("");
 
@@ -107,7 +111,7 @@ public class ResponderConsultaScreen extends JFrame {
         encaminharCheckbox.setText("Encaminhar o paciente");
         encaminharCheckbox.addActionListener(this::encaminharCheckboxActionPerformed);
 
-        unidadesDeSaudeComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        unidadesDeSaudeComboBox.setModel(new DefaultComboBoxModel<>(ControladorUnidadeAtendimento.getInstance().getTodasUnidadesAtendimento().stream().toArray(UnidadeAtendimento[]::new)));
 
         unidadesDeSaúdeLabel.setText("Unidades de saúde");
 
@@ -116,6 +120,11 @@ public class ResponderConsultaScreen extends JFrame {
 
         voltarButton.setText("Voltar");
         voltarButton.addActionListener(this::voltarButtonActionPerformed);
+
+        medicamentosOutroTooltip1.setText("os campos de frequência e medicamentos receitados.");
+
+        especialidadeLabel1.setText("Especialidade do médico");
+        especialidadeComboBox1.setModel(new DefaultComboBoxModel<>(ControladorUsuario.getInstance().getAllSpecialties().stream().toArray(String[]::new)));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +138,7 @@ public class ResponderConsultaScreen extends JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(80, 80, 80)
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(medicamentosOutroTooltip)
+                                                        .addComponent(frequenciaMedicamentoLabel, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                                                 .addComponent(medicamentosOutroTextField, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                                                                 .addComponent(medicamentosOutroLabel)
@@ -141,27 +150,22 @@ public class ResponderConsultaScreen extends JFrame {
                                                                 .addComponent(selectConsultaComboBox, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                 .addComponent(diagnosticoScrollPane)
                                                                 .addComponent(jScrollPane1))
+                                                        .addComponent(frequanciaMedicamentoTextField, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(unidadesDeSaúdeLabel)
+                                                        .addComponent(encaminharCheckbox)
+                                                        .addComponent(especialidadeLabel1)
+                                                        .addComponent(unidadesDeSaudeComboBox, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(especialidadeComboBox1, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                        .addComponent(frequanciaMedicamentoTextField)
-                                                                        .addGap(38, 38, 38))
-                                                                .addComponent(frequenciaMedicamentoLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                                                                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                        .addComponent(encaminharCheckbox)
-                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(unidadesDeSaudeComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                                .addGap(0, 37, Short.MAX_VALUE))
+                                                                .addComponent(medicamentosOutroTooltip1, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(medicamentosOutroTooltip, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(unidadesDeSaúdeLabel)
-                                                .addGap(119, 119, 119))
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(voltarButton)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(concluirButton)
-                                                .addContainerGap())))
+                                .addComponent(voltarButton)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(concluirButton)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -189,18 +193,24 @@ public class ResponderConsultaScreen extends JFrame {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(medicamentosOutroTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(medicamentosOutroTooltip)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(frequenciaMedicamentoLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(frequanciaMedicamentoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(medicamentosOutroTooltip)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(medicamentosOutroTooltip1)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(encaminharCheckbox)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(unidadesDeSaúdeLabel)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(encaminharCheckbox)
-                                        .addComponent(unidadesDeSaudeComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(unidadesDeSaudeComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(especialidadeLabel1)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(especialidadeComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(concluirButton)
                                         .addComponent(voltarButton))
