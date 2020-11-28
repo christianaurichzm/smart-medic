@@ -1,6 +1,7 @@
 package br.ufsc.smartmedic.model.formularios;
 
 import br.ufsc.smartmedic.model.Medicamento;
+import br.ufsc.smartmedic.model.Medico;
 import br.ufsc.smartmedic.model.PrescricaoMedicamento;
 import br.ufsc.smartmedic.model.UnidadeAtendimento;
 
@@ -12,6 +13,7 @@ public class FormularioRespostaChamado {
     private List<PrescricaoMedicamento> prescricaoMedicamentos;
     private boolean encaminhamento;
     private UnidadeAtendimento unidadeDeEncaminhamento;
+    private Medico medicoEncaminhamento;
 
     public FormularioRespostaChamado() {
 
@@ -30,5 +32,13 @@ public class FormularioRespostaChamado {
 
     public void setPrescricaoMedicamentos(List<PrescricaoMedicamento> prescricaoMedicamentos) {
         this.prescricaoMedicamentos = prescricaoMedicamentos;
+    }
+
+    public void setUnidadeDeEncaminhamento(UnidadeAtendimento unidadeDeEncaminhamento) {
+        this.unidadeDeEncaminhamento = unidadeDeEncaminhamento;
+    }
+
+    public void setMedicoEncaminhamento(Medico medicoEncaminhamento) {
+        this.medicoEncaminhamento = medicoEncaminhamento;
     }
 }

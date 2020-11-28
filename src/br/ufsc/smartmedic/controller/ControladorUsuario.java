@@ -35,7 +35,12 @@ public class ControladorUsuario {
     public void realizarCadastro(FormularioCadastro form) throws FormException {
         List<Usuario> usuarios = this.mapeadorUsuario.getList();
         this.validateUniqueness(form, usuarios);
-        mapeadorUsuario.put(this.formToUser(form));
+        Usuario usuario = this.formToUser(form);
+        mapeadorUsuario.put(usuario);
+        if (usuario.getTipoUsuario() == TipoUsuario.MEDICO) {
+            UnidadeAtendimento unidadeAtendimento = ControladorUnidadeAtendimento.getInstance().getByNameMapeador(((FormularioCadastroMedico) form).getUnidadeAtendimento());
+            ControladorUnidadeAtendimento.getInstance().adicionaMedicoNaUnidadeDeAtendimento((Medico) usuario, unidadeAtendimento);
+        }
     }
 
     public void login(String cpf, String senha) throws FormException {
@@ -141,6 +146,10 @@ public class ControladorUsuario {
             }
         }
         return Optional.empty();
+    }
+
+    public Optional<Medico> getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) {
+        return ControladorUnidadeAtendimento.getInstance().getAllMedicosFromUnidade(unidadeAtendimento).stream().filter(medico -> medico.getCompetencia().equals(competencia)).findFirst();
     }
 
     public MapeadorUsuario getMapeadorUsuario() {

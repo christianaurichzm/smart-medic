@@ -1,5 +1,6 @@
 package br.ufsc.smartmedic.controller;
 
+import br.ufsc.smartmedic.model.Medico;
 import br.ufsc.smartmedic.model.UnidadeAtendimento;
 import br.ufsc.smartmedic.persistencia.MapeadorUnidadeAtendimento;
 
@@ -34,5 +35,14 @@ public class ControladorUnidadeAtendimento {
 
     public List<UnidadeAtendimento> getTodasUnidadesAtendimento() {
         return this.mapeadorUnidadeAtendimento.getList();
+    }
+
+    public void adicionaMedicoNaUnidadeDeAtendimento(Medico medico, UnidadeAtendimento unidadeAtendimento) {
+        unidadeAtendimento.getMedicos().add(medico);
+        this.mapeadorUnidadeAtendimento.persist();
+    }
+
+    public List<Medico> getAllMedicosFromUnidade(UnidadeAtendimento unidadeAtendimento) {
+        return this.mapeadorUnidadeAtendimento.get(unidadeAtendimento.getCnes()).getMedicos();
     }
 }

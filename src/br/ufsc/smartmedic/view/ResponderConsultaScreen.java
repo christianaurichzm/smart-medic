@@ -251,6 +251,14 @@ public class ResponderConsultaScreen extends JFrame {
         List<String> frequencias = Arrays.asList(frequanciaMedicamentoTextField.getText().split(", "));
         List<PrescricaoMedicamento> prescricaoMedicamentos = ControladorMedicamentos.getInstance().novasPrescricoes(listaMedicamentos, frequencias);
         formularioRespostaChamado.setPrescricaoMedicamentos(prescricaoMedicamentos);
+        UnidadeAtendimento unidadeAtendimentoEncaminhamento = (UnidadeAtendimento) this.unidadesDeSaudeComboBox.getSelectedItem();
+        formularioRespostaChamado.setUnidadeDeEncaminhamento(unidadeAtendimentoEncaminhamento);
+        formularioRespostaChamado.setMedicoEncaminhamento(
+                ControladorUsuario.getInstance().getMedicoDisponivelNaUnidadeBySpecialty(
+                        unidadeAtendimentoEncaminhamento,
+                        this.especialidadeComboBox1.getSelectedItem().toString()
+                ).get()
+        );
     }
 
     private void voltarButtonActionPerformed(ActionEvent evt) {

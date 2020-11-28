@@ -313,7 +313,7 @@ public class CadastroMainScreen extends JFrame {
         }
     }
 
-    private String compararSenhas() throws FormException{
+    private String compararSenhas() throws FormException {
         if (!Arrays.equals(senhaPasswordField.getPassword(), confirmarSenhaPasswordField.getPassword())) {
             throw new FormException("As senhas não coincidem");
         }
