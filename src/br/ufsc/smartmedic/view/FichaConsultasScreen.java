@@ -151,16 +151,10 @@ public class FichaConsultasScreen extends JFrame {
         String competencia = Objects.requireNonNull(this.medicSpeciality.getSelectedItem()).toString();
         String corpo = this.symptonsTextArea.getText();
         Usuario paciente = ControladorUsuario.getInstance().getUsuarioSessao();
-        List<Consulta> consultas = ControladorConsulta.getInstance().getMapeadorConsulta().getList();
-
-        long id = 1L;
-        if (!consultas.isEmpty()) {
-            Consulta ultimaConsulta = consultas.get(consultas.size() - 1);
-            id = ultimaConsulta.getId() + 1;
-        }
+        long novoId = ControladorConsulta.getInstance().getIdUltimaConsultaSistema() + 1;
 
         return new FormularioNovaConsulta(
-                id,
+                novoId,
                 competencia,
                 corpo,
                 paciente);

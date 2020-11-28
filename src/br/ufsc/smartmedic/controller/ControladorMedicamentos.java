@@ -7,6 +7,7 @@ import br.ufsc.smartmedic.persistencia.MapeadorMedicamento;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class ControladorMedicamentos {
     private static ControladorMedicamentos controladorMedicamentos;
@@ -34,10 +35,10 @@ public class ControladorMedicamentos {
     public List<Medicamento> criaOutrosMedicamentos(List<String> medicamentos) {
         List<Medicamento> todosMedicamentos = this.mapeadorMedicamento.getList();
         AtomicReference<Long> ultimoId = new AtomicReference<>(todosMedicamentos.get(todosMedicamentos.size() - 1).getCodigo());
-        return (List<Medicamento>) medicamentos.stream().map(medicamento -> {
+        return medicamentos.stream().map(medicamento -> {
             ultimoId.getAndSet(ultimoId.get() + 1);
            return new Medicamento(ultimoId.get(), medicamento);
-        });
+        }).collect(Collectors.toList());
     }
 
     public List<PrescricaoMedicamento> novasPrescricoes(List<Medicamento> medicamentos, List<String> frequencias) {
@@ -47,7 +48,7 @@ public class ControladorMedicamentos {
 
         List<PrescricaoMedicamento> prescricoes = new ArrayList<>();
 
-        for (int i = 0; i > medicamentos.size() - 1; i++) {
+        for (int i = 0; i < medicamentos.size(); i++) {
             prescricoes.add(new PrescricaoMedicamento(medicamentos.get(i), frequencias.get(i)));
         }
 

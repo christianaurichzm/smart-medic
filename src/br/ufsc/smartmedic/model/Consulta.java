@@ -7,14 +7,16 @@ import java.util.List;
 
 public class Consulta implements Serializable {
     private static final long serialVersionUID = 4329995520118258654L;
-    private long id;
+    private final long id;
     private final FichaSintomas fichaSintomas;
-    private Diagnostico diagnostico;
+
+    private String diagnostico;
     private final Usuario paciente;
     private Medico medico;
     private UnidadeAtendimento encaminhamento;
     private StatusConsulta status;
     private final Date data;
+
     private List<PrescricaoMedicamento> prescricaoMedicamentos;
 
     public Consulta(FichaSintomas fichaSintomas, Usuario paciente, Medico medico, long id) {
@@ -29,10 +31,6 @@ public class Consulta implements Serializable {
 
     public FichaSintomas getFichaSintomas() {
         return this.fichaSintomas;
-    }
-
-    public Diagnostico getDiagnostico() {
-        return this.diagnostico;
     }
 
     public Usuario getPaciente() {
@@ -55,10 +53,6 @@ public class Consulta implements Serializable {
         this.medico = medico;
     }
 
-    public void setDiagnostico(Diagnostico diagnostico) {
-        this.diagnostico = diagnostico;
-    }
-
     public void setEncaminhamento(UnidadeAtendimento encaminhamento) {
         this.encaminhamento = encaminhamento;
     }
@@ -71,13 +65,17 @@ public class Consulta implements Serializable {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Date getData() {
         return data;
     }
+
+    public List<PrescricaoMedicamento> getPrescricaoMedicamentos() { return prescricaoMedicamentos; }
+
+    public void setPrescricaoMedicamentos(List<PrescricaoMedicamento> prescricaoMedicamentos) { this.prescricaoMedicamentos = prescricaoMedicamentos; }
+
+    public String getDiagnostico() { return diagnostico; }
+
+    public void setDiagnostico(String diagnostico) { this.diagnostico = diagnostico; }
 
     @Override
     public String toString() {
