@@ -70,11 +70,11 @@ public class ControladorConsulta {
         return ControladorMedicamentos.getInstance().getMedicamentos().stream().toArray(Medicamento[]::new);
     }
 
-    public void respondeChamado(FormularioRespostaChamado formularioRespostaChamado, Consulta consulta) {
-        // TODO
+    public void adicionaNovosMedicamentosPreescritos(List<Medicamento> medicamentos) {
+
     }
 
-    public void adicionaNovosMedicamentosPreescritos(List<Medicamento> medicamentos) {
+    public void atualizaConsultaComResposta(Consulta consulta, FormularioRespostaChamado formularioRespostaChamado) {
 
     }
 

@@ -38,11 +38,7 @@ public class ControladorUnidadeAtendimento {
     }
 
     public void adicionaMedicoNaUnidadeDeAtendimento(Medico medico, UnidadeAtendimento unidadeAtendimento) {
-        unidadeAtendimento.getMedicos().add(medico);
+        this.mapeadorUnidadeAtendimento.get(unidadeAtendimento.getCnes()).getMedicos().add(medico);
         this.mapeadorUnidadeAtendimento.persist();
-    }
-
-    public List<Medico> getAllMedicosFromUnidade(UnidadeAtendimento unidadeAtendimento) {
-        return this.mapeadorUnidadeAtendimento.get(unidadeAtendimento.getCnes()).getMedicos();
     }
 }

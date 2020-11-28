@@ -1,16 +1,15 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.*;
-import br.ufsc.smartmedic.model.Consulta;
-import br.ufsc.smartmedic.model.Medicamento;
-import br.ufsc.smartmedic.model.PrescricaoMedicamento;
-import br.ufsc.smartmedic.model.UnidadeAtendimento;
+import br.ufsc.smartmedic.model.*;
+import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class ResponderConsultaScreen extends JFrame {
@@ -236,29 +235,11 @@ public class ResponderConsultaScreen extends JFrame {
     }
 
     private void concluirButtonActionPerformed(ActionEvent evt) {
-        FormularioRespostaChamado formularioRespostaChamado = new FormularioRespostaChamado();
-        formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
-        List<Medicamento> listaMedicamentos = (List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList();
-        List<Medicamento> outrosMedicamentos = null;
-        if (medicamentosOutroTextField != null) {
-            List<String> outrosMedicamentosField = Arrays.asList(medicamentosOutroTextField.getText().split(", "));
-            if (!outrosMedicamentosField.isEmpty()) {
-                outrosMedicamentos = ControladorMedicamentos.getInstance().criaOutrosMedicamentos(outrosMedicamentosField);
-            }
+        try {
+            FormularioRespostaChamado formularioRespostaChamado = this.fieldsToForm();
+        } catch (FormException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        assert outrosMedicamentos != null;
-        listaMedicamentos.addAll(outrosMedicamentos);
-        List<String> frequencias = Arrays.asList(frequanciaMedicamentoTextField.getText().split(", "));
-        List<PrescricaoMedicamento> prescricaoMedicamentos = ControladorMedicamentos.getInstance().novasPrescricoes(listaMedicamentos, frequencias);
-        formularioRespostaChamado.setPrescricaoMedicamentos(prescricaoMedicamentos);
-        UnidadeAtendimento unidadeAtendimentoEncaminhamento = (UnidadeAtendimento) this.unidadesDeSaudeComboBox.getSelectedItem();
-        formularioRespostaChamado.setUnidadeDeEncaminhamento(unidadeAtendimentoEncaminhamento);
-        formularioRespostaChamado.setMedicoEncaminhamento(
-                ControladorUsuario.getInstance().getMedicoDisponivelNaUnidadeBySpecialty(
-                        unidadeAtendimentoEncaminhamento,
-                        this.especialidadeComboBox1.getSelectedItem().toString()
-                ).get()
-        );
     }
 
     private void voltarButtonActionPerformed(ActionEvent evt) {
@@ -277,5 +258,42 @@ public class ResponderConsultaScreen extends JFrame {
         medicamentoStream.forEach(medicamentosModel::addElement);
         this.medicamentosList.setModel(medicamentosModel);
         this.repaint();
+    }
+
+    private FormularioRespostaChamado fieldsToForm() throws FormException {
+        FormularioRespostaChamado formularioRespostaChamado = new FormularioRespostaChamado();
+        formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
+        List<Medicamento> listaMedicamentos = (List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList();
+        List<Medicamento> outrosMedicamentos = null;
+        List<PrescricaoMedicamento> prescricaoMedicamentos = null;
+        if (!medicamentosOutroTextField.getText().isEmpty()) {
+            List<String> outrosMedicamentosField = Arrays.asList(medicamentosOutroTextField.getText().split(", "));
+            if (!outrosMedicamentosField.isEmpty()) {
+                outrosMedicamentos = ControladorMedicamentos.getInstance().criaOutrosMedicamentos(outrosMedicamentosField);
+            }
+            assert outrosMedicamentos != null;
+            listaMedicamentos.addAll(outrosMedicamentos);
+
+            if (!frequanciaMedicamentoTextField.getText().isEmpty()) {
+                List<String> frequencias = Arrays.asList(frequanciaMedicamentoTextField.getText().split(", "));
+                prescricaoMedicamentos = ControladorMedicamentos.getInstance().novasPrescricoes(listaMedicamentos, frequencias);
+            } else {
+                throw new FormException("O preenchimento da frequência é obrigatória caso haja medicamentos para prescrever.");
+            }
+        }
+        formularioRespostaChamado.setPrescricaoMedicamentos(prescricaoMedicamentos);
+        formularioRespostaChamado.setEncaminhamento(this.encaminharCheckbox.isSelected());
+        if (this.encaminharCheckbox.isSelected()) {
+            UnidadeAtendimento unidadeAtendimentoEncaminhamento = (UnidadeAtendimento) this.unidadesDeSaudeComboBox.getSelectedItem();
+            formularioRespostaChamado.setUnidadeDeEncaminhamento(unidadeAtendimentoEncaminhamento);
+            if (formularioRespostaChamado.getUnidadeDeEncaminhamento() != null) {
+                Medico medicoDisponivel = ControladorUsuario.getInstance().getMedicoDisponivelNaUnidadeBySpecialty(
+                        formularioRespostaChamado.getUnidadeDeEncaminhamento(),
+                        Objects.requireNonNull(this.especialidadeComboBox1.getSelectedItem()).toString()
+                );
+                formularioRespostaChamado.setMedicoEncaminhamento(medicoDisponivel);
+            }
+        }
+        return formularioRespostaChamado;
     }
 }
