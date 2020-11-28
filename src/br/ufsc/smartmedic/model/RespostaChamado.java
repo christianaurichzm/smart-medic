@@ -2,11 +2,11 @@ package br.ufsc.smartmedic.model;
 
 import java.util.Optional;
 
-public class Diagnostico {
+public class RespostaChamado {
     private UnidadeAtendimento encaminhamento;
     private String corpo;
 
-    public Diagnostico(UnidadeAtendimento encaminhamento, String corpo) {
+    public RespostaChamado(UnidadeAtendimento encaminhamento, String corpo) {
         this.encaminhamento = encaminhamento;
         this.corpo = corpo;
     }

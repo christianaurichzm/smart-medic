@@ -237,6 +237,9 @@ public class ResponderConsultaScreen extends JFrame {
     private void concluirButtonActionPerformed(ActionEvent evt) {
         try {
             FormularioRespostaChamado formularioRespostaChamado = this.fieldsToForm();
+            ControladorConsulta.getInstance().respondeChamado(consultaAtual, formularioRespostaChamado);
+            this.dispose();
+            ControladorGeral.getInstance().abreTelaPrincipal();
         } catch (FormException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

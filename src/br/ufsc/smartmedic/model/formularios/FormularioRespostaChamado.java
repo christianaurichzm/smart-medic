@@ -25,6 +25,10 @@ public class FormularioRespostaChamado {
         this.unidadeDeEncaminhamento = unidadeDeEncaminhamento;
     }
 
+    public String getDiagnostico() {
+        return this.diagnostico;
+    }
+
     public void setDiagnostico(String diagnostico) {
         this.diagnostico = diagnostico;
     }
@@ -53,5 +57,13 @@ public class FormularioRespostaChamado {
 
     public void setEncaminhamento(boolean encaminhamento) {
         this.encaminhamento = encaminhamento;
+    }
+
+    public List<PrescricaoMedicamento> getPrescricaoMedicamentos() {
+        return prescricaoMedicamentos;
+    }
+
+    public boolean isEncaminhamento() {
+        return encaminhamento;
     }
 }

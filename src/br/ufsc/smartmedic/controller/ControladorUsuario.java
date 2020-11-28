@@ -149,7 +149,7 @@ public class ControladorUsuario {
     }
 
     public Medico getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) {
-        return ControladorUnidadeAtendimento.getInstance().getByNameMapeador(unidadeAtendimento.getNome()).getMedicos()
+        return unidadeAtendimento.getMedicos()
                 .stream()
                 .filter(medico -> medico.getCompetencia().equals(competencia))
                 .findFirst().get();

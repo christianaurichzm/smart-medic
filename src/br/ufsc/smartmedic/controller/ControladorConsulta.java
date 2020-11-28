@@ -70,12 +70,30 @@ public class ControladorConsulta {
         return ControladorMedicamentos.getInstance().getMedicamentos().stream().toArray(Medicamento[]::new);
     }
 
-    public void adicionaNovosMedicamentosPreescritos(List<Medicamento> medicamentos) {
+    public long getIdUltimaConsultaSistema() {
+        List<Consulta> consultas = ControladorConsulta.getInstance().getMapeadorConsulta().getList();
+        long idUltimaConsulta = 0;
 
+        if (!consultas.isEmpty()) {
+            idUltimaConsulta = consultas.get(consultas.size() - 1).getId();
+        }
+
+        return idUltimaConsulta;
     }
 
-    public void atualizaConsultaComResposta(Consulta consulta, FormularioRespostaChamado formularioRespostaChamado) {
-
+    public void respondeChamado(Consulta consulta, FormularioRespostaChamado formularioRespostaChamado) {
+        consulta.setDiagnostico(formularioRespostaChamado.getDiagnostico());
+        consulta.setPrescricaoMedicamentos(formularioRespostaChamado.getPrescricaoMedicamentos());
+        if (formularioRespostaChamado.getEncaminhamento()) {
+            FichaSintomas novaFichaSintomas = new FichaSintomas(formularioRespostaChamado.getDiagnostico(), formularioRespostaChamado.getMedicoEncaminhamento().getCompetencia());
+            Consulta novaConsulta = new Consulta(novaFichaSintomas, consulta.getPaciente(), formularioRespostaChamado.getMedicoEncaminhamento(), this.getIdUltimaConsultaSistema() + 1);
+            this.mapeadorConsulta.put(novaConsulta);
+            formularioRespostaChamado.getMedicoEncaminhamento().getHistoricoDeConsultas().add(novaConsulta);
+            consulta.getPaciente().getHistoricoDeConsultas().add(novaConsulta);
+        }
+        consulta.setStatus(StatusConsulta.FINISHED);
+        ControladorUsuario.getInstance().getMapeadorUsuario().persist();
+        this.mapeadorConsulta.persist();
     }
 
 }
