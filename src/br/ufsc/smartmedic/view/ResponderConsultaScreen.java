@@ -242,10 +242,8 @@ public class ResponderConsultaScreen extends JFrame {
             ControladorConsulta.getInstance().respondeChamado(consultaAtual, formularioRespostaChamado);
             this.dispose();
             ControladorGeral.getInstance().abreTelaPrincipal();
-        } catch (FormException e) {
+        } catch (FormException | NoDoctorAvailableException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-        } catch (NoDoctorAvailableException ee) {
-            JOptionPane.showMessageDialog(null, ee.getMessage());
         }
     }
 

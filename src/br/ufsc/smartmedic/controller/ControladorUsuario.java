@@ -9,6 +9,7 @@ import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -152,7 +153,14 @@ public class ControladorUsuario {
     public Medico getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) throws NoDoctorAvailableException {
         Optional<Medico> medicoDisponivel = unidadeAtendimento.getMedicos()
                 .stream()
-                .filter(medico -> medico.getCompetencia().equals(competencia))
+                .filter(medico -> {
+                    try {
+                        return medico.getCompetencia().equals(competencia) && !medico.getCpf().equals(ControladorUsuario.getInstance().getUsuarioSessao().getCpf());
+                    } catch (UserNotLoggedException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    return false;
+                })
                 .findFirst();
 
         if (medicoDisponivel.isPresent()) {
