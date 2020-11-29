@@ -1,6 +1,8 @@
 package br.ufsc.smartmedic.view;
 
 import br.ufsc.smartmedic.controller.ControladorGeral;
+import br.ufsc.smartmedic.controller.ControladorUsuario;
+import br.ufsc.smartmedic.model.TipoUsuario;
 import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 
 import javax.swing.*;
@@ -44,6 +46,14 @@ public class MainMenuScreen extends JFrame {
 
         answerCall.setText("Responder chamados");
         answerCall.addActionListener(this::answerCallButtonActionPerformed);
+
+        try {
+            if (ControladorUsuario.getInstance().getUsuarioSessao().getTipoUsuario() == TipoUsuario.PACIENTE) {
+                answerCall.setVisible(false);
+            }
+        } catch (UserNotLoggedException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
