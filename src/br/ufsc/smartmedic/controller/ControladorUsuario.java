@@ -1,5 +1,6 @@
 package br.ufsc.smartmedic.controller;
 
+import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
@@ -148,11 +149,17 @@ public class ControladorUsuario {
         return Optional.empty();
     }
 
-    public Medico getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) {
-        return unidadeAtendimento.getMedicos()
+    public Medico getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) throws NoDoctorAvailableException {
+        Optional<Medico> medicoDisponivel = unidadeAtendimento.getMedicos()
                 .stream()
                 .filter(medico -> medico.getCompetencia().equals(competencia))
-                .findFirst().get();
+                .findFirst();
+
+        if (medicoDisponivel.isPresent()) {
+            return medicoDisponivel.get();
+        } else {
+            throw new NoDoctorAvailableException("Não há médico com essa especialidade disponível na unidade selecionada");
+        }
     }
 
     public MapeadorUsuario getMapeadorUsuario() {
