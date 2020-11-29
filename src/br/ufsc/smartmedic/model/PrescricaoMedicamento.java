@@ -1,6 +1,9 @@
 package br.ufsc.smartmedic.model;
 
-public class PrescricaoMedicamento {
+import java.io.Serializable;
+
+public class PrescricaoMedicamento implements Serializable {
+    private static final long serialVersionUID = 904584699892087863L;
     private Medicamento medicamento;
     private String frequencia;
 

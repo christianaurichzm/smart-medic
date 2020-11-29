@@ -1,5 +1,6 @@
 package br.ufsc.smartmedic.controller;
 
+import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.excecoes.UserNotLoggedException;
 import br.ufsc.smartmedic.model.formularios.FormularioAlteracaoDeDados;
 import br.ufsc.smartmedic.model.formularios.FormularioCadastro;
@@ -8,6 +9,7 @@ import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
 import br.ufsc.smartmedic.persistencia.MapeadorUsuario;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -155,11 +157,24 @@ public class ControladorUsuario {
         return Optional.empty();
     }
 
-    public Medico getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) {
-        return unidadeAtendimento.getMedicos()
+    public Medico getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) throws NoDoctorAvailableException {
+        Optional<Medico> medicoDisponivel = unidadeAtendimento.getMedicos()
                 .stream()
-                .filter(medico -> medico.getCompetencia().equals(competencia))
-                .findFirst().get();
+                .filter(medico -> {
+                    try {
+                        return medico.getCompetencia().equals(competencia) && !medico.getCpf().equals(ControladorUsuario.getInstance().getUsuarioSessao().getCpf());
+                    } catch (UserNotLoggedException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    return false;
+                })
+                .findFirst();
+
+        if (medicoDisponivel.isPresent()) {
+            return medicoDisponivel.get();
+        } else {
+            throw new NoDoctorAvailableException("Não há médico com essa especialidade disponível na unidade selecionada");
+        }
     }
 
     public MapeadorUsuario getMapeadorUsuario() {

@@ -3,6 +3,7 @@ package br.ufsc.smartmedic.view;
 import br.ufsc.smartmedic.controller.*;
 import br.ufsc.smartmedic.model.*;
 import br.ufsc.smartmedic.model.excecoes.FormException;
+import br.ufsc.smartmedic.model.excecoes.NoDoctorAvailableException;
 import br.ufsc.smartmedic.model.formularios.FormularioRespostaChamado;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ResponderConsultaScreen extends JFrame {
@@ -240,7 +242,7 @@ public class ResponderConsultaScreen extends JFrame {
             ControladorConsulta.getInstance().respondeChamado(consultaAtual, formularioRespostaChamado);
             this.dispose();
             ControladorGeral.getInstance().abreTelaPrincipal();
-        } catch (FormException e) {
+        } catch (FormException | NoDoctorAvailableException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
@@ -263,7 +265,7 @@ public class ResponderConsultaScreen extends JFrame {
         this.repaint();
     }
 
-    private FormularioRespostaChamado fieldsToForm() throws FormException {
+    private FormularioRespostaChamado fieldsToForm() throws FormException, NoDoctorAvailableException {
         FormularioRespostaChamado formularioRespostaChamado = new FormularioRespostaChamado();
         formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
         List<Medicamento> listaMedicamentos = (List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList();
@@ -276,13 +278,14 @@ public class ResponderConsultaScreen extends JFrame {
             }
             assert outrosMedicamentos != null;
             listaMedicamentos.addAll(outrosMedicamentos);
-
-            if (!frequanciaMedicamentoTextField.getText().isEmpty()) {
+        }
+        if (!frequanciaMedicamentoTextField.getText().isEmpty()) {
+            if (!listaMedicamentos.isEmpty()) {
                 List<String> frequencias = Arrays.asList(frequanciaMedicamentoTextField.getText().split(", "));
                 prescricaoMedicamentos = ControladorMedicamentos.getInstance().novasPrescricoes(listaMedicamentos, frequencias);
-            } else {
-                throw new FormException("O preenchimento da frequência é obrigatória caso haja medicamentos para prescrever.");
             }
+        } else {
+            throw new FormException("O preenchimento da frequência é obrigatória caso haja medicamentos para prescrever.");
         }
         formularioRespostaChamado.setPrescricaoMedicamentos(prescricaoMedicamentos);
         formularioRespostaChamado.setEncaminhamento(this.encaminharCheckbox.isSelected());
