@@ -279,13 +279,13 @@ public class ResponderConsultaScreen extends JFrame {
             assert outrosMedicamentos != null;
             listaMedicamentos.addAll(outrosMedicamentos);
         }
-        if (!frequanciaMedicamentoTextField.getText().isEmpty()) {
-            if (!listaMedicamentos.isEmpty()) {
+        if (!listaMedicamentos.isEmpty()) {
+            if (!frequanciaMedicamentoTextField.getText().isEmpty()) {
                 List<String> frequencias = Arrays.asList(frequanciaMedicamentoTextField.getText().split(", "));
                 prescricaoMedicamentos = ControladorMedicamentos.getInstance().novasPrescricoes(listaMedicamentos, frequencias);
+            } else {
+                throw new FormException("O preenchimento da frequência é obrigatória caso haja medicamentos para prescrever.");
             }
-        } else {
-            throw new FormException("O preenchimento da frequência é obrigatória caso haja medicamentos para prescrever.");
         }
         formularioRespostaChamado.setPrescricaoMedicamentos(prescricaoMedicamentos);
         formularioRespostaChamado.setEncaminhamento(this.encaminharCheckbox.isSelected());
