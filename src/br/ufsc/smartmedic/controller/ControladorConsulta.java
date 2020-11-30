@@ -67,7 +67,7 @@ public class ControladorConsulta {
     }
 
     public Medicamento[] getMedicamentosConsulta() {
-        return ControladorMedicamentos.getInstance().getMedicamentos().stream().toArray(Medicamento[]::new);
+        return ControladorMedicamentos.getInstance().getMedicamentosSistema().stream().toArray(Medicamento[]::new);
     }
 
     public long getIdUltimaConsultaSistema() {

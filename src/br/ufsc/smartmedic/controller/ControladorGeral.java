@@ -27,7 +27,7 @@ public class ControladorGeral {
         UnidadeAtendimento unidade = new Hospital("hospital", "marte", 23332L);
         Medicamento medicamento = new Medicamento(1L, "paracetamol");
         ControladorUnidadeAtendimento.getInstance().registraUnidadeAtendimento(unidade);
-        ControladorMedicamentos.getInstance().setMedicamento(medicamento);
+        ControladorMedicamentos.getInstance().setMedicamentoSistema(medicamento);
     }
 
     public void abreTelaInicial() {

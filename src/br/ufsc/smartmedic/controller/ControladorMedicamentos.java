@@ -24,11 +24,11 @@ public class ControladorMedicamentos {
         return controladorMedicamentos;
     }
 
-    public List<Medicamento> getMedicamentos() {
+    public List<Medicamento> getMedicamentosSistema() {
         return mapeadorMedicamento.getList();
     }
 
-    public void setMedicamento(Medicamento medicamento) {
+    public void setMedicamentoSistema(Medicamento medicamento) {
         this.mapeadorMedicamento.put(medicamento);
     }
 
@@ -37,7 +37,9 @@ public class ControladorMedicamentos {
         AtomicReference<Long> ultimoId = new AtomicReference<>(todosMedicamentos.get(todosMedicamentos.size() - 1).getCodigo());
         return medicamentos.stream().map(medicamento -> {
             ultimoId.getAndSet(ultimoId.get() + 1);
-           return new Medicamento(ultimoId.get(), medicamento);
+            Medicamento medicamentoAtual = new Medicamento(ultimoId.get(), medicamento);
+            this.setMedicamentoSistema(medicamentoAtual);
+            return medicamentoAtual;
         }).collect(Collectors.toList());
     }
 
