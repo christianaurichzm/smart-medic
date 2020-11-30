@@ -90,7 +90,7 @@ public class ResponderConsultaScreen extends JFrame {
 
         sintomasLabel.setText("Sintomas do paciente:");
 
-        diagnosticoLabel.setText("Diagnóstico/Observações:");
+        diagnosticoLabel.setText("Diagnóstico/Observações*:");
 
         diagnosticoScrollPane.setViewportView(diagnosticoTextPane);
 
@@ -267,7 +267,11 @@ public class ResponderConsultaScreen extends JFrame {
 
     private FormularioRespostaChamado fieldsToForm() throws FormException, NoDoctorAvailableException {
         FormularioRespostaChamado formularioRespostaChamado = new FormularioRespostaChamado();
-        formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
+        if (!diagnosticoTextPane.getText().isEmpty()) {
+            formularioRespostaChamado.setDiagnostico(diagnosticoTextPane.getText());
+        } else {
+            throw new FormException("O campo de diagnóstico tem preenchimento obrigatório.");
+        }
         List<Medicamento> listaMedicamentos = (List<Medicamento>)(List<?>)medicamentosList.getSelectedValuesList();
         List<Medicamento> outrosMedicamentos = null;
         List<PrescricaoMedicamento> prescricaoMedicamentos = null;

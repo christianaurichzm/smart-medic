@@ -160,21 +160,28 @@ public class ControladorUsuario {
     public Medico getMedicoDisponivelNaUnidadeBySpecialty(UnidadeAtendimento unidadeAtendimento, String competencia) throws NoDoctorAvailableException {
         Optional<Medico> medicoDisponivel = unidadeAtendimento.getMedicos()
                 .stream()
-                .filter(medico -> {
-                    try {
-                        return medico.getCompetencia().equals(competencia) && !medico.getCpf().equals(ControladorUsuario.getInstance().getUsuarioSessao().getCpf());
-                    } catch (UserNotLoggedException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage());
-                    }
-                    return false;
-                })
-                .findFirst();
+                .filter(medico -> this.verificaMedico(medico, competencia) )
+                .filter(medico -> !this.mesmoMedico(medico))
+                .findAny();
 
         if (medicoDisponivel.isPresent()) {
             return medicoDisponivel.get();
         } else {
             throw new NoDoctorAvailableException("Não há médico com essa especialidade disponível na unidade selecionada");
         }
+    }
+
+    private boolean mesmoMedico(Medico medico) {
+        try {
+            return medico.getCpf().equals(ControladorUsuario.getInstance().getUsuarioSessao().getCpf());
+        } catch (UserNotLoggedException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean verificaMedico(Medico medico, String competencia) {
+        return medico.getCompetencia().equals(competencia);
     }
 
     public MapeadorUsuario getMapeadorUsuario() {
