@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ResponderConsultaScreen extends JFrame {
@@ -99,7 +98,6 @@ public class ResponderConsultaScreen extends JFrame {
         medicamentosLabel.setText("Medicamentos que serão receitados:");
 
         medicamentosOutroTextField.setText("");
-        medicamentosOutroTextField.addActionListener(this::medicamentosOutroTextFieldActionPerformed);
 
         medicamentosOutroLabel.setText("Medicamentos a serem receitados (outro):");
 
@@ -110,7 +108,6 @@ public class ResponderConsultaScreen extends JFrame {
         frequenciaMedicamentoLabel.setText("Frequência que o medicamento deverá ser utilizado:");
 
         encaminharCheckbox.setText("Encaminhar o paciente");
-        encaminharCheckbox.addActionListener(this::encaminharCheckboxActionPerformed);
 
         unidadesDeSaudeComboBox.setModel(new DefaultComboBoxModel<>(ControladorUnidadeAtendimento.getInstance().getTodasUnidadesAtendimento().stream().toArray(UnidadeAtendimento[]::new)));
 
@@ -226,14 +223,6 @@ public class ResponderConsultaScreen extends JFrame {
         Consulta consultaSelecionada = (Consulta) selectConsultaComboBox.getSelectedItem();
         setConsultaAtual(ControladorConsulta.getInstance().getConsultaById(consultaSelecionada.getId()));
         sintomasTextPane.setText(consultaAtual.getFichaSintomas().getCorpo());
-    }
-
-    private void medicamentosOutroTextFieldActionPerformed(ActionEvent evt) {
-        // TODO
-    }
-
-    private void encaminharCheckboxActionPerformed(ActionEvent evt) {
-        // TODO
     }
 
     private void concluirButtonActionPerformed(ActionEvent evt) {

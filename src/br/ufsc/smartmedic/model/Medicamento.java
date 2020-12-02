@@ -12,9 +12,7 @@ public class Medicamento implements Serializable {
         this.principioAtivo = principioAtivo;
     }
 
-    public long getCodigo() {
-        return codigo;
-    }
+    public long getCodigo() { return codigo; }
 
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
