@@ -5,7 +5,7 @@
   <h3 align="center">Smart Medic</h3>
 
   <p align="center">
-    project_description
+    Smart Medic is a system concept made for the Development and Analysis of Systems course at Federal University of Santa Catarina. 
     <br />
     <a href="https://docs.google.com/presentation/d/1MUV7zhiaJu1khmrXslJEIYAem0t9Hh0mvtzOeQJX0FA/edit?usp=sharing"><strong>Check out the presentation >></strong></a>
     <br />
