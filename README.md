@@ -67,7 +67,7 @@ You'll need a working Java IDE to compile the code ( Intellij provided in the bu
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/brunomanarin/smart-medic
+   git clone git@github.com:christianaurichzm/smart-medic.git
    ```
 2. Import the project into your favorite IDE
 
